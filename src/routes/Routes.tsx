@@ -5,6 +5,7 @@ import OtpVerification from "../components/authComponents/otp/OtpComponents";
 import SignInForm from "../components/authComponents/signIn/SignIn";
 import SignupForm from "../components/authComponents/signUp/SignUp";
 import Leaderboards from "../components/leaderboards/Leaderboards/Leaderboards";
+import NotFound from "../components/others/NotFound";
 import AboutPage from "../components/pages/aboutUs/AboutUsPage";
 import FeaturedTournament from "../components/pages/featured-tournament/FeaturedTournament";
 import SupportPage from "../components/pages/support/SupportPage";
@@ -77,6 +78,10 @@ export const routes = [
   {
     path: "/change-password",
     element: <AuthLayout ><NewPasswordForm /> </AuthLayout>,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 
 ];
