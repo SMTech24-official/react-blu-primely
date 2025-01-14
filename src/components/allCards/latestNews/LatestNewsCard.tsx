@@ -14,7 +14,7 @@ export default function LatestNewsCard({ image, title, description, publishedDat
                 <img
                     src={image}
                     alt="PUBG Mobile gameplay"
-                    className={`object-cover border rounded-md border-blue-500 transition-transform duration-300 ${isHovered ? 'scale-110' : 'scale-100'
+                    className={`object-cover border sm:aspect-[16/9] w-full rounded-md border-blue-500 transition-transform duration-300 ${isHovered ? 'scale-110' : 'scale-100'
                         }`}
                 />
                 {/* Dark gradient overlay */}
