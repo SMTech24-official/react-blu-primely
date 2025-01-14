@@ -119,7 +119,7 @@ export default function SignInForm() {
                             <Button
                                 type="submit"
                                 disabled={isLoading}
-                                className="w-full h-10 bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 text-white"
+                                className="w-full  h-10 bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 text-white"
                             >
                                 {isLoading ? "Logging in..." : "Log In"}
                             </Button>

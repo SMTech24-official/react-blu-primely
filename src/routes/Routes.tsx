@@ -1,9 +1,17 @@
 // routes.ts
+import NewPasswordForm from "../components/authComponents/change-password/Change-password";
+import ForgetPasswordPage from "../components/authComponents/forget-password/ForgetPasswordCom";
+import OtpVerification from "../components/authComponents/otp/OtpComponents";
 import SignInForm from "../components/authComponents/signIn/SignIn";
+import SignupForm from "../components/authComponents/signUp/SignUp";
 import Leaderboards from "../components/leaderboards/Leaderboards/Leaderboards";
 import AboutPage from "../components/pages/aboutUs/AboutUsPage";
+import FeaturedTournament from "../components/pages/featured-tournament/FeaturedTournament";
 import SupportPage from "../components/pages/support/SupportPage";
 import TournamentsPage from "../components/pages/tournaments/TournmentsPages";
+import TournamentDetailsPage from "../components/TournamentDetails/TournamentDetailsPage";
+import ScrollToTop from "../hooks/ScrollTop";
+import AuthLayout from "../pages/AuthLayout";
 import Home from "../pages/Home/Home";
 import HomeLayout from "../pages/homeLayout";
 
@@ -38,14 +46,37 @@ export const routes = [
     element: <HomeLayout />,
     children: [
       { path: "/", element: <Home /> },
-      { path: "/aboutUs", element: <AboutPage /> },
-      { path: "/support", element: <SupportPage /> },
-      { path: "/leaderboards", element: <Leaderboards /> },
-      { path: "/tournaments", element: <TournamentsPage /> },
+      { path: "/aboutUs", element: <ScrollToTop pathname="/aboutUs"><AboutPage /></ScrollToTop> },
+      { path: "/support", element: <ScrollToTop pathname="/support"><SupportPage /></ScrollToTop> },
+      { path: "/leaderboards", element: <ScrollToTop pathname="/leaderboards"><Leaderboards /> </ScrollToTop> },
+      { path: "/tournaments", element: <ScrollToTop pathname="/tournaments"><TournamentsPage /></ScrollToTop> },
+      {
+        path: "/featured-tournament/:name", element: <ScrollToTop pathname={"/featured-tournament/:name"}><FeaturedTournament /></ScrollToTop>,
+      },
+      {
+        path: "/tournament-details/:id", element: <ScrollToTop pathname={"/tournament-details/:id"}><TournamentDetailsPage /></ScrollToTop>,
+      }
     ],
   },
   {
     path: "/signin",
-    element: <SignInForm />,
+    element: <AuthLayout ><SignInForm /></AuthLayout>,
   },
+  {
+    path: "/signUp",
+    element: <AuthLayout ><SignupForm /> </AuthLayout>,
+  },
+  {
+    path: "/otp",
+    element: <AuthLayout ><OtpVerification /> </AuthLayout>,
+  },
+  {
+    path: "/forget-password",
+    element: <AuthLayout ><ForgetPasswordPage /> </AuthLayout>,
+  },
+  {
+    path: "/change-password",
+    element: <AuthLayout ><NewPasswordForm /> </AuthLayout>,
+  },
+
 ];

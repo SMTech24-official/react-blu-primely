@@ -15,6 +15,10 @@ const FeaturedTournament = () => {
     const GameData = tournaments.find((data: TournamentProps) => data.game === slug)
     console.log(GameData);
 
+    // window.scrollTo({
+    //     top: 0,
+    //     behavior: "smooth"
+    // });
 
     return (
         <div className="">
