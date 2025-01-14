@@ -3,7 +3,6 @@ import { PluginAPI } from "tailwindcss/types/config";
 
 const config: Config = {
   darkMode: ["class"],
-  // content: [, "./src/**/*.{js,ts,jsx,tsx}"],
   content: [
     "./index.html",
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -31,11 +30,6 @@ const config: Config = {
         warning: "#F97066",
         background: "var(--background)",
         foreground: "var(--foreground)",
-      },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
       },
     },
   },

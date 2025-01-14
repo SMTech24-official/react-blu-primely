@@ -64,7 +64,7 @@ export function Navbar({ navitems }: { navitems: NavPropsTypes[] }) {
                     </nav>
                 </div>
                 <div className="flex items-center justify-end space-x-4">
-                    <PrimaryButton parent="!rounded-md lg:block hidden" child="rounded-md px-10">
+                    <PrimaryButton parent="rounded-md lg:block hidden" child="rounded-md px-10">
                         <button onClick={() => navigate("/signIn")} className="">Sign In</button>
                     </PrimaryButton>
                     <Sheet>

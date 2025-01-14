@@ -16,7 +16,7 @@ const TournamentDetailsPage = () => {
   // const { width, height } = useWindowSize();
   const slug = path?.split("/")[2]
   const GameData = tournaments.find((data: TournamentProps) => data.game === slug)
-  console.log(GameData);
+
   return (
 
 
@@ -46,7 +46,7 @@ const TournamentDetailsPage = () => {
           <NoDataAvailable text="Currently No Game Available" />
         </div>
       }
-      {showConfetti && <Confetti recycle={false} width={window.innerWidth} height={window.innerHeight} />}
+      {showConfetti && <Confetti recycle={false} width={window.innerWidth} height={1000} />}
     </div>
   );
 };
