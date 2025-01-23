@@ -91,3 +91,24 @@ body {
   clip-path: polygon(50% 0, 90% 20%, 100% 50%, 90% 80%, 50% 100%, 10% 80%, 0 50%, 10% 20%);
 
 }
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: black;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: black;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

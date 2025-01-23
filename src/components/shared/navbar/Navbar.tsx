@@ -13,6 +13,17 @@ import SecondaryButton from "../secondaryButton"
 import { NavPropsTypes } from "../../../types/types"
 import { Button } from "../../ui/button"
 import { Link } from "react-router-dom"
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "../../ui/dropdown-menu"
+import avater from "../../../assets/player/avater 1.jpg"
+
+
 
 export function Navbar({ navitems }: { navitems: NavPropsTypes[] }) {
     const [isOpen, setIsOpen] = React.useState(false)
@@ -72,6 +83,36 @@ export function Navbar({ navitems }: { navitems: NavPropsTypes[] }) {
                             <p className="">Join Free</p>
                         </SecondaryButton>
                     </Sheet>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger>
+                            <div className="css_bg p-[2px] rounded-full">
+                                <img src={avater} alt="your avater" className="w-12 rounded-full" />
+                            </div>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                            <DropdownMenuLabel>tahsin0909</DropdownMenuLabel>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem>
+                                <Link to={"/profile"}>
+                                    Profile
+                                </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                                <Link to={"/clan"}>
+                                    Clan
+                                </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                                <Link to={"/chat"}>
+                                    Chat
+                                </Link>
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                </div>
+                <div>
+
+
                 </div>
             </div>
         </header>

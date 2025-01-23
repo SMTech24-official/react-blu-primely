@@ -26,6 +26,7 @@ const config: Config = {
       colors: {
         primary_highlighted: "#1E90FF",
         secondary_highlighted: "#B463FF",
+        third_highlighted: "#FFC431",
         bg_secondary: "#2E2E2E",
         warning: "#F97066",
         background: "var(--background)",

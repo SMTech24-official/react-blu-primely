@@ -10,6 +10,7 @@ import AboutPage from "../components/pages/aboutUs/AboutUsPage";
 import FeaturedTournament from "../components/pages/featured-tournament/FeaturedTournament";
 import SupportPage from "../components/pages/support/SupportPage";
 import TournamentsPage from "../components/pages/tournaments/TournmentsPages";
+import ProfilePage from "../components/profile/ProfilePage";
 import TournamentDetailsPage from "../components/TournamentDetails/TournamentDetailsPage";
 import ScrollToTop from "../hooks/ScrollTop";
 import AuthLayout from "../pages/AuthLayout";
@@ -56,6 +57,9 @@ export const routes = [
       },
       {
         path: "/tournament-details/:id", element: <ScrollToTop pathname={"/tournament-details/:id"}><TournamentDetailsPage /></ScrollToTop>,
+      },
+      {
+        path: "/profile", element: <ScrollToTop pathname={"/profile"}><ProfilePage /></ScrollToTop>,
       }
     ],
   },

@@ -18,11 +18,6 @@ const BattleBanner: React.FC<BattleBannerProps> = ({ tournaments }) => {
               backgroundImage: `url("${typeof tournaments.imageSrc === 'string' ? tournaments.imageSrc : tournaments.imageSrc}")`
 
             }} className="w-full h-[600px] relative bg-cover bg-no-repeat">
-              {/* <img
-          src={bannerImage}
-          alt="banner"
-          className="w-full h-full object-fit"
-        /> */}
             </div>
             <div className="z-20 absolute top-2/3 lg:w-4/5 xl:w-3/4 h-80 mx-auto inset-0 bg-black flex flex-col items-center justify-center space-y-6 p-6 rounded-2xl">
               <h1 className="font-bold text-3xl xl:text-[40px] text-white text-center uppercase">

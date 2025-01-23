@@ -25,7 +25,6 @@ const FeaturedTournament = () => {
             {
                 GameData ? <BattleBanner tournaments={GameData} /> : <div>
                     <NoDataAvailable text="No Tournaments Available To Featured" />
-
                 </div>
             }
 
