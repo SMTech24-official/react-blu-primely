@@ -28,7 +28,7 @@ export function PageHeader({
                     <h1 className="text-xl font-medium text-white md:text-2xl lg:text-4xl">
                         {title}
                     </h1>
-                    <p className="mt-2 lg:mt-4  text-white md:text-lg">{subTitle}</p>
+                    <p className="mt-2 lg:mt-4  text-white text-sm md:text-lg">{subTitle}</p>
                 </div>
             </div>
         </div>

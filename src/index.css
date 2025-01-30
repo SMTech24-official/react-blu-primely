@@ -119,3 +119,11 @@ body {
   font-weight: 700;
   font-style: normal;
 }
+
+.msg {
+  clip-path: polygon(48% 10%, 78% 10%, 100% 10%, 98% 21%, 98% 100%, 0 100%, 0 10%)
+}
+
+.msg-two {
+  clip-path: polygon(0 10%, 30% 10%, 65% 10%, 100% 10%, 100% 100%, 2% 100%, 2% 20%);
+}

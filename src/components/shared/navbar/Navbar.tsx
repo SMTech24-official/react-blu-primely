@@ -37,7 +37,7 @@ export function Navbar({ navitems }: { navitems: NavPropsTypes[] }) {
                         </Button>
                     </SheetTrigger>
                     <DialogTitle />
-                    <SheetContent side="left" className="bg-bg_secondary text-white ">
+                    <SheetContent side="left" className="bg-[#07000a] text-white ">
                         <Link to="/" className=" flex items-center space-x-2">
                             <Logo />
                         </Link>
