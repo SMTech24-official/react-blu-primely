@@ -84,6 +84,7 @@ export default function ClanCard({
           </div>
           <div className="mx-auto md:mx-0">
             <SecondaryButton
+              to={`/clan-details/121`}
               parent="rounded-md"
               child="rounded-md px-6 lg:px-10"
             >

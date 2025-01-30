@@ -1,4 +1,5 @@
 import Achievements from '../../ProfilePage/Achievements';
+import ClanAndGame from '../../ProfilePage/ClanAndGame';
 import ProfilePage from '../../ProfilePage/ProfilePage';
 
 const Profile = () => {
@@ -6,6 +7,7 @@ const Profile = () => {
         <div>
             <ProfilePage />
             <Achievements />
+            <ClanAndGame />
         </div>
     );
 };

@@ -7,6 +7,7 @@ import SignupForm from "../components/authComponents/signUp/SignUp";
 import Leaderboards from "../components/leaderboards/Leaderboards/Leaderboards";
 import NotFound from "../components/others/NotFound";
 import AboutPage from "../components/pages/aboutUs/AboutUsPage";
+import ClanDetails from "../components/pages/ClanDetails/ClanDetails";
 import FeaturedTournament from "../components/pages/featured-tournament/FeaturedTournament";
 import Profile from "../components/pages/profile/Profile";
 import SupportPage from "../components/pages/support/SupportPage";
@@ -57,6 +58,9 @@ export const routes = [
       },
       {
         path: "/tournament-details/:id", element: <ScrollToTop pathname={"/tournament-details/:id"}><TournamentDetailsPage /></ScrollToTop>,
+      },
+      {
+        path: "/clan-details/:id", element: <ScrollToTop pathname={"/tournament-details/:id"}><ClanDetails /></ScrollToTop>,
       },
       {
         path: "/profile", element: <ScrollToTop pathname={"/profile"}><Profile /></ScrollToTop>,

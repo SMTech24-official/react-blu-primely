@@ -33,12 +33,7 @@ const TournamentBanner = ({
       <div style={{
         backgroundImage: `url("${typeof bannerImage === 'string' ? bannerImage : bannerImage}")`
 
-      }} className="w-full h-[600px] relative bg-cover bg-no-repeat">
-        {/* <img
-          src={bannerImage}
-          alt="banner"
-          className="w-full h-full object-fit"
-        /> */}
+      }} className="w-full h-[400px] relative bg-cover bg-no-repeat">
       </div>
 
       {/* Details Card Section */}
