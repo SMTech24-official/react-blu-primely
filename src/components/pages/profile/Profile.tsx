@@ -1,10 +1,11 @@
-import React from 'react';
-import ProfilePage from '../../ProfilePage/ProfilePAge';
+import Achievements from '../../ProfilePage/Achievements';
+import ProfilePage from '../../ProfilePage/ProfilePage';
 
 const Profile = () => {
     return (
         <div>
             <ProfilePage />
+            <Achievements />
         </div>
     );
 };
