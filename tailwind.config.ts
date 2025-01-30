@@ -28,6 +28,7 @@ const config: Config = {
         secondary_highlighted: "#B463FF",
         third_highlighted: "#FFC431",
         bg_secondary: "#2E2E2E",
+        card_bg: "#242424",
         warning: "#F97066",
         background: "var(--background)",
         foreground: "var(--foreground)",

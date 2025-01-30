@@ -1,18 +1,10 @@
-import {
-    Sheet,
-    SheetContent,
-    SheetTrigger,
-} from "../../ui/sheet"
 import { DialogTitle } from "@radix-ui/react-dialog"
 import { Menu } from 'lucide-react'
 import * as React from "react"
-import { useNavigate } from "react-router-dom"
-import Logo from "../logo/Logo"
-import PrimaryButton from "../primaryButton"
-import SecondaryButton from "../secondaryButton"
+import { Link, useNavigate } from "react-router-dom"
+import avater from "../../../assets/player/avater 1.jpg"
 import { NavPropsTypes } from "../../../types/types"
 import { Button } from "../../ui/button"
-import { Link } from "react-router-dom"
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -21,7 +13,13 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "../../ui/dropdown-menu"
-import avater from "../../../assets/player/avater 1.jpg"
+import {
+    Sheet,
+    SheetContent,
+    SheetTrigger,
+} from "../../ui/sheet"
+import Logo from "../logo/Logo"
+import PrimaryButton from "../primaryButton"
 
 
 
@@ -67,7 +65,7 @@ export function Navbar({ navitems }: { navitems: NavPropsTypes[] }) {
                                 key={idx}
                                 to={data.link}
                                 onClick={() => setIsOpen(false)}
-                                className=" font-medium hover:text-primary_highlighted transition-all duration-300"
+                                className=" font-medium hover:text-primary_highlighted transition-all duration-300 text-nowrap"
                             >
                                 {data.name}
                             </Link>)
@@ -78,11 +76,6 @@ export function Navbar({ navitems }: { navitems: NavPropsTypes[] }) {
                     <PrimaryButton parent="rounded-md lg:block hidden" child="rounded-md px-10">
                         <button onClick={() => navigate("/signIn")} className="">Sign In</button>
                     </PrimaryButton>
-                    <Sheet>
-                        <SecondaryButton parent="!rounded-md" child="rounded-md px-10">
-                            <p className="">Join Free</p>
-                        </SecondaryButton>
-                    </Sheet>
                     <DropdownMenu>
                         <DropdownMenuTrigger>
                             <div className="css_bg p-[2px] rounded-full">

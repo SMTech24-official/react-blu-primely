@@ -112,3 +112,10 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+.logo {
+  font-family: "Antonio", serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
