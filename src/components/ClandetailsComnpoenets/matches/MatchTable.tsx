@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 
+import { Link } from "react-router-dom";
 import { ScrollArea, ScrollBar } from "../../ui/scroll-area";
 import {
     Table, TableBody,
@@ -22,46 +23,54 @@ import {
 //     }[];
 // }
 
-export function TableComponents<T>({ members }: { members: T[] }) {
+export function MatchTable<T>({ members }: { members: T[] }) {
     return (
         <div className="rounded-lg ">
             <ScrollArea className="">
                 <Table>
                     <TableHeader>
-                        <TableRow className="bg-[#161616]">
+                        <TableRow className="bg-[#161616] ">
                             <TableHead className="px-4 py-5 text-primary_highlighted text-sm lg:text-base rounded-l-xl">
-                                NO
+                                Tournament Name
                             </TableHead>
                             <TableHead className="px-4 py-5 text-primary_highlighted text-sm md:text-base">
-                                Tournament
+                                Game Mode
                             </TableHead>
                             <TableHead className="px-4 py-5 text-primary_highlighted text-sm md:text-base">
-                                Team
+                                Date & Time
                             </TableHead>
                             <TableHead className="px-4 py-5 text-primary_highlighted text-sm md:text-base">
-                                Place
+                                Opponent
                             </TableHead>
                             <TableHead className="px-4 py-5 text-primary_highlighted text-sm md:text-base rounded-r-xl">
-                                Year
+                                Status
+                            </TableHead>
+                            <TableHead className="px-4 py-5 text-primary_highlighted text-sm md:text-base rounded-r-xl">
+                                Details
                             </TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {members.map((member: any, idx: number) => (
+                        {members.map((member: any) => (
                             <TableRow
                                 key={member.id}
                                 className="hover:bg-black/20 text-sm md:text-base"
                             >
                                 <TableCell className="font-medium py-6">
-                                    {idx + 1}
+                                    {member.tournamentName}
                                 </TableCell>
-                                <TableCell>{member.tournament}</TableCell>
-                                <TableCell>{member.team}</TableCell>
+                                <TableCell>{member.gameMode}</TableCell>
+                                <TableCell>{member.dateTime}</TableCell>
                                 <TableCell>
-                                    {member.place}
+                                    {member.opponent}
                                 </TableCell>
                                 <TableCell>
-                                    {member.year}
+                                    {member.status}
+                                </TableCell>
+                                <TableCell>
+                                    <Link to={`/tournament-details/freefire`}>
+                                        <span className="hover:text-primary_highlighted hover:cursor-pointer">View Details</span>
+                                    </Link>
                                 </TableCell>
                             </TableRow>
                         ))}

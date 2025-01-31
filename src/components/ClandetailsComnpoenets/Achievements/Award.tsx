@@ -48,7 +48,7 @@ const Award: React.FC<AwardProps> = ({ awards }) => {
                 const awardData = awardsData[award];
                 return (
                     <div key={award} className="css_bg p-[1px] rounded-lg">
-                        <div className="bg-black text-white rounded-lg p-5 text-center shadow-lg transition-transform transform hover:scale-105 hover:shadow-xl w-full h-full">
+                        <div className="bg-black text-white rounded-lg p-5 text-center shadow-lg transition-transform duration-300 transform hover:scale-105 hover:shadow-xl w-full h-full">
                             <div className="flex items-center justify-center mb-4 relative">
                                 <img
                                     src={awardData?.image}

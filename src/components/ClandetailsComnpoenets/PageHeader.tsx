@@ -11,12 +11,12 @@ export function PageHeader({
     backgroundImage,
 }: PageHeaderProps) {
     return (
-        <div className="relative h-[200px] md:h-[300px] w-full overflow-hidden lg:h-[400px]">
+        <div className="relative h-[200px] md:h-[300px] w-full overflow-hidden lg:h-[400px] ">
             {/* Background Image */}
             <img
                 src={backgroundImage}
                 alt=""
-                className="absolute inset-0 h-full w-full object-cover"
+                className="absolute inset-0 h-full w-full object-cover "
             />
 
             {/* Dark Overlay */}
