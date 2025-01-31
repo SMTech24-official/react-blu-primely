@@ -6,14 +6,6 @@ import avater from "../../../assets/player/avater 1.jpg"
 import { NavPropsTypes } from "../../../types/types"
 import { Button } from "../../ui/button"
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "../../ui/dropdown-menu"
-import {
     Sheet,
     SheetContent,
     SheetTrigger,
@@ -27,11 +19,12 @@ export function Navbar({ navitems }: { navitems: NavPropsTypes[] }) {
     const [isOpen, setIsOpen] = React.useState(false)
     const navigate = useNavigate()
     return (
-        <header className="my-4 mx-2 lg:mx-0">
+        <header className="my-4 mx-2 lg:mx-0 ">
             <div className="container flex justify-between items-center border md:px-14 px-4  py-3 md:py-3 border-bg_secondary rounded-lg">
+
                 <Sheet open={isOpen} onOpenChange={setIsOpen}>
                     <SheetTrigger asChild>
-                        <Button variant="ghost" className="px-2 lg:hidden">
+                        <Button variant="ghost" className="px-2 lg:hidden border">
                             <Menu className="min-h-6 min-w-6" />
                             <span className="sr-only">Toggle menu</span>
                         </Button>
@@ -55,7 +48,9 @@ export function Navbar({ navitems }: { navitems: NavPropsTypes[] }) {
                         </nav>
                     </SheetContent>
                 </Sheet>
-                <div className="lg:flex hidden items-center  flex-1">
+
+
+                <div className="lg:flex hidden items-center flex-1">
                     <Link to="/" className="mr-6 flex items-center space-x-2">
                         <Logo />
                     </Link>
@@ -72,41 +67,23 @@ export function Navbar({ navitems }: { navitems: NavPropsTypes[] }) {
                         }
                     </nav>
                 </div>
-                <div className="flex items-center justify-end space-x-4">
+                <div className="flex items-center sm:justify-end sm:space-x-4 ">
                     <PrimaryButton parent="rounded-md lg:block hidden" child="rounded-md px-10">
                         <button onClick={() => navigate("/signIn")} className="">Sign In</button>
                     </PrimaryButton>
-                    <DropdownMenu>
-                        <DropdownMenuTrigger>
-                            <div className="css_bg p-[2px] rounded-full">
-                                <img src={avater} alt="your avater" className="w-12 rounded-full" />
-                            </div>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent>
-                            <DropdownMenuLabel>tahsin0909</DropdownMenuLabel>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem>
-                                <Link to={"/profile"}>
-                                    Profile
-                                </Link>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem>
-                                <Link to={"/clan"}>
-                                    Clan
-                                </Link>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem>
-                                <Link to={"/chat"}>
-                                    Chat
-                                </Link>
-                            </DropdownMenuItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
+                    <li className="cursor-pointer lg:text-lg text-base flex items-center gap-1 group relative ">
+                        <div className="css_bg p-[2px] rounded-full">
+                            <img src={avater} alt="your avater" className="w-12 rounded-full" />
+                        </div>
+                        <ul className="p-2 scale-0 group-hover:scale-100 absolute top-12 right-0 sm:-right-2  transform origin-top-left  transition-transform z-50">
+                            <ul className="flex flex-col gap-2 p-4 w-36 rounded-md shadow-md text-white bg-black z-50">
+                                <Link to={"/profile"} className="cursor-pointer  text-base hover:font-semibold hover:text-hover_Color">Profile</Link>
+                                <Link to={"/chat"} className="cursor-pointer  text-base hover:font-semibold hover:text-hover_Color">Chat</Link>
+                            </ul>
+                        </ul>
+                    </li>
                 </div>
-                <div>
 
-
-                </div>
             </div>
         </header>
     )
