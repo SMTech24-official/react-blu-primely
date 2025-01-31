@@ -21,7 +21,7 @@ export default function MatchCard({ opponent, date, result, image }: MatchCardPr
 
                 <div className="space-y-1">
                     <p className="text-gray-300">Opponent : {opponent}</p>
-                    <p className="text-gray-300">Date : {date}</p>
+                    <p className="text-gray-300">Date : {new Date(date).toLocaleString()}</p>
                     <p className="text-gray-300">Result : {result} {result.toLocaleLowerCase() === "win" && `🎯`} </p>
                 </div>
             </div>
