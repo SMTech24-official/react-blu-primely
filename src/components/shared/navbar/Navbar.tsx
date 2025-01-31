@@ -79,6 +79,7 @@ export function Navbar({ navitems }: { navitems: NavPropsTypes[] }) {
                             <ul className="flex flex-col gap-2 p-4 w-36 rounded-md shadow-md text-white bg-black z-50">
                                 <Link to={"/profile"} className="cursor-pointer  text-base hover:font-semibold hover:text-hover_Color">Profile</Link>
                                 <Link to={"/chat"} className="cursor-pointer  text-base hover:font-semibold hover:text-hover_Color">Chat</Link>
+                                <Link to={"/invitations"} className="cursor-pointer  text-base hover:font-semibold hover:text-hover_Color">Invitations</Link>
                             </ul>
                         </ul>
                     </li>

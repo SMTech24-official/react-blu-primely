@@ -1,46 +1,25 @@
 // Importing necessary assets and components
 import fortnite from "@/assets/banner/joysticks-dark-background.jpg";
-import { Edit, Edit2Icon, X } from "lucide-react";
 import avater from "@/assets/player/avater 1.jpg";
+import earn from "@/assets/rankAndTrophies/earn.png";
 import rank from "@/assets/rankAndTrophies/rank.png";
 import trophy from "@/assets/rankAndTrophies/trophy.png";
-import earn from "@/assets/rankAndTrophies/earn.png";
-import { Button } from "../ui/button";
-import LogoLike from "../others/LogoLike";
-import { MainModal } from "../Modal/MainModal";
+import { Edit, Edit2Icon } from "lucide-react";
 import { useState } from "react";
-import { useFieldArray, useForm } from "react-hook-form";
-import PrimaryButton from "../shared/primaryButton";
+import { MainModal } from "../Modal/MainModal";
+import LogoLike from "../others/LogoLike";
+import { Button } from "../ui/button";
+import CreateClan from "./Createclan";
+import EditProfile from "./EditProfile";
 
-interface GameEntry {
-    gameName: string;
-    id: string;
-}
 
-interface FormData {
-    name: string;
-    gameEntries: GameEntry[];
-}
 // Profile Component
 const ProfilePage = () => {
 
     const [editProfile, setEditProfile] = useState(false)
+    const [createClan, setCreateClan] = useState(false)
 
-    const { register, control, handleSubmit } = useForm<FormData>({
-        defaultValues: {
-            name: "",
-            gameEntries: [{ gameName: "", id: "" }],
-        },
-    });
 
-    const { fields, append, remove } = useFieldArray({
-        control,
-        name: "gameEntries",
-    });
-
-    const onSubmit = (data: FormData) => {
-        console.log("Form Data:", data);
-    };
 
     return (
         <div className="relative">
@@ -92,7 +71,7 @@ const ProfilePage = () => {
                                 </div>
 
                                 {/* Create Clan Button */}
-                                <Button className="bg-primary_highlighted hover:bg-blue-600 text-white flex items-center gap-2">
+                                <Button onClick={() => setCreateClan(true)} className="bg-primary_highlighted hover:bg-blue-600 text-white flex items-center gap-2">
                                     Create Clan <Edit size={16} />
                                 </Button>
                             </div>
@@ -143,70 +122,12 @@ const ProfilePage = () => {
                 </div>
             </div>
             <MainModal isOpen={editProfile} onClose={() => setEditProfile(false)} >
-                <div className=" mx-auto p-4 text-white rounded-lg">
-                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                        {/* Name Input */}
-                        <div>
-                            <label className="block mb-1">Name:</label>
-                            <input
-                                {...register("name", { required: "Name is required" })}
-                                type="text"
-                                className="w-full p-2 rounded bg-card_bg border border-gray-700"
-                                placeholder="Enter your name"
-                            />
-                        </div>
+                <EditProfile />
+            </MainModal>
 
-                        {/* Dynamic Game Name & Game IDs */}
-                        <div>
-                            <label className="block mb-1">Game Entries:</label>
-                            {fields.map((field, index) => (
-                                <div key={field.id} className="flex items-center space-x-2 mb-2">
-                                    {/* Game Name Input */}
-                                    <input
-                                        {...register(`gameEntries.${index}.gameName`, { required: "Game Name is required" })}
-                                        type="text"
-                                        className="w-full p-2 rounded bg-card_bg border border-gray-700"
-                                        placeholder={`Game Name ${index + 1}`}
-                                    />
-                                    {/* Game ID Input */}
-                                    <input
-                                        {...register(`gameEntries.${index}.id`, { required: "Game ID is required" })}
-                                        type="text"
-                                        className="w-full p-2 rounded bg-card_bg border border-gray-700"
-                                        placeholder={`Game ID ${index + 1}`}
-                                    />
-                                    {/* Remove Button */}
-                                    <button
-                                        type="button"
-                                        onClick={() => remove(index)}
-                                        className="bg-red-800 px-3 py-1 rounded !text-white"
-                                    >
-                                        <X />
-                                    </button>
-                                </div>
-                            ))}
-                            {/* Add Game Entry Button */}
-                            <button
-                                type="button"
-                                onClick={() => append({ gameName: "", id: "" })}
-                                className="bg-blue-800 px-4 py-2 rounded text-white"
-                            >
-                                + Add Game Entry
-                            </button>
-                        </div>
 
-                        {/* Submit Button */}
-                        <PrimaryButton child="w-full" parent="w-full">
-                            <button
-                                type="submit"
-                                className="w-full  rounded text-white font-bold"
-                            >
-                                Submit
-                            </button>
-                        </PrimaryButton>
-
-                    </form>
-                </div>
+            <MainModal isOpen={createClan} onClose={() => setCreateClan(false)} >
+                <CreateClan />
             </MainModal>
         </div>
     );

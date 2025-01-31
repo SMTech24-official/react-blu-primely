@@ -14,7 +14,7 @@ export function MainModal({ isOpen, onClose, children }: EditModalProps) {
 
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
-            <DialogContent className="sm:max-w-[425px]  bg-zinc-900 text-white">
+            <DialogContent className="lg:max-w-[625px]  bg-zinc-900 text-white">
                 <DialogHeader>
                     <DialogTitle></DialogTitle>
                 </DialogHeader>
