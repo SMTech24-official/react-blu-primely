@@ -1,13 +1,20 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { useState } from "react"
 import { Pencil } from "lucide-react"
 import { MainModal } from "../Modal/MainModal"
+import PrimaryButton from "../shared/primaryButton"
+import { useForm } from "react-hook-form";
+
+
+
+
+interface ClanFormData {
+    mission: string;
+    values: string;
+}
+
 
 export default function OverviewTab() {
     const [missionModalOpen, setMissionModalOpen] = useState(false)
-    const [valuesModalOpen, setValuesModalOpen] = useState(false)
     // setData
     const [data,] = useState({
         mission:
@@ -19,9 +26,17 @@ export default function OverviewTab() {
         },
     })
 
-    // const handleSave = (newData: any) => {
-    //     setData({ ...data, ...newData })
-    // }
+    const { register, handleSubmit } = useForm<ClanFormData>({
+        defaultValues: {
+            mission: "",
+            values: "",
+        },
+    });
+
+
+    const onSubmit = (data: ClanFormData) => {
+        console.log("Clan Data:", data);
+    };
 
     return (
         <div className="">
@@ -41,9 +56,6 @@ export default function OverviewTab() {
                 <div>
                     <div className="flex items-center gap-2 mb-4">
                         <h2 className="text-xl font-bold">CORE VALUES</h2>
-                        <button onClick={() => setValuesModalOpen(true)} className="text-gray-400 hover:text-white">
-                            <Pencil className="w-4 h-4" />
-                        </button>
                     </div>
                     <div className="space-y-4">
                         <p>
@@ -114,14 +126,42 @@ export default function OverviewTab() {
                     isOpen={missionModalOpen}
                     onClose={() => setMissionModalOpen(false)}
                 >
-                    ssd
+                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+
+                        {/* Mission Statement */}
+                        <div>
+                            <label className="block mb-1">Mission:</label>
+                            <textarea
+                                {...register("mission", { required: "Mission is required" })}
+                                className="w-full p-2 rounded bg-card_bg border border-gray-700"
+                                placeholder="Describe your clan's mission"
+                            />
+                        </div>
+
+                        {/* Clan Values */}
+                        <div>
+                            <label className="block mb-1">Clan Values:</label>
+                            <textarea
+                                {...register("values", { required: "Values are required" })}
+                                className="w-full p-2 rounded bg-card_bg border border-gray-700"
+                                placeholder="Enter your clan values"
+                            />
+                        </div>
+
+
+
+                        {/* Submit Button */}
+                        <PrimaryButton child="w-full" parent="w-full">
+                            <button
+                                type="submit"
+                                className="w-full  rounded text-white font-bold"
+                            >
+                                Submit
+                            </button>
+                        </PrimaryButton>
+                    </form>
                 </MainModal>
-                <MainModal
-                    isOpen={valuesModalOpen}
-                    onClose={() => setValuesModalOpen(false)}
-                >
-                    ss
-                </MainModal>
+
             </div>
         </div>
     )
