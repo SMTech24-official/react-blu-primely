@@ -12,12 +12,14 @@ import { Button } from '../ui/button'
 export default function CommunicationComponent() {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false)
     const [message, setMessage] = useState<string>("");
-    const [id, setId] = useState("");
+    // id
+    const [, setId] = useState("");
     const [showMessage, setShowMessage] = useState<any[]>([]);
     const [selectedUser, setSelectedUser] = useState<any>(null);
 
     // Demo Data
-    const [allUser, setAllUser] = useState([
+    // setAllUser
+    const [allUser,] = useState([
         {
             user: { _id: "1", fullName: "John Doe", profileImage: "https://img.freepik.com/free-photo/cartoon-man-wearing-glasses_23-2151136892.jpg?t=st=1738241888~exp=1738245488~hmac=53a101aae8483060e1456033a794e2e67f594075a577df2c4a42313470a52736&w=1380" },
             lastMassage: { message: "Hello! How are you?" }

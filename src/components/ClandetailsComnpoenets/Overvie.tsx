@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { useState } from "react"
@@ -7,7 +8,8 @@ import { MainModal } from "../Modal/MainModal"
 export default function OverviewTab() {
     const [missionModalOpen, setMissionModalOpen] = useState(false)
     const [valuesModalOpen, setValuesModalOpen] = useState(false)
-    const [data, setData] = useState({
+    // setData
+    const [data,] = useState({
         mission:
             "To foster a competitive yet supportive environment where gamers can connect, improve their skills, and achieve greatness together",
         values: {
@@ -17,10 +19,9 @@ export default function OverviewTab() {
         },
     })
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const handleSave = (newData: any) => {
-        setData({ ...data, ...newData })
-    }
+    // const handleSave = (newData: any) => {
+    //     setData({ ...data, ...newData })
+    // }
 
     return (
         <div className="">
@@ -112,11 +113,15 @@ export default function OverviewTab() {
                 <MainModal
                     isOpen={missionModalOpen}
                     onClose={() => setMissionModalOpen(false)}
-                />
+                >
+                    ssd
+                </MainModal>
                 <MainModal
                     isOpen={valuesModalOpen}
                     onClose={() => setValuesModalOpen(false)}
-                />
+                >
+                    ss
+                </MainModal>
             </div>
         </div>
     )
