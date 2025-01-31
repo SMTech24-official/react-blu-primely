@@ -3,14 +3,12 @@ import { Pencil } from "lucide-react"
 import { MainModal } from "../Modal/MainModal"
 import PrimaryButton from "../shared/primaryButton"
 import { useForm } from "react-hook-form";
+import { ClanFormData } from "../../types/types";
 
 
 
 
-interface ClanFormData {
-    mission: string;
-    values: string;
-}
+
 
 
 export default function OverviewTab() {

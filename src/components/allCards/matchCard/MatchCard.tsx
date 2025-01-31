@@ -1,9 +1,5 @@
-interface MatchCardProps {
-    opponent: string
-    date: string
-    result: string
-    image: string
-}
+import { MatchCardProps } from "../../../types/types";
+
 
 export default function MatchCard({ opponent, date, result, image }: MatchCardProps) {
     return (

@@ -10,17 +10,6 @@ import {
     TableRow,
 } from "../../ui/table";
 
-// interface ClanTableProps {
-//     members: {
-//         id: string;
-//         avatar: string;
-//         name: string;
-//         xp: number;
-//         earning: number;
-//         eliteTrophies: number;
-//         goldTrophies: number;
-//     }[];
-// }
 
 export function TableComponents<T>({ members }: { members: T[] }) {
     return (

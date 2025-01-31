@@ -3,15 +3,10 @@ import mvp from "@/assets/award/mvp.png";
 import strategy from "@/assets/award/strategy.png";
 import comeback from "@/assets/award/comeback.png";
 import teamwork from "@/assets/award/teamwork.png";
+import { AwardData, AwardType } from '../../../types/types';
 
 // Define the structure for award data
-type AwardType = "mvp" | "strategy" | "comeback" | "teamwork";
 
-interface AwardData {
-    image: string;
-    title: string;
-    description: string;
-}
 
 // Define the structure for the props
 interface AwardProps {

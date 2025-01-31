@@ -1,15 +1,9 @@
-import avater from "@/assets/player/avater 1.jpg"
-import avater2 from "@/assets/player/ava3.png"
-import avater3 from "@/assets/player/images.png"
-import PlayerOfTheWeekCard from "../../allCards/PlayerOfTheWeekCards/PlayerOfTheWeekCard"
-interface Player {
-    rank: number
-    name: string
-    xp: string
-    credits: number
-    avatar: string
-    date: string
-}
+import avater2 from "@/assets/player/ava3.png";
+import avater from "@/assets/player/avater 1.jpg";
+import avater3 from "@/assets/player/images.png";
+import { WeekPlayer } from "../../../types/types";
+import PlayerOfTheWeekCard from "../../allCards/PlayerOfTheWeekCards/PlayerOfTheWeekCard";
+
 
 const players = [
     {
@@ -48,7 +42,7 @@ const PlayerOfTheWeek = () => {
             </div>
             <div className='grid sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-10 lg:my-20 my-14'>
                 {
-                    players?.map((data: Player, idx: number) => <PlayerOfTheWeekCard key={idx} name={data.name} xp={data.xp} date={new Date(data.date).toDateString()} credits={data.credits} avater={data.avatar} rank={data.rank} />)
+                    players?.map((data: WeekPlayer, idx: number) => <PlayerOfTheWeekCard key={idx} name={data.name} xp={data.xp} date={new Date(data.date).toDateString()} credits={data.credits} avater={data.avatar} rank={data.rank} />)
                 }
             </div>
         </div>

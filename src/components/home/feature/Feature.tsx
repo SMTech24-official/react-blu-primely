@@ -7,15 +7,10 @@ import feature6 from "@/assets/feature/svgexport-6 1.png";
 import feature7 from "@/assets/feature/svgexport-7 1.png";
 import SpotLight from "../../ui/demo";
 import FeatureAndSates from "../../shared/featureNSates/FeatureAndSates";
+import { FeaturedProps } from "../../../types/types";
 
 
-type FeaturedProps = {
-    id?: number;
-    feature: string;
-    feature2?: string;
-    image: string;
-    classProps?: string;
-}
+
 
 const Feature = () => {
 

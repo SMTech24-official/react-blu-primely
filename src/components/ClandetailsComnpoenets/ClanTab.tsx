@@ -6,16 +6,8 @@ import AchievementsTab from "./Achievements/Achievements";
 import MatchesTab from "./matches/Matches";
 import OverviewTab from "./Overvie";
 import Roaster from "./Roaster";
+import { Teams } from "../../types/types";
 
-type Teams = {
-    teamName: string;
-    teamLogo: string;
-    players: {
-        name: string;
-        discordId: string;
-        avatar: string;
-    }[];
-};
 
 export default function ClanTab({ teams }: { teams: Teams }) {
     const location = useLocation();

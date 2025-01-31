@@ -1,18 +1,11 @@
+import { Teams } from "../../../types/types";
 import ClanCard from "../../allCards/ClanCard/ClanCard";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../ui/select";
 
 
-type Teams = {
-    teamName: string;
-    teamLogo: string;
-    players: {
-        name: string;
-        discordId: string;
-        avatar: string;
-    }[];
-}[]
 
-const ClanComponents = ({ teams }: { teams: Teams }) => {
+
+const ClanComponents = ({ teams }: { teams: Teams[] }) => {
 
     return (
         <div className="py-6 space-y-4 container">

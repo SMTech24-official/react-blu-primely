@@ -1,20 +1,9 @@
 import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import SecondaryButton from "../../shared/secondaryButton";
+import { ClanCardProps } from "../../../types/types";
 
 
-interface Player {
-  name: string;
-  discordId: string;
-  avatar: string;
-}
-
-interface ClanCardProps {
-  teamName: string;
-  teamLogo: string;
-  players: Player[];
-  onViewDetails: () => void;
-}
 
 export default function ClanCard({
   teamName,

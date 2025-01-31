@@ -8,18 +8,8 @@ import {
   TableRow,
 } from "../../ui/table";
 import { ScrollArea, ScrollBar } from "../../ui/scroll-area";
+import { ClanTableProps } from "../../../types/types";
 
-interface ClanTableProps {
-  members: {
-    id: string;
-    avatar: string;
-    name: string;
-    xp: number;
-    earning: number;
-    eliteTrophies: number;
-    goldTrophies: number;
-  }[];
-}
 
 export function LeaderboardTable({ members }: ClanTableProps) {
   return (

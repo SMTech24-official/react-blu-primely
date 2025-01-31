@@ -5,16 +5,11 @@ import { Send } from 'lucide-react'
 import React, { useEffect, useRef } from 'react'
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
+import { CommunicationProps } from '../../types/types'
 
 
 
-interface CommunicationProps {
-  message: string
-  userRole: string
-  messages: any
-  setMessages: React.Dispatch<React.SetStateAction<string>>
-  handelSend: () => void
-}
+
 
 const Communication: React.FC<CommunicationProps> = ({
   message,

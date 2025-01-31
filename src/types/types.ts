@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Dispatch, SetStateAction } from "react";
 
 export type NavPropsTypes = {
@@ -95,4 +96,77 @@ export interface ClanCardProps {
   onViewDetails?: () => void;
   onToggleRoster?: () => void;
   isRosterHidden?: boolean;
+}
+
+export interface ClanFormData {
+  mission: string;
+  values: string;
+}
+
+export interface Player {
+  name: string;
+  discordId: string;
+  avatar: string;
+}
+
+export interface MatchCardProps {
+  opponent: string;
+  date: string;
+  result: string;
+  image: string;
+}
+
+export type AwardType = "mvp" | "strategy" | "comeback" | "teamwork";
+
+export interface AwardData {
+  image: string;
+  title: string;
+  description: string;
+}
+
+export type Teams = {
+  teamName: string;
+  teamLogo: string;
+  players: {
+    name: string;
+    discordId: string;
+    avatar: string;
+  }[];
+};
+
+export interface CommunicationProps {
+  message: string;
+  userRole: string;
+  messages: any;
+  setMessages: React.Dispatch<React.SetStateAction<string>>;
+  handelSend: () => void;
+}
+
+export type FeaturedProps = {
+  id?: number;
+  feature: string;
+  feature2?: string;
+  image: string;
+  classProps?: string;
+};
+
+export interface WeekPlayer {
+  rank: number;
+  name: string;
+  xp: string;
+  credits: number;
+  avatar: string;
+  date: string;
+}
+
+export interface ClanTableProps {
+  members: {
+    id: string;
+    avatar: string;
+    name: string;
+    xp: number;
+    earning: number;
+    eliteTrophies: number;
+    goldTrophies: number;
+  }[];
 }
