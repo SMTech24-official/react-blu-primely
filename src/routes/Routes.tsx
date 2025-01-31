@@ -10,6 +10,7 @@ import AboutPage from "../components/pages/aboutUs/AboutUsPage";
 import ChatPage from "../components/pages/chat/ChatPahe";
 import ClanDetails from "../components/pages/ClanDetails/ClanDetails";
 import FeaturedTournament from "../components/pages/featured-tournament/FeaturedTournament";
+import Invitations from "../components/pages/invitations/Invitations";
 import Profile from "../components/pages/profile/Profile";
 import SupportPage from "../components/pages/support/SupportPage";
 import TournamentsPage from "../components/pages/tournaments/TournmentsPages";
@@ -68,6 +69,9 @@ export const routes = [
       },
       {
         path: "/chat", element: <ScrollToTop pathname={"/profile"}><ChatPage /></ScrollToTop>,
+      },
+      {
+        path: "/invitations", element: <ScrollToTop pathname={"/profile"}><Invitations /></ScrollToTop>,
       }
     ],
   },
