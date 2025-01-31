@@ -5,6 +5,7 @@ import { Achievements, Matches, Overview, RoasterIcon } from "../../lib/icons/Al
 import UnderConstruction from "../others/UnderConstruction";
 import OverviewTab from "./Overvie";
 import Roaster from "./Roaster";
+import AchievementsTab from "./Achievements/Achievements";
 
 type Teams = {
     teamName: string;
@@ -38,7 +39,7 @@ export default function ClanTab({ teams }: { teams: Teams }) {
     const TAB_ITEMS = [
         { value: "overview", label: "Overview", icon: Overview, component: <OverviewTab /> },
         { value: "roaster", label: "Roster", icon: RoasterIcon, component: <Roaster players={teams.players} /> },
-        { value: "achievements", label: "Achievements", icon: Achievements, component: <UnderConstruction /> },
+        { value: "achievements", label: "Achievements", icon: Achievements, component: <AchievementsTab /> },
         { value: "matches", label: "Matches", icon: Matches, component: <UnderConstruction /> },
         // { value: "chat", label: "Chat", icon: ChatIcon, component: <CommunicationComponent /> },
     ];

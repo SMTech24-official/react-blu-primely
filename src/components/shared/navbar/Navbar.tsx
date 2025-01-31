@@ -83,7 +83,6 @@ export function Navbar({ navitems }: { navitems: NavPropsTypes[] }) {
                         </ul>
                     </li>
                 </div>
-
             </div>
         </header>
     )
