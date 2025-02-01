@@ -17,7 +17,7 @@ export function DatePickerDemo({ date, setDate }: { date: Date | undefined, setD
             <PopoverTrigger asChild>
                 <button
                     className={cn(
-                        "w-[240px] flex items-center gap-2 border border-gray-600 rounded-lg px-4 justify-start text-left font-normal",
+                        "w-full flex items-center gap-2 border border-gray-800 rounded-lg px-4 justify-start text-left font-normal",
                         !date && "text-muted-foreground"
                     )}
                 >
