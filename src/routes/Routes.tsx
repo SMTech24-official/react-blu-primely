@@ -19,6 +19,10 @@ import ScrollToTop from "../hooks/ScrollTop";
 import AuthLayout from "../pages/AuthLayout";
 import Home from "../pages/Home/Home";
 import HomeLayout from "../pages/homeLayout";
+import { Layout } from "../components/dashboard/Layout";
+import { SidebarProvider } from "../components/ui/sidebar";
+import DashBoardPage from "../components/dashboard/dashboard/DashBoardPAge";
+import UnderConstruction from "../components/others/UnderConstruction";
 
 export const navItems = [
   {
@@ -99,5 +103,18 @@ export const routes = [
     path: "*",
     element: <NotFound />,
   },
+  {
+    path: "/dashboard",
+    element: <SidebarProvider><Layout /></SidebarProvider>,
+    children: [
+      { path: "/dashboard", element: <ScrollToTop pathname="/dashboard"><DashBoardPage /></ScrollToTop> },
+      { path: "/dashboard/tournaments", element: <ScrollToTop pathname="/dashboard/tournaments"><UnderConstruction /></ScrollToTop> },
+      { path: "/dashboard/fixture", element: <ScrollToTop pathname="/dashboard/fixture"><UnderConstruction /></ScrollToTop> },
+      { path: "/dashboard/leaderBoards", element: <ScrollToTop pathname="/dashboard/leaderBoards"><UnderConstruction /></ScrollToTop> },
+      { path: "/dashboard/award", element: <ScrollToTop pathname="/dashboard/award"><UnderConstruction /></ScrollToTop> },
+      { path: "/dashboard/payment", element: <ScrollToTop pathname="/dashboard/payment"><UnderConstruction /></ScrollToTop> },
 
+      { path: "/dashboard/user-clan", element: <ScrollToTop pathname="/dashboard/user-clan"><AboutPage /></ScrollToTop> },
+    ],
+  },
 ];

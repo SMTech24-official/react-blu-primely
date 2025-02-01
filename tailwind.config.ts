@@ -12,28 +12,38 @@ const config: Config = {
     "./components/**/*.{html,js}",
   ],
   theme: {
-    extend: {
-      container: {
-        center: true,
-        padding: "2rem",
-        screens: {
-          sm: "100%",
-          md: "100%",
-          lg: "1324px",
-          xl: "1580px",
-        },
-      },
-      colors: {
-        primary_highlighted: "#1E90FF",
-        secondary_highlighted: "#B463FF",
-        third_highlighted: "#FFC431",
-        bg_secondary: "#2E2E2E",
-        card_bg: "#242424",
-        warning: "#F97066",
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-      },
-    },
+  	extend: {
+  		container: {
+  			center: true,
+  			padding: '2rem',
+  			screens: {
+  				sm: '100%',
+  				md: '100%',
+  				lg: '1324px',
+  				xl: '1580px'
+  			}
+  		},
+  		colors: {
+  			primary_highlighted: '#1E90FF',
+  			secondary_highlighted: '#B463FF',
+  			third_highlighted: '#FFC431',
+  			bg_secondary: '#2E2E2E',
+  			card_bg: '#242424',
+  			warning: '#F97066',
+  			background: 'var(--background)',
+  			foreground: 'var(--foreground)',
+  			sidebar: {
+  				DEFAULT: 'hsl(var(--sidebar-background))',
+  				foreground: 'hsl(var(--sidebar-foreground))',
+  				primary: 'hsl(var(--sidebar-primary))',
+  				'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
+  				accent: 'hsl(var(--sidebar-accent))',
+  				'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
+  				border: 'hsl(var(--sidebar-border))',
+  				ring: 'hsl(var(--sidebar-ring))'
+  			}
+  		}
+  	}
   },
   plugins: [
     // eslint-disable-next-line @typescript-eslint/no-require-imports
