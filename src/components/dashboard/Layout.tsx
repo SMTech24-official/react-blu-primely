@@ -45,14 +45,14 @@ export function Layout() {
     const isActive = (path: string) => location.pathname === path;
     return (
         <div className="flex h-screen overflow-hidden w-full">
-            <Sidebar className="hidden md:flex pt-5 bg-card_bg">
-                <SidebarHeader className=" flex items-center px-4  bg-card_bg text-white overflow-hidden">
+            <Sidebar className="hidden md:flex pt-5 bg-fourthColor">
+                <SidebarHeader className=" flex items-center px-4  bg-fourthColor text-white overflow-hidden">
                     <div className="flex items-center gap-4">
                         <img src={logo} alt="" className="w-20" />
                         <h1 className="text-xl font-bold">Blue Primel Tournament</h1>
                     </div>
                 </SidebarHeader>
-                <ScrollArea className="flex-grow bg-card_bg text-white">
+                <ScrollArea className="flex-grow bg-fourthColor text-white">
                     <SidebarContent className="px-4 mt-4">
                         <SidebarMenu>
                             {menuItems.map((item) => (
@@ -75,7 +75,7 @@ export function Layout() {
                         </SidebarMenu>
                     </SidebarContent>
                 </ScrollArea>
-                <SidebarFooter className="p-4  bg-card_bg text-white">
+                <SidebarFooter className="p-4  bg-fourthColor text-white">
                     <SidebarMenu>
                         <SidebarMenuItem>
                             <SidebarMenuButton asChild>
@@ -89,7 +89,7 @@ export function Layout() {
                 </SidebarFooter>
             </Sidebar>
             <SidebarInset className="flex flex-col flex-grow w-full">
-                <header className="py-4 flex items-center px-4 bg-card_bg text-white">
+                <header className="py-4 flex items-center px-4 bg-fourthColor text-white">
                     <SidebarTrigger className="md:hidden mr-2">
                         <Menu className="h-6 w-6" />
                     </SidebarTrigger>

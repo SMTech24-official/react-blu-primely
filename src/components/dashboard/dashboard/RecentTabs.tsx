@@ -1,18 +1,18 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Achievements, Matches, Overview, RoasterIcon } from "../../lib/icons/AllIcons";
-import AchievementsTab from "./Achievements/Achievements";
-import MatchesTab from "./matches/Matches";
-import OverviewTab from "./Overvie";
-import Roaster from "./Roaster";
-import { Teams } from "../../types/types";
+import { Overview, Payment, Tournaments, UserAndClan } from "../../../lib/icons/AllIcons";
+import FinancialTab from "./allTabs/FinancialTab";
+import PlayerTab from "./allTabs/PlayerTab";
+import RecentAll from "./allTabs/RecentAll";
+import TournamentsTab from "./allTabs/TournamentsTab";
 
 
-export default function ClanTab({ teams }: { teams: Teams }) {
+
+export default function RecentTab() {
     const location = useLocation();
     const navigate = useNavigate();
-    const [activeTab, setActiveTab] = useState("overview");
+    const [activeTab, setActiveTab] = useState("all");
 
     // Sync tab with URL hash on mount
     useEffect(() => {
@@ -29,24 +29,24 @@ export default function ClanTab({ teams }: { teams: Teams }) {
     };
 
     const TAB_ITEMS = [
-        { value: "overview", label: "Overview", icon: Overview, component: <OverviewTab /> },
-        { value: "roaster", label: "Roster", icon: RoasterIcon, component: <Roaster players={teams.players} /> },
-        { value: "achievements", label: "Achievements", icon: Achievements, component: <AchievementsTab /> },
-        { value: "matches", label: "Matches", icon: Matches, component: <MatchesTab /> },
+        { value: "all", label: "All", icon: Overview, component: <RecentAll /> },
+        { value: "tournaments", label: "Tournaments", icon: Tournaments, component: <TournamentsTab /> },
+        { value: "players", label: "Players", icon: UserAndClan, component: <PlayerTab /> },
+        { value: "financial", label: "Financial", icon: Payment, component: <FinancialTab /> },
         // { value: "chat", label: "Chat", icon: ChatIcon, component: <CommunicationComponent /> },
     ];
 
     return (
-        <Tabs value={activeTab} onValueChange={handleTabChange}>
-            <TabsList className="w-full p-2 mb-8 sm:mb-10 md:mb-14 lg:mb-20">
-                <div className="grid grid-cols-4 items-center justify-center w-full overflow-y-scroll">
+        <Tabs value={activeTab} onValueChange={handleTabChange} className="bg-fourthColor">
+            <TabsList className="bg-fourthColor w-full mb-3 sm:mb-4 md:mb-6 lg:mb-10">
+                <div className="grid grid-cols-4 items-center justify-center w-full  bg-fourthColor ">
                     {TAB_ITEMS.map(({ value, label, icon: Icon }) => (
                         <TabsTrigger
                             key={value}
                             value={value}
                             className="flex  w-full items-center justify-center gap-2 text-gray-400 hover:text-gray-200 border-b border-transparent data-[state=active]:border-blue-400 pb-2 sm:pb-3 lg:pb-6"
                         >
-                            <div className="flex items-center justify-center gap-2">
+                            <div className="flex items-center justify-center gap-2 w-full">
                                 <Icon />
                                 <p className="text-nowrap hidden sm:block">{label}</p>
                             </div>

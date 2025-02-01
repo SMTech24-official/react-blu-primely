@@ -170,3 +170,5 @@ export interface ClanTableProps {
     goldTrophies: number;
   }[];
 }
+
+export type report = { tournments: number; players: number; revenue: number };

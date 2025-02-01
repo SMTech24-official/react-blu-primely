@@ -3,6 +3,7 @@ import {
   ChartColumnDecreasing,
   LandPlot,
   LayoutDashboard,
+  MessageCircle,
   Shapes,
   Swords,
   WalletMinimal,
@@ -20,4 +21,5 @@ export const menuItems = [
   },
   { icon: Award, label: "Award", href: "/dashboard/award" },
   { icon: WalletMinimal, label: "Payment", href: "/dashboard/payment" },
+  { icon: MessageCircle, label: "Chat", href: "/dashboard/chat" },
 ];
