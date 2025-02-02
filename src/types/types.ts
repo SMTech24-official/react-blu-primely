@@ -30,7 +30,7 @@ export interface TournamentProps {
   registrationStatus: boolean;
   enrollmentStatus: boolean;
   tournamentType?: string;
-  status: "cancelled" | "active" | "upcoming";
+  status?: "cancelled" | "active" | "upcoming";
 }
 
 export interface PrimalChampionshipCardProps {

@@ -29,6 +29,7 @@ export default function Tournaments() {
             {currentTournaments.map((tournament: TournamentProps, idx: number) => (
               <div key={idx} className="relative">
                 <TournamentCard
+
                   game={tournament.game}
                   enrollmentStatus={tournament.enrollmentStatus}
                   registrationStatus={tournament.registrationStatus}

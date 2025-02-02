@@ -14,6 +14,7 @@ const RecentAll = () => {
                 <div className="flex flex-col gap-3">
                     {tournaments.map((data, idx) => (
                         <TournamentsInfo
+                            createdAt=""
                             key={idx}
                             title={data.title}
                             prize={data.prize}
