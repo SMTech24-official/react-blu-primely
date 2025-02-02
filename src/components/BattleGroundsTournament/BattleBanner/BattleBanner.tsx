@@ -44,7 +44,7 @@ const BattleBanner: React.FC<BattleBannerProps> = ({ tournaments }) => {
             >
               <div className="absolute -left-2 -top-7 xl:-left-5 xl:-top-5 z-20">
                 <OctagonCard
-                  prize={tournaments.prize ?? 0}
+                  prize={tournaments.prize.totalPrize}
                   description={tournaments.description}
                 />
               </div>

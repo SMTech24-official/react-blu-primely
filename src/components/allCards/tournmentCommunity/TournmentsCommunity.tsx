@@ -64,7 +64,7 @@ const TournamentCard: React.FC<TournamentProps> = ({
       {badge && (
         <div className="absolute -left-2 -top-7 xl:-left-5 xl:-top-5 z-50">
           <OctagonCard
-            prize={prize ?? 0}
+            prize={prize.totalPrize}
             description={"Wining Prize"}
           />
         </div>

@@ -10,12 +10,17 @@ export interface TournamentProps {
   imageSrc: string;
   title: string;
   subtitle?: string;
-  prize?: number;
+  prize: {
+    totalPrize: number;
+    firstPrize: number;
+    secondPrize: number;
+    thirdPrize: number;
+  };
   maxTeams?: number;
   enrolledTeams?: number;
   description?: string;
   date: string;
-  entryFee: string;
+  entryFee: number;
   teamSize: string;
   regions: string;
   game?: string;
@@ -30,7 +35,12 @@ export interface TournamentProps {
 export interface PrimalChampionshipCardProps {
   title: string;
   image: string;
-  prize?: number;
+  prize: {
+    totalPrize: number;
+    firstPrize: number;
+    secondPrize: number;
+    thirdPrize: number;
+  };
   description?: string;
   subtitle?: string;
   battleground: string;
@@ -42,7 +52,7 @@ export interface PrimalChampionshipCardProps {
   onView?: () => void;
   registrationStatus: boolean;
   enrollmentStatus: boolean;
-  entryFee: string;
+  entryFee: number;
   regions: string;
   date: string;
   skillLevel: string;

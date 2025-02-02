@@ -125,7 +125,7 @@ export default function UpcomingTournamentPage() {
                 <div key={idx} className="relative">
                   <div className="absolute -left-2 -top-7 xl:-left-5 xl:-top-5 z-20">
                     <OctagonCard
-                      prize={tournament.prize ?? 0}
+                      prize={tournament.prize.totalPrize}
                       description={tournament.description}
                     />
                   </div>

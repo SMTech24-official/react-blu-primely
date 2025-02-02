@@ -25,7 +25,7 @@ const PrimalChampionshipCard: React.FC<PrimalChampionshipCardProps> = ({
       <div className="flex flex-col md:flex-row gap-6">
         <div className="relative">
           <div className="absolute -left-8 -top-8 xl:-left-5 xl:-top-5 z-10">
-            <OctagonCard className="max-w-[150px] max-h-[150px]" prize={prize ?? 0} description={"Wining Prize"} />
+            <OctagonCard className="max-w-[150px] max-h-[150px]" prize={prize.totalPrize ?? 0} description={"Wining Prize"} />
           </div>
           <div className="w-full h-full lg:w-[300px] lg:h-[320px] 2xl:w-[339px] 2xl:h-[366px] rounded ">
             <img

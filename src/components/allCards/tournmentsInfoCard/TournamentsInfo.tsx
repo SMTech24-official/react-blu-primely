@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import PrimaryButton from "../../shared/primaryButton";
 
-const TournamentsInfo = ({ title, prize, gameName, entryFee, date, maxTeams }: { title: string, prize: { totalPrize: number, firstPrize: number, secondPrize: number, thirdPrize: number }, gameName: string, entryFee: number, date: string, maxTeams: number }) => {
+const TournamentsInfo = ({ title, prize, gameName, entryFee, date, maxTeams, imageSrc, teamSize, regions, skillLevel }: { title: string, prize: { totalPrize: number, firstPrize: number, secondPrize: number, thirdPrize: number }, gameName: string, entryFee: number, date: string, maxTeams: number, imageSrc?: string, teamSize?: string, regions?: string, skillLevel?: string }) => {
+
+    console.log(imageSrc, teamSize, regions, skillLevel);
     return (
         <div className="lg:p-8 md:p-6 shadow-xl rounded-lg bg-card_bg">
             <div className="flex flex-col sm:flex-row md:flex-col lg:flex-row items-start justify-center lg:gap-10 md:gap-8 lg:mb-8 md:mb-6 mb-4">

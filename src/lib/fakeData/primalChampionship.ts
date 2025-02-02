@@ -7,7 +7,12 @@ export const primalChampionship: PrimalChampionshipCardProps[] = [
   {
     title: "Global Domination Cup",
     image: fortnite,
-    prize: 1500,
+    prize: {
+      totalPrize: 1000,
+      firstPrize: 100,
+      secondPrize: 23,
+      thirdPrize: 34,
+    },
     description: "Wining prize",
     battleground: "Valhalla Grounds",
     teamSize: "4v4",
@@ -18,7 +23,7 @@ export const primalChampionship: PrimalChampionshipCardProps[] = [
     subtitle:
       "Battle in Fortnite without the build mechanic for a true test of skill!",
     date: "2025-03-10T12:00:00.000Z",
-    entryFee: "9 Credits",
+    entryFee: 200,
     regions: "Asia",
     skillLevel: "Advanced",
     game: "fortnite",
@@ -30,7 +35,12 @@ export const primalChampionship: PrimalChampionshipCardProps[] = [
   {
     title: "Champion's League",
     image: csgo,
-    prize: 2000,
+    prize: {
+      totalPrize: 1000,
+      firstPrize: 100,
+      secondPrize: 23,
+      thirdPrize: 34,
+    },
     description: "First place prize",
     battleground: "Stadium Arena",
     teamSize: "5v5",
@@ -41,7 +51,7 @@ export const primalChampionship: PrimalChampionshipCardProps[] = [
     subtitle:
       "Prove your skills in this intense CS:GO tournament, where strategy and aim reign supreme.",
     date: "2025-04-05T09:00:00.000Z",
-    entryFee: "12 Credits",
+    entryFee: 200,
     regions: "Europe",
     skillLevel: "Intermediate",
     game: "csgo",
@@ -53,7 +63,12 @@ export const primalChampionship: PrimalChampionshipCardProps[] = [
   {
     title: "Ultimate Battle Royale",
     image: pubg,
-    prize: 1000,
+    prize: {
+      totalPrize: 1000,
+      firstPrize: 100,
+      secondPrize: 23,
+      thirdPrize: 34,
+    },
     description: "Top prize for last player standing",
     battleground: "Islands of Fury",
     teamSize: "Solo",
@@ -64,7 +79,7 @@ export const primalChampionship: PrimalChampionshipCardProps[] = [
     subtitle:
       "A battle royale for the toughest players, where only one can claim victory.",
     date: "2025-03-20T16:00:00.000Z",
-    entryFee: "5 Credits",
+    entryFee: 200,
     regions: "North America",
     skillLevel: "Advanced",
     game: "pubg",

@@ -1,15 +1,15 @@
-import { useState } from "react"
+import { useState } from "react";
+import { tournaments } from "../../../lib/fakeData/tournments";
+import { TournamentProps } from "../../../types/types";
+import TournamentsInfo from "../../allCards/tournmentsInfoCard/TournamentsInfo";
+import { DatePickerDemo } from "../../datePicker/Date";
+import NoDataAvailable from "../../shared/noData/NoDataAvailableTwo";
 import {
     Select, SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "../../ui/select"
-import { tournaments } from "../../../lib/fakeData/tournments";
-import { TournamentProps } from "../../../types/types";
-import TournamentCard from "../../allCards/tournmentCommunity/TournmentsCommunity";
-import NoDataAvailable from "../../shared/noData/NoDataAvailableTwo";
-import { DatePickerDemo } from "../../datePicker/Date";
+} from "../../ui/select";
 
 
 
@@ -71,15 +71,12 @@ export default function AdminTournamentsTab() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {tournaments
                             .map((tournament: TournamentProps, idx: number) => (
-                                <TournamentCard
-                                    game={tournament.game}
-                                    enrollmentStatus={tournament.enrollmentStatus}
-                                    registrationStatus={tournament.registrationStatus}
-                                    badge={false}
+                                <TournamentsInfo
+                                    maxTeams={tournament.maxTeams as number}
+                                    gameName={tournament.game as string}
                                     key={idx}
                                     imageSrc={tournament.imageSrc}
-                                    prize={tournament.prize}
-                                    description={tournament.description}
+                                    prize={tournament.prize ?? 0}
                                     title={tournament.title}
                                     date={tournament.date}
                                     entryFee={tournament.entryFee}
