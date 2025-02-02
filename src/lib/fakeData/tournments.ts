@@ -14,6 +14,7 @@ import { TournamentProps } from "../../types/types";
 
 export const tournaments: TournamentProps[] = [
   {
+    status: "active",
     imageSrc: freeFire,
     title: "1v1 KILL RACE BEST OF 1",
     subtitle: "Battle to the top in a fast-paced 1v1 showdown!",
@@ -38,6 +39,7 @@ export const tournaments: TournamentProps[] = [
     tournamentType: "Community",
   },
   {
+    status: "upcoming",
     imageSrc: pubg,
     title: "PUBG Mobile Solo Showdown",
     subtitle: "Prove yourself as the ultimate PUBG solo champion!",
@@ -62,6 +64,7 @@ export const tournaments: TournamentProps[] = [
     tournamentType: "Primely Championship",
   },
   {
+    status: "cancelled",
     imageSrc: apex,
     title: "Apex 3v3 Arena Battle",
     subtitle:
@@ -87,6 +90,7 @@ export const tournaments: TournamentProps[] = [
     tournamentType: "Community",
   },
   {
+    status: "active",
     imageSrc: valorant,
     title: "Valorant 5v5 Clash",
     subtitle: "Team up for tactical combat in Valorant's 5v5 faceoff!",
@@ -111,6 +115,7 @@ export const tournaments: TournamentProps[] = [
     tournamentType: "Primely Championship",
   },
   {
+    status: "cancelled",
     imageSrc: fortnite,
     title: "Fortnite Build Battle",
     subtitle:
@@ -136,6 +141,7 @@ export const tournaments: TournamentProps[] = [
     tournamentType: "Community",
   },
   {
+    status: "upcoming",
     imageSrc: cod,
     title: "COD Mobile Kill Race",
     subtitle:
@@ -161,6 +167,7 @@ export const tournaments: TournamentProps[] = [
     tournamentType: "Primely Championship",
   },
   {
+    status: "active",
     imageSrc: overwatch,
     title: "Overwatch 2 Control Map Battle",
     subtitle: "Master the Control Map and claim victory in Overwatch 2!",
@@ -185,6 +192,7 @@ export const tournaments: TournamentProps[] = [
     tournamentType: "Community",
   },
   {
+    status: "cancelled",
     imageSrc: csgo,
     title: "CS:GO Team Deathmatch",
     subtitle: "Fight for dominance in CS:GO's intense team deathmatch!",
@@ -209,6 +217,7 @@ export const tournaments: TournamentProps[] = [
     tournamentType: "Primely Championship",
   },
   {
+    status: "active",
     imageSrc: rainbowSix,
     title: "Rainbow Six Siege Showdown",
     subtitle: "Tactical gameplay meets intense combat in Rainbow Six Siege!",
@@ -233,6 +242,7 @@ export const tournaments: TournamentProps[] = [
     tournamentType: "Community",
   },
   {
+    status: "active",
     imageSrc: fifa,
     title: "FIFA 23 Online Cup",
     subtitle: "Compete in FIFA 23's ultimate online cup for glory!",
@@ -257,6 +267,7 @@ export const tournaments: TournamentProps[] = [
     tournamentType: "Primely Championship",
   },
   {
+    status: "active",
     imageSrc: rocketLeague,
     title: "Rocket League Duo Faceoff",
     subtitle: "Show off your skills in Rocket League's exciting duo showdown!",
@@ -281,6 +292,7 @@ export const tournaments: TournamentProps[] = [
     tournamentType: "Community",
   },
   {
+    status: "active",
     imageSrc: fortnite,
     title: "Fortnite Zero Build Blitz",
     subtitle:
@@ -306,6 +318,7 @@ export const tournaments: TournamentProps[] = [
     tournamentType: "Primely Championship",
   },
   {
+    status: "active",
     imageSrc: pubg,
     title: "PUBG Mobile Squad Showdown",
     subtitle: "Team up for the ultimate PUBG Mobile squad showdown!",
@@ -330,6 +343,7 @@ export const tournaments: TournamentProps[] = [
     tournamentType: "Community",
   },
   {
+    status: "active",
     imageSrc: apex,
     title: "Apex Legends Last Team Standing",
     subtitle: "Fight till the last team stands victorious in Apex Legends!",
@@ -354,6 +368,7 @@ export const tournaments: TournamentProps[] = [
     tournamentType: "Primely Championship",
   },
   {
+    status: "active",
     imageSrc: dota2,
     title: "Dota 2 All-Star Battle",
     subtitle: "Battle with the best in Dota 2's All-Star showdown!",
@@ -378,10 +393,3 @@ export const tournaments: TournamentProps[] = [
     tournamentType: "Community",
   },
 ];
-
-// ,
-// {
-
-//   teamSize: "2v2",
-
-// },

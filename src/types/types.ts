@@ -30,6 +30,7 @@ export interface TournamentProps {
   registrationStatus: boolean;
   enrollmentStatus: boolean;
   tournamentType?: string;
+  status: "cancelled" | "active" | "upcoming";
 }
 
 export interface PrimalChampionshipCardProps {
@@ -181,4 +182,13 @@ export interface ClanTableProps {
   }[];
 }
 
-export type report = { tournments: number; players: number; revenue: number };
+export type report = {
+  tournments: number;
+  players: number;
+  revenue: number;
+  icon?: boolean;
+  subtitle?: boolean;
+  cardOneText: string;
+  cardTwoText: string;
+  cardThreeText: string;
+};
