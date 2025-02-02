@@ -1,4 +1,4 @@
-import ClanPage from "../../ClandetailsComnpoenets/page";
+import ClanPage from "../../components/ClandetailsComnpoenets/page";
 
 const ClanDetails = () => {
     return (

@@ -1,5 +1,6 @@
-import PrimalChampionship from "../../tournaments/PrimalChampionship/PrimalChampionship";
-import Tournaments from "../../tournaments/Tournaments/Tournaments";
+import PrimalChampionship from "../../components/tournaments/PrimalChampionship/PrimalChampionship";
+import Tournaments from "../../components/tournaments/Tournaments/Tournaments";
+
 
 
 const TournamentsPage = () => {

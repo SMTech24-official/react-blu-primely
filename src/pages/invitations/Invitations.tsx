@@ -1,4 +1,4 @@
-import InvitationPage from "../../invitations/page";
+import InvitationPage from "../../components/invitations/page";
 
 const Invitations = () => {
     return (

@@ -1,9 +1,10 @@
 import { useLocation } from "react-router-dom";
-import { tournaments } from "../../../lib/fakeData/tournments";
-import { TournamentProps } from "../../../types/types";
-import BattleBanner from "../../BattleGroundsTournament/BattleBanner/BattleBanner";
-import NoDataAvailable from "../../shared/noData/NoDataAvailableTwo";
-import UpcomingTournamentPage from "../../BattleGroundsTournament/UpcomingTournaments/UpcomingTournaments";
+import BattleBanner from "../../components/BattleGroundsTournament/BattleBanner/BattleBanner";
+import NoDataAvailable from "../../components/shared/noData/NoDataAvailableTwo";
+import UpcomingTournamentPage from "../../components/BattleGroundsTournament/UpcomingTournaments/UpcomingTournaments";
+import { TournamentProps } from "../../types/types";
+import { tournaments } from "../../lib/fakeData/tournments";
+
 
 
 const FeaturedTournament = () => {
@@ -27,7 +28,6 @@ const FeaturedTournament = () => {
                     <NoDataAvailable text="No Tournaments Available To Featured" />
                 </div>
             }
-
             <UpcomingTournamentPage />
         </div>
     );

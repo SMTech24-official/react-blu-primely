@@ -1,4 +1,4 @@
-import CommunicationComponent from "../../communication/MainCommunication";
+import CommunicationComponent from "../../components/communication/MainCommunication";
 
 const ChatPage = () => {
     return (

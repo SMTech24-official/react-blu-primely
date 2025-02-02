@@ -192,3 +192,10 @@ export type report = {
   cardTwoText: string;
   cardThreeText: string;
 };
+
+export type Transaction = {
+  date: string;
+  transactionId: string;
+  tournamentName: string;
+  status: string;
+};

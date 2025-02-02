@@ -1,4 +1,5 @@
-import { players, tournaments } from "../../../../lib/fakeData/recent";
+import { players, } from "../../../../lib/fakeData/recent";
+import { tournaments } from "../../../../lib/fakeData/tournments";
 import PlayerCard from "../../../allCards/playerCard/PlayerCard";
 import TournamentsInfo from "../../../allCards/tournmentsInfoCard/TournamentsInfo";
 
@@ -20,8 +21,9 @@ const RecentAll = () => {
                             prize={data.prize}
                             date={data.date}
                             entryFee={data.entryFee}
-                            gameName={data.gameName}
-                            maxTeams={data.maxTeams}
+                            gameName={data.game as string}
+                            maxTeams={data.maxTeams as number}
+                            tournamentType={data.tournamentType}
                         />
                     ))}
                 </div>
