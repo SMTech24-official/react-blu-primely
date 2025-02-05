@@ -3,15 +3,15 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Members } from "../../../../lib/fakeData/leaderboardData";
 import { Tournaments, UserAndClan } from "../../../../lib/icons/AllIcons";
-import { LeaderboardTable } from "./Table";
+import { UserAndTable } from "./UserAndTable";
 
 
 
 
-export default function LeaderTab() {
+export default function UserAndClanTab() {
     const location = useLocation();
     const navigate = useNavigate();
-    const [activeTab, setActiveTab] = useState("player");
+    const [activeTab, setActiveTab] = useState("user");
 
     // Sync tab with URL hash on mount
     useEffect(() => {
@@ -28,14 +28,14 @@ export default function LeaderTab() {
     };
 
     const TAB_ITEMS = [
-        { value: "player", label: "Player", icon: UserAndClan, component: <LeaderboardTable members={Members} /> },
-        { value: "clan", label: "Clan", icon: Tournaments, component: <LeaderboardTable members={Members} /> },
+        { value: "user", label: "User", icon: UserAndClan, component: <UserAndTable members={Members} /> },
+        { value: "clan", label: "Clan", icon: Tournaments, component: <UserAndTable members={Members} /> },
         // { value: "chat", label: "Chat", icon: ChatIcon, component: <CommunicationComponent /> },
     ];
 
     return (
         <div className="bg-fourthColor p-4 rounded-lg">
-            <p className="font-semibold text-2xl uppercase">Leader Board</p>
+            <p className="font-semibold text-2xl uppercase">User and Clan Management</p>
             <Tabs value={activeTab} onValueChange={handleTabChange} className="bg-fourthColor p-4 mt-4">
                 <TabsList className="bg-fourthColor w-full mb-3 sm:mb-4 md:mb-6 lg:mb-10">
                     <div className="grid grid-cols-4 items-center justify-center w-full  bg-fourthColor ">

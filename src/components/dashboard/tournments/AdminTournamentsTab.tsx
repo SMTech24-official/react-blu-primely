@@ -58,7 +58,7 @@ export default function AdminTournamentsTab() {
                 </div>
 
                 {tournaments.length > 0 ? (
-                    <div className="grid grid-cols-1 2xl:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
                         {tournaments
                             .map((tournament: TournamentProps, idx: number) => (
                                 <TournamentsInfo
@@ -67,14 +67,10 @@ export default function AdminTournamentsTab() {
                                     maxTeams={tournament.maxTeams as number}
                                     gameName={tournament.game as string}
                                     key={idx}
-                                    imageSrc={tournament.imageSrc}
                                     prize={tournament.prize ?? 0}
                                     title={tournament.title}
                                     date={tournament.date}
                                     entryFee={tournament.entryFee}
-                                    teamSize={tournament.teamSize}
-                                    regions={tournament.regions}
-                                    skillLevel={tournament.skillLevel}
                                     status={tournament?.status}
                                 />
                             ))}

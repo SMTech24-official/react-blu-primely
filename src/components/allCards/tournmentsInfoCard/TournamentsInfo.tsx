@@ -6,7 +6,7 @@ const TournamentsInfo = ({ title, prize, gameName, entryFee, date, maxTeams, ima
     return (
         <div className="lg:p-8 md:p-6 shadow-xl rounded-lg bg-card_bg">
             <div className="flex flex-col sm:flex-row md:flex-col lg:flex-row items-start justify-center lg:gap-6 md:gap-4 lg:mb-8 sm:gap-4 md:mb-6 mb-4">
-                {imageSrc && <div className="w-[150px] h-[200px] rounded-lg">
+                {imageSrc && <div className="w-[150px] h-[200px] rounded-lg block">
                     <img src={imageSrc} className="w-[150px] h-[180px] object-fill rounded-lg" />
                     {
                         status && <div className={`border p-1 mt-2 text-xs uppercase text-center  ${status === "active" ? "border-green-500 text-green-600" : status === "upcoming" ? "border-blue-500 text-blue-600" : status === "cancelled" ? "border-red-500 text-red-600" : ""}`}>
@@ -19,7 +19,7 @@ const TournamentsInfo = ({ title, prize, gameName, entryFee, date, maxTeams, ima
                     <div className="flex lg:flex-row flex-col   lg:gap-0 gap-2 items-start justify-between">
                         <div>
                             <div className="space-y-2 ">
-                                <p className="text-lg font-semibold text-nowrap">{title}</p>
+                                <p className="text-lg font-semibold text-nowrap mr-3">{title}</p>
                                 <p>Create At: {createdAt}</p>
                             </div>
                             <div className="flex items-center gap-2 mt-4">
@@ -28,8 +28,13 @@ const TournamentsInfo = ({ title, prize, gameName, entryFee, date, maxTeams, ima
                                     <p>Max Team: {maxTeams}</p>
                                 </div>
                             </div>
-                            <div className="p-1 border border-secondary_highlighted text-secondary_highlighted w-fit text-xs  mt-2">
-                                {tournamentType}
+                            <div className="flex items-center gap-2">
+                                <div className="p-1 border border-secondary_highlighted text-secondary_highlighted w-fit text-xs  mt-2">
+                                    {tournamentType}
+                                </div>
+                                <div className={`border p-1 mt-2 text-xs uppercase text-center  ${status === "active" ? "border-green-500 text-green-600" : status === "upcoming" ? "border-blue-500 text-blue-600" : status === "cancelled" ? "border-red-500 text-red-600" : ""}`}>
+                                    {status}
+                                </div>
                             </div>
                         </div>
                         <div className="space-y-4">
@@ -51,8 +56,8 @@ const TournamentsInfo = ({ title, prize, gameName, entryFee, date, maxTeams, ima
                                 <p className="text-lg font-semibold">
                                     Registration
                                 </p>
-                                <p className="flex items-center gap-1 text-gray-500 font-semibold ">
-                                    <span className="text-nowrap">Entry Fee: ${entryFee}</span> | <span className="text-nowrap">Deadline: {new Date(date).toLocaleDateString("en-GB").replace(/\//g, "/")}</span>
+                                <p className="flex 2xl:flex-row flex-col 2xl:items-center gap-1 text-gray-500 font-semibold ">
+                                    <span className="text-nowrap 2xl:pr-2 2xl:border-r">Entry Fee: ${entryFee}</span>  <span className="text-nowrap 2xl:pl-1">Deadline: {new Date(date).toLocaleDateString("en-GB").replace(/\//g, "/")}</span>
                                 </p>
                             </div>
                         </div>
@@ -82,7 +87,7 @@ const TournamentsInfo = ({ title, prize, gameName, entryFee, date, maxTeams, ima
             </div>
 
             <PrimaryButton parent="w-full">
-                <Link to={`/tournaments-details/freefire`}>
+                <Link to={`/dashboard/tournaments/freefire`}>
                     View tournaments
                 </Link>
             </PrimaryButton>
