@@ -26,6 +26,7 @@ import ChatPage from "../pages/chat/ChatPahe";
 import Invitations from "../pages/invitations/Invitations";
 import Tournaments from "../pages/adTournaments/Tournaments";
 import Payment from "../pages/payment/payment";
+import LeaderBoard from "../components/dashboard/dashboard/leaderBoard/LeaderBoard";
 
 export const navItems = [
   {
@@ -113,7 +114,7 @@ export const routes = [
       { path: "/dashboard", element: <ScrollToTop pathname="/dashboard"><DashBoardPage /></ScrollToTop> },
       { path: "/dashboard/tournaments", element: <ScrollToTop pathname="/dashboard/tournaments"><Tournaments /></ScrollToTop> },
       { path: "/dashboard/fixture", element: <ScrollToTop pathname="/dashboard/fixture"><UnderConstruction /></ScrollToTop> },
-      { path: "/dashboard/leaderBoards", element: <ScrollToTop pathname="/dashboard/leaderBoards"><UnderConstruction /></ScrollToTop> },
+      { path: "/dashboard/leaderBoards", element: <ScrollToTop pathname="/dashboard/leaderBoards"><LeaderBoard /></ScrollToTop> },
       { path: "/dashboard/award", element: <ScrollToTop pathname="/dashboard/award"><UnderConstruction /></ScrollToTop> },
       { path: "/dashboard/payment", element: <ScrollToTop pathname="/dashboard/payment"><Payment /></ScrollToTop> },
 

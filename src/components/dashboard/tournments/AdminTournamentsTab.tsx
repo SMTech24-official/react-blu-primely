@@ -1,9 +1,11 @@
+import { Plus } from "lucide-react";
 import { useState } from "react";
 import { tournaments } from "../../../lib/fakeData/tournments";
 import { TournamentProps } from "../../../types/types";
 import TournamentsInfo from "../../allCards/tournmentsInfoCard/TournamentsInfo";
 import { DatePickerDemo } from "../../datePicker/Date";
 import NoDataAvailable from "../../shared/noData/NoDataAvailableTwo";
+import { Button } from "../../ui/button";
 import {
     Select, SelectContent,
     SelectItem,
@@ -44,10 +46,15 @@ export default function AdminTournamentsTab() {
                             <SelectItem value="completed">Completed</SelectItem>
                         </SelectContent>
                     </Select>
-
                     <DatePickerDemo date={date} setDate={setDate} />
-
-
+                    <div />
+                    <div>
+                        <Button
+                            className="bg-primary_highlighted hover:bg-blue-600 text-white flex items-center gap-2 w-full h-full"
+                        >
+                            <Plus className="w-4 h-4" />  Add Tournaments
+                        </Button>
+                    </div>
                 </div>
 
                 {tournaments.length > 0 ? (
