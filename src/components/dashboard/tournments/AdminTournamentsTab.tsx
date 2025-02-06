@@ -29,7 +29,7 @@ export default function AdminTournamentsTab() {
 
     const [date, setDate] = useState<Date>()
     return (
-        <div className="p-4  rounded-lg space-y-11">
+        <div className=" rounded-lg space-y-11">
             <div className="">
                 <MetricCards cardOneText="Total Tournaments" cardThreeText="Completed Tournaments" cardTwoText="Total Participants" subtitle={false} icon={false} players={10} revenue={10} tournments={10} />
             </div>

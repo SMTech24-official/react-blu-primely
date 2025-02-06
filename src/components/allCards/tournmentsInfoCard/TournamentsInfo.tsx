@@ -87,7 +87,7 @@ const TournamentsInfo = ({ title, prize, gameName, entryFee, date, maxTeams, ima
             </div>
 
             <PrimaryButton parent="w-full">
-                <Link to={`/dashboard/tournaments/freefire`}>
+                <Link to={`/dashboard/tournaments/${gameName}`}>
                     View tournaments
                 </Link>
             </PrimaryButton>

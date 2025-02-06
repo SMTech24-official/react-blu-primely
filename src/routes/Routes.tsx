@@ -7,6 +7,7 @@ import SignupForm from "../components/authComponents/signUp/SignUp";
 import CommunicationComponent from "../components/communication/MainCommunication";
 import DashBoardPage from "../components/dashboard/dashboard/DashBoardPAge";
 import LeaderTab from "../components/dashboard/dashboard/leaderBoard/LeaderBoard";
+import DetailsPage from "../components/dashboard/dashboard/tournmentsDetails/DetailsPage";
 import UserAndClanTab from "../components/dashboard/dashboard/userAndClan/UserAndClan";
 import { Layout } from "../components/dashboard/Layout";
 import Leaderboards from "../components/leaderboards/Leaderboards/Leaderboards";
@@ -114,7 +115,7 @@ export const routes = [
     children: [
       { path: "/dashboard", element: <ScrollToTop pathname="/dashboard"><DashBoardPage /></ScrollToTop> },
       { path: "/dashboard/tournaments", element: <ScrollToTop pathname="/dashboard/tournaments"><Tournaments /></ScrollToTop> },
-      { path: "/dashboard/tournaments/:id", element: <ScrollToTop pathname="/dashboard/tournaments/:id"> <div>sdsd</div> </ScrollToTop> },
+      { path: "/dashboard/tournaments/:id", element: <ScrollToTop pathname="/dashboard/tournaments/:id"> <DetailsPage /> </ScrollToTop> },
       { path: "/dashboard/fixture", element: <ScrollToTop pathname="/dashboard/fixture"><UnderConstruction /></ScrollToTop> },
       { path: "/dashboard/leaderBoards", element: <ScrollToTop pathname="/dashboard/leaderBoards"><LeaderTab /></ScrollToTop> },
       { path: "/dashboard/award", element: <ScrollToTop pathname="/dashboard/award"><UnderConstruction /></ScrollToTop> },
