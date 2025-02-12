@@ -1,7 +1,7 @@
 import { DialogTitle } from "@radix-ui/react-dialog"
 import { Menu } from 'lucide-react'
 import * as React from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import avater from "../../../assets/player/avater 1.jpg"
 import { NavPropsTypes } from "../../../types/types"
 import { Button } from "../../ui/button"
@@ -17,7 +17,6 @@ import PrimaryButton from "../primaryButton"
 
 export function Navbar({ navitems }: { navitems: NavPropsTypes[] }) {
     const [isOpen, setIsOpen] = React.useState(false)
-    const navigate = useNavigate()
     return (
         <header className="my-4 mx-2 lg:mx-0 ">
             <div className="container flex justify-between items-center border md:px-14 px-4  py-3 md:py-3 border-bg_secondary rounded-lg">
@@ -68,8 +67,8 @@ export function Navbar({ navitems }: { navitems: NavPropsTypes[] }) {
                     </nav>
                 </div>
                 <div className="flex items-center sm:justify-end sm:space-x-4 ">
-                    <PrimaryButton parent="rounded-md lg:block hidden" child="rounded-md px-10">
-                        <button onClick={() => navigate("/signIn")} className="">Sign In</button>
+                    <PrimaryButton to="/signIn" parent="rounded-md lg:block hidden" child="rounded-md px-10">
+                        <div className="">Sign In</div>
                     </PrimaryButton>
                     <li className="cursor-pointer lg:text-lg text-base flex items-center gap-1 group relative ">
                         <div className="css_bg p-[2px] rounded-full">

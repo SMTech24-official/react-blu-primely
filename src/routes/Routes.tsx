@@ -5,6 +5,7 @@ import OtpVerification from "../components/authComponents/otp/OtpComponents";
 import SignInForm from "../components/authComponents/signIn/SignIn";
 import SignupForm from "../components/authComponents/signUp/SignUp";
 import CommunicationComponent from "../components/communication/MainCommunication";
+import MainAward from "../components/dashboard/award/MainAward";
 import DashBoardPage from "../components/dashboard/dashboard/DashBoardPAge";
 import LeaderTab from "../components/dashboard/dashboard/leaderBoard/LeaderBoard";
 import DetailsPage from "../components/dashboard/dashboard/tournmentsDetails/DetailsPage";
@@ -118,7 +119,7 @@ export const routes = [
       { path: "/dashboard/tournaments/:id", element: <ScrollToTop pathname="/dashboard/tournaments/:id"> <DetailsPage /> </ScrollToTop> },
       { path: "/dashboard/fixture", element: <ScrollToTop pathname="/dashboard/fixture"><UnderConstruction /></ScrollToTop> },
       { path: "/dashboard/leaderBoards", element: <ScrollToTop pathname="/dashboard/leaderBoards"><LeaderTab /></ScrollToTop> },
-      { path: "/dashboard/award", element: <ScrollToTop pathname="/dashboard/award"><UnderConstruction /></ScrollToTop> },
+      { path: "/dashboard/award", element: <ScrollToTop pathname="/dashboard/award"><MainAward /></ScrollToTop> },
       { path: "/dashboard/payment", element: <ScrollToTop pathname="/dashboard/payment"><Payment /></ScrollToTop> },
 
       { path: "/dashboard/user-clan", element: <ScrollToTop pathname="/dashboard/user-clan"><UserAndClanTab /></ScrollToTop> },

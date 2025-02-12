@@ -199,3 +199,18 @@ export type Transaction = {
   tournamentName: string;
   status: string;
 };
+
+export type Trophy = {
+  type: string;
+  count: number;
+};
+
+export type Clan = {
+  name: string;
+  id: string;
+  totalMembers: number;
+  tournamentsPlayed: number;
+  trophies: Trophy[];
+  lostWin: { lost: number; win: number };
+  awards: AwardType[] | string[];
+};

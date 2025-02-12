@@ -11,6 +11,7 @@ import { AwardData, AwardType } from '../../../types/types';
 // Define the structure for the props
 interface AwardProps {
     awards: AwardType[];
+    showText?: boolean
 }
 
 const awardsData: Record<AwardType, AwardData> = {
@@ -36,7 +37,8 @@ const awardsData: Record<AwardType, AwardData> = {
     },
 };
 
-const Award: React.FC<AwardProps> = ({ awards }) => {
+
+const Award: React.FC<AwardProps> = ({ awards, showText = true }) => {
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 sm:gap-4">
             {awards.map((award) => {
@@ -52,7 +54,10 @@ const Award: React.FC<AwardProps> = ({ awards }) => {
                                 />
                                 <h3 className="text-xl font-semibold">{awardData?.title}</h3>
                             </div>
-                            <p className="text-sm">{awardData?.description}</p>
+                            {
+                                showText && <p className="text-sm">{awardData?.description}</p>
+                            }
+
                         </div>
                     </div>
                 );

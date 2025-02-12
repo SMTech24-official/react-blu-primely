@@ -80,15 +80,15 @@ body {
 }
 
 .css_clip_path {
-  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  clipPath: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
 }
 
 .css_clip_path_Slider {
-  clip-path: polygon(15% 0, 100% 0, 100% 85%, 85% 99%, 0 100%, 0 15%);
+  clipPath: polygon(15% 0, 100% 0, 100% 85%, 85% 99%, 0 100%, 0 15%);
 }
 
 .css_octagon {
-  clip-path: polygon(50% 0, 90% 20%, 100% 50%, 90% 80%, 50% 100%, 10% 80%, 0 50%, 10% 20%);
+  clipPath: polygon(50% 0, 90% 20%, 100% 50%, 90% 80%, 50% 100%, 10% 80%, 0 50%, 10% 20%);
 
 }
 
@@ -121,11 +121,11 @@ body {
 }
 
 .msg {
-  clip-path: polygon(48% 10%, 78% 10%, 100% 10%, 98% 21%, 98% 100%, 0 100%, 0 10%)
+  clipPath: polygon(48% 10%, 78% 10%, 100% 10%, 98% 21%, 98% 100%, 0 100%, 0 10%)
 }
 
 .msg-two {
-  clip-path: polygon(0 10%, 30% 10%, 65% 10%, 100% 10%, 100% 100%, 2% 100%, 2% 20%);
+  clipPath: polygon(0 10%, 30% 10%, 65% 10%, 100% 10%, 100% 100%, 2% 100%, 2% 20%);
 }
 
 @layer base {
@@ -139,6 +139,7 @@ body {
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
+
   .dark {
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
