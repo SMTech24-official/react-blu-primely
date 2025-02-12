@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import PrimaryButton from "../../shared/primaryButton";
 
-const TournamentsInfo = ({ title, prize, gameName, entryFee, date, maxTeams, imageSrc, teamSize, regions, skillLevel, createdAt, tournamentType, status }: { title: string, prize: { totalPrize: number, firstPrize: number, secondPrize: number, thirdPrize: number }, status?: string, gameName: string, entryFee: number, date: string, maxTeams: number, imageSrc?: string, teamSize?: string, regions?: string, skillLevel?: string, createdAt: string, tournamentType?: string }) => {
+const TournamentsInfo = ({ title, prize, gameName, entryFee, date, maxTeams, fixture = false, imageSrc, teamSize, regions, skillLevel, createdAt, tournamentType, status }: { title: string, prize: { totalPrize: number, firstPrize: number, secondPrize: number, thirdPrize: number }, status?: string, gameName: string, entryFee: number, date: string, maxTeams: number, imageSrc?: string, teamSize?: string, regions?: string, skillLevel?: string, createdAt: string, tournamentType?: string, fixture?: boolean }) => {
 
     return (
         <div className="lg:p-8 md:p-6 shadow-xl rounded-lg bg-card_bg">
@@ -87,7 +87,7 @@ const TournamentsInfo = ({ title, prize, gameName, entryFee, date, maxTeams, ima
             </div>
 
             <PrimaryButton parent="w-full">
-                <Link to={`/dashboard/tournaments/${gameName}`}>
+                <Link to={fixture ? `/dashboard/fixture/${gameName}` : `/dashboard/tournaments/${gameName}`}>
                     View tournaments
                 </Link>
             </PrimaryButton>

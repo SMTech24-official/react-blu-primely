@@ -10,10 +10,11 @@ import DashBoardPage from "../components/dashboard/dashboard/DashBoardPAge";
 import LeaderTab from "../components/dashboard/dashboard/leaderBoard/LeaderBoard";
 import DetailsPage from "../components/dashboard/dashboard/tournmentsDetails/DetailsPage";
 import UserAndClanTab from "../components/dashboard/dashboard/userAndClan/UserAndClan";
+import MainFixture from "../components/dashboard/fixture/MainFixture";
 import { Layout } from "../components/dashboard/Layout";
 import Leaderboards from "../components/leaderboards/Leaderboards/Leaderboards";
 import NotFound from "../components/others/NotFound";
-import UnderConstruction from "../components/others/UnderConstruction";
+import UnderConstructionTwo from "../components/others/UnderConstructionTwo";
 import TournamentDetailsPage from "../components/TournamentDetails/TournamentDetailsPage";
 import { SidebarProvider } from "../components/ui/sidebar";
 import ScrollToTop from "../hooks/ScrollTop";
@@ -117,7 +118,8 @@ export const routes = [
       { path: "/dashboard", element: <ScrollToTop pathname="/dashboard"><DashBoardPage /></ScrollToTop> },
       { path: "/dashboard/tournaments", element: <ScrollToTop pathname="/dashboard/tournaments"><Tournaments /></ScrollToTop> },
       { path: "/dashboard/tournaments/:id", element: <ScrollToTop pathname="/dashboard/tournaments/:id"> <DetailsPage /> </ScrollToTop> },
-      { path: "/dashboard/fixture", element: <ScrollToTop pathname="/dashboard/fixture"><UnderConstruction /></ScrollToTop> },
+      { path: "/dashboard/fixture", element: <ScrollToTop pathname="/dashboard/fixture"><MainFixture /></ScrollToTop> },
+      { path: "/dashboard/fixture/:id", element: <ScrollToTop pathname="/dashboard/fixture/:id"> <UnderConstructionTwo /> </ScrollToTop> },
       { path: "/dashboard/leaderBoards", element: <ScrollToTop pathname="/dashboard/leaderBoards"><LeaderTab /></ScrollToTop> },
       { path: "/dashboard/award", element: <ScrollToTop pathname="/dashboard/award"><MainAward /></ScrollToTop> },
       { path: "/dashboard/payment", element: <ScrollToTop pathname="/dashboard/payment"><Payment /></ScrollToTop> },
