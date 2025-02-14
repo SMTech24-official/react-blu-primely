@@ -13,6 +13,7 @@ import {
     SelectValue,
 } from "../../ui/select";
 import MetricCards from "../dashboard/MetricCards";
+import { Link } from "react-router-dom";
 
 
 
@@ -48,13 +49,13 @@ export default function AdminTournamentsTab() {
                     </Select>
                     <DatePickerDemo date={date} setDate={setDate} />
                     <div />
-                    <div>
+                    <Link to={"/dashboard/tournaments/addTournaments"}>
                         <Button
                             className="bg-primary_highlighted hover:bg-blue-600 text-white flex items-center gap-2 w-full h-full"
                         >
                             <Plus className="w-4 h-4" />  Add Tournaments
                         </Button>
-                    </div>
+                    </Link>
                 </div>
 
                 {tournaments.length > 0 ? (

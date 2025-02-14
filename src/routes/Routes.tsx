@@ -6,6 +6,7 @@ import SignInForm from "../components/authComponents/signIn/SignIn";
 import SignupForm from "../components/authComponents/signUp/SignUp";
 import CommunicationComponent from "../components/communication/MainCommunication";
 import MainAward from "../components/dashboard/award/MainAward";
+import TournamentForm from "../components/dashboard/dashboard/addTournments/AddTournaments";
 import DashBoardPage from "../components/dashboard/dashboard/DashBoardPAge";
 import LeaderTab from "../components/dashboard/dashboard/leaderBoard/LeaderBoard";
 import DetailsPage from "../components/dashboard/dashboard/tournmentsDetails/DetailsPage";
@@ -121,6 +122,7 @@ export const routes = [
       { path: "/dashboard/fixture", element: <ScrollToTop pathname="/dashboard/fixture"><MainFixture /></ScrollToTop> },
       { path: "/dashboard/fixture/:id", element: <ScrollToTop pathname="/dashboard/fixture/:id"> <UnderConstructionTwo /> </ScrollToTop> },
       { path: "/dashboard/leaderBoards", element: <ScrollToTop pathname="/dashboard/leaderBoards"><LeaderTab /></ScrollToTop> },
+      { path: "/dashboard/tournaments/addTournaments", element: <ScrollToTop pathname="/dashboard/tournaments/addTournaments"><TournamentForm /></ScrollToTop> },
       { path: "/dashboard/award", element: <ScrollToTop pathname="/dashboard/award"><MainAward /></ScrollToTop> },
       { path: "/dashboard/payment", element: <ScrollToTop pathname="/dashboard/payment"><Payment /></ScrollToTop> },
 
