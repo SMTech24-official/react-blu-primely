@@ -7,7 +7,38 @@
   --foreground: #ffffff;
   --gradOne: #ffffff;
   --gradTwo: #ffffff;
+
 }
+
+.jodit-container,
+.jodit-container .jodit-workplace,
+.jodit-container .jodit-wysiwyg,
+.jodit-container .jodit-toolbar,
+.jodit-container .jodit-status-bar {
+  background-color: #000 !important;
+  border-radius: 10px;
+  background-image: none;
+  /* Pure black background */
+  color: #fff !important;
+  /* White text */
+  border-color: #ffffff !important;
+  /* Dark borders */
+}
+
+.jodit-container .jodit-toolbar-button {
+  background-color: #000000 !important;
+  /* Slightly lighter black buttons */
+  color: #fff !important;
+}
+
+.jodit-container .jodit-toolbar-button:hover {
+  background-color: #000000 !important;
+}
+
+.jodit-toolbar-editor-collection.jodit-toolbar-editor-collection_mode_horizontal.jodit-toolbar-editor-collection_size_middle {
+  background-color: black;
+}
+
 
 /* @media (prefers-color-scheme: light) {
   :root {
@@ -150,4 +181,28 @@ body {
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
+}
+
+.jodit-container {
+  background-color: #000 !important;
+  /* Pure black background */
+  color: #fff !important;
+  /* White text */
+}
+
+.jodit-toolbar {
+  background-color: #111 !important;
+  /* Darker black toolbar */
+}
+
+.jodit-status-bar {
+  background-color: #111 !important;
+  /* Darker black status bar */
+}
+
+.jodit-workplace {
+  background-color: #000 !important;
+  /* Black editor background */
+  color: #fff !important;
+  /* White text */
 }
