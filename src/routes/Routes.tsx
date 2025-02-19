@@ -16,7 +16,6 @@ import MainFixture from "../components/dashboard/fixture/MainFixture";
 import { Layout } from "../components/dashboard/Layout";
 import Leaderboards from "../components/leaderboards/Leaderboards/Leaderboards";
 import NotFound from "../components/others/NotFound";
-import UnderConstructionTwo from "../components/others/UnderConstructionTwo";
 import TournamentDetailsPage from "../components/TournamentDetails/TournamentDetailsPage";
 import { SidebarProvider } from "../components/ui/sidebar";
 import ScrollToTop from "../hooks/ScrollTop";
