@@ -1,22 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { VariantProps, cva } from "class-variance-authority"
 import { PanelLeft } from "lucide-react"
+import * as React from "react"
 
+import { Separator } from "@radix-ui/react-select"
+import { useIsMobile } from "../../hooks/use-mobile"
+import { cn } from "../../lib/utils"
+import { Button } from "./button"
+import { Input } from "./input"
+import { Sheet, SheetContent } from "./sheet"
+import { Skeleton } from "./skeleton"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "./tooltip"
-import { useIsMobile } from "../../hooks/use-mobile"
-import { cn } from "../../lib/utils"
-import { Sheet, SheetContent } from "./sheet"
-import { Button } from "./button"
-import { Input } from "./input"
-import { Separator } from "@radix-ui/react-select"
-import { Skeleton } from "./skeleton"
 
 
 const SIDEBAR_COOKIE_NAME = "sidebar:state"
@@ -151,6 +151,7 @@ const SidebarProvider = React.forwardRef<
           </div>
         </TooltipProvider>
       </SidebarContext.Provider>
+
     )
   }
 )
