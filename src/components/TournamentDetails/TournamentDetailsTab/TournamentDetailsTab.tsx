@@ -1,11 +1,10 @@
-"use client";
-
 import { Settings, Users, GitBranchPlus, ScrollText } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "../../ui/tabs";
 import Rules from "./Rules/Rules";
-import Bracket from "./Bracket/Bracket";
 import Clan from "./Clan/Clan";
 import Admin from "./Admin/Admin";
+import Bracket from "./Bracket/Bracket";
+
 
 const TAB_ITEMS = [
   { value: "rules", label: "RULES", icon: ScrollText, component: <Rules /> },

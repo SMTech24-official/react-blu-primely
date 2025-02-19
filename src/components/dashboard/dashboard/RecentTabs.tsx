@@ -1,9 +1,8 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Overview, Payment, Tournaments, UserAndClan } from "../../../lib/icons/AllIcons";
+import { Overview, Payment, Tournaments } from "../../../lib/icons/AllIcons";
 import FinancialTab from "./allTabs/FinancialTab";
-import PlayerTab from "./allTabs/PlayerTab";
 import RecentAll from "./allTabs/RecentAll";
 import TournamentsTab from "./allTabs/TournamentsTab";
 
@@ -31,7 +30,7 @@ export default function RecentTab() {
     const TAB_ITEMS = [
         { value: "all", label: "All", icon: Overview, component: <RecentAll /> },
         { value: "tournaments", label: "Tournaments", icon: Tournaments, component: <TournamentsTab /> },
-        { value: "players", label: "Players", icon: UserAndClan, component: <PlayerTab /> },
+        // { value: "players", label: "Players", icon: UserAndClan, component: <PlayerTab /> },
         { value: "financial", label: "Financial", icon: Payment, component: <FinancialTab /> },
         // { value: "chat", label: "Chat", icon: ChatIcon, component: <CommunicationComponent /> },
     ];
