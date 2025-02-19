@@ -11,6 +11,7 @@ import DashBoardPage from "../components/dashboard/dashboard/DashBoardPAge";
 import LeaderTab from "../components/dashboard/dashboard/leaderBoard/LeaderBoard";
 import DetailsPage from "../components/dashboard/dashboard/tournmentsDetails/DetailsPage";
 import UserAndClanTab from "../components/dashboard/dashboard/userAndClan/UserAndClan";
+import FixtureBracket from "../components/dashboard/fixture/FixtureBracket/Bracket";
 import MainFixture from "../components/dashboard/fixture/MainFixture";
 import { Layout } from "../components/dashboard/Layout";
 import Leaderboards from "../components/leaderboards/Leaderboards/Leaderboards";
@@ -120,7 +121,7 @@ export const routes = [
       { path: "/dashboard/tournaments", element: <ScrollToTop pathname="/dashboard/tournaments"><Tournaments /></ScrollToTop> },
       { path: "/dashboard/tournaments/:id", element: <ScrollToTop pathname="/dashboard/tournaments/:id"> <DetailsPage /> </ScrollToTop> },
       { path: "/dashboard/fixture", element: <ScrollToTop pathname="/dashboard/fixture"><MainFixture /></ScrollToTop> },
-      { path: "/dashboard/fixture/:id", element: <ScrollToTop pathname="/dashboard/fixture/:id"> <UnderConstructionTwo /> </ScrollToTop> },
+      { path: "/dashboard/fixture/:id", element: <ScrollToTop pathname="/dashboard/fixture/:id"> <FixtureBracket /> </ScrollToTop> },
       { path: "/dashboard/leaderBoards", element: <ScrollToTop pathname="/dashboard/leaderBoards"><LeaderTab /></ScrollToTop> },
       { path: "/dashboard/tournaments/addTournaments", element: <ScrollToTop pathname="/dashboard/tournaments/addTournaments"><TournamentForm /></ScrollToTop> },
       { path: "/dashboard/award", element: <ScrollToTop pathname="/dashboard/award"><MainAward /></ScrollToTop> },

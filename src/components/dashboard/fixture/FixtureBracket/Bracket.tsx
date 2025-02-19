@@ -31,7 +31,7 @@ const BlackTheme = createTheme({
   },
 });
 
-const Bracket: React.FC = () => {
+const FixtureBracket: React.FC = () => {
   const { width } = useDeviceSize()
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-transparent container section-gap overflow-auto">
@@ -95,4 +95,4 @@ const Bracket: React.FC = () => {
   );
 };
 
-export default Bracket;
+export default FixtureBracket;
