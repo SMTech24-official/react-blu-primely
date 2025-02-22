@@ -14,6 +14,7 @@ import UserAndClanTab from "../components/dashboard/dashboard/userAndClan/UserAn
 import FixtureBracket from "../components/dashboard/fixture/FixtureBracket/Bracket";
 import MainFixture from "../components/dashboard/fixture/MainFixture";
 import { Layout } from "../components/dashboard/Layout";
+import PaymentDetails from "../components/dashboard/payment/PaymentDetails";
 import Leaderboards from "../components/leaderboards/Leaderboards/Leaderboards";
 import NotFound from "../components/others/NotFound";
 import TournamentDetailsPage from "../components/TournamentDetails/TournamentDetailsPage";
@@ -125,6 +126,7 @@ export const routes = [
       { path: "/dashboard/tournaments/addTournaments", element: <ScrollToTop pathname="/dashboard/tournaments/addTournaments"><TournamentForm /></ScrollToTop> },
       { path: "/dashboard/award", element: <ScrollToTop pathname="/dashboard/award"><MainAward /></ScrollToTop> },
       { path: "/dashboard/payment", element: <ScrollToTop pathname="/dashboard/payment"><Payment /></ScrollToTop> },
+      { path: "/dashboard/payment/:id", element: <ScrollToTop pathname="/dashboard/payment"><PaymentDetails /></ScrollToTop> },
 
       { path: "/dashboard/user-clan", element: <ScrollToTop pathname="/dashboard/user-clan"><UserAndClanTab /></ScrollToTop> },
       { path: "/dashboard/chat", element: <ScrollToTop pathname="/dashboard/user-clan"><CommunicationComponent /></ScrollToTop> },

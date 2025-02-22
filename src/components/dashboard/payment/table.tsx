@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Transaction } from "../../../types/types";
 import { ScrollArea, ScrollBar } from "../../ui/scroll-area";
 import {
@@ -45,6 +46,9 @@ export function PaymentTable({ transactions }: { transactions: Transaction[] }) 
                             <TableHead className="px-4 py-5 text-sm text-primary_highlighted text-nowrap md:text-base">
                                 Status
                             </TableHead>
+                            <TableHead className="px-4 py-5 text-sm text-primary_highlighted text-nowrap md:text-base">
+                                Action
+                            </TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -67,6 +71,11 @@ export function PaymentTable({ transactions }: { transactions: Transaction[] }) 
                                 </TableCell>
                                 <TableCell className={`px-4 py-2 text-white ${getStatusColor(transaction.status)}`}>
                                     {transaction.status}
+                                </TableCell>
+                                <TableCell>
+                                    <Link to={`/dashboard/payment/${transaction.transactionId}`} className="hover:text-primary_highlighted hover:underline transition-all duration-300">
+                                        View
+                                    </Link>
                                 </TableCell>
                             </TableRow>
                         ))}
