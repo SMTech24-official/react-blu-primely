@@ -47,10 +47,10 @@ export function Layout() {
         <div className="flex h-screen overflow-hidden w-full">
             <Sidebar className="hidden md:flex pt-5 bg-fourthColor">
                 <SidebarHeader className=" flex items-center px-4  bg-fourthColor text-white overflow-hidden">
-                    <div className="flex items-center gap-4">
+                    <Link to={"/"} className="flex items-center gap-4">
                         <img src={logo} alt="" className="w-20" />
                         <h1 className="text-xl font-bold">Blue Primel Tournament</h1>
-                    </div>
+                    </Link>
                 </SidebarHeader>
                 <ScrollArea className="flex-grow bg-fourthColor text-white">
                     <SidebarContent className="px-4 mt-4">

@@ -65,7 +65,8 @@ export function AwardTable({ clans }: { clans: Clan[] }) {
     };
 
     return (
-        <div className="rounded-lg">
+        <div className="rounded-lg bg-fourthColor p-4">
+            <p className="font-semibold text-2xl uppercase">Give Award</p>
             <ScrollArea>
                 <Table>
                     <TableHeader>
