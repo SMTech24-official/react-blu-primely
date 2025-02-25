@@ -13,8 +13,11 @@ import {
 } from "../ui/sidebar"
 
 import logo from "@/assets/logo/logo.jpeg"
+import { useState } from "react"
 import { Link, Outlet, useLocation } from "react-router-dom"
 import { menuItems } from "../../lib/fakeData/menuItems"
+import { MainModal } from "../Modal/MainModal"
+import LogOutModal from "../others/LogOutModal"
 import { ScrollArea } from "../ui/scroll-area"
 
 
@@ -40,6 +43,7 @@ export function Layout() {
 
     const { setOpenMobile, isMobile } = useSidebar()
 
+    const [isLogOut, setIsLogOut] = useState(false)
     const location = useLocation();
 
     const isActive = (path: string) => location.pathname === path;
@@ -79,7 +83,7 @@ export function Layout() {
                     <SidebarMenu>
                         <SidebarMenuItem>
                             <SidebarMenuButton asChild>
-                                <a href="/logout" className="flex items-center gap-3">
+                                <a onClick={() => setIsLogOut(true)} className="flex items-center gap-3 hover:cursor-pointer">
                                     <LogOut className="h-4 w-4" />
                                     <span>Logout</span>
                                 </a>
@@ -118,6 +122,9 @@ export function Layout() {
                     <Outlet />
                 </main>
             </SidebarInset>
+            <MainModal isOpen={isLogOut} onClose={() => setIsLogOut(false)} >
+                <LogOutModal />
+            </MainModal>
         </div>
     )
 }
