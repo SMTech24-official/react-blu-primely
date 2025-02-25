@@ -1,9 +1,9 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
-import UnderConstruction from '../others/UnderConstruction';
 import ClanComponents from "../shared/ClanCard/ClanComponents";
 
 
 import logo from "@/assets/tournament/team-logo.png";
+import RecentlyPlayed from './RecentlyPlayed';
 const dummyTeams = [
     {
         teamName: "Team 1",
@@ -72,11 +72,11 @@ const ClanAndGame = () => {
                     {/* Tabs Content */}
                     <TabsContent value="solo">
                         <div className=" rounded-lg shadow-md">
-                            <UnderConstruction />
+                            <RecentlyPlayed />
                         </div>
                     </TabsContent>
                     <TabsContent value="clan">
-                        <div className=" p-6 rounded-lg shadow-md">
+                        <div className="rounded-lg shadow-md">
                             <ClanComponents teams={dummyTeams} />
                         </div>
                     </TabsContent>
