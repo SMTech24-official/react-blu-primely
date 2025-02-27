@@ -77,7 +77,7 @@ export default function OverviewTab() {
                     <div className="grid grid-cols-4 gap-8">
                         <div className="flex flex-col items-center">
                             <div className="css_bg p-[2px] rounded-full mb-2">
-                                <div className="w-32 h-32 rounded-full bg-black flex items-center justify-center ">
+                                <div className="sm:w-32 w-24 h-24 sm:h-32 rounded-full bg-black flex items-center justify-center ">
                                     <span className="text-2xl font-bold">1,245</span>
                                 </div>
                             </div>
@@ -85,7 +85,7 @@ export default function OverviewTab() {
                         </div>
                         <div className="flex flex-col items-center">
                             <div className="css_bg p-[2px] rounded-full mb-2">
-                                <div className="w-32 h-32 rounded-full bg-black flex items-center justify-center ">
+                                <div className="sm:w-32 w-24 h-24 sm:h-32 rounded-full bg-black flex items-center justify-center ">
                                     <span className="text-2xl font-bold">1,245</span>
                                 </div>
                             </div>
@@ -93,7 +93,7 @@ export default function OverviewTab() {
                         </div>
                         <div className="flex flex-col items-center">
                             <div className="css_bg p-[2px] rounded-full mb-2">
-                                <div className="w-32 h-32 rounded-full bg-black flex items-center justify-center ">
+                                <div className="sm:w-32 w-24 h-24 sm:h-32 rounded-full bg-black flex items-center justify-center ">
                                     <span className="text-2xl font-bold">1,245</span>
                                 </div>
                             </div>
@@ -101,7 +101,7 @@ export default function OverviewTab() {
                         </div>
                         <div className="flex flex-col items-center">
                             <div className="css_bg p-[2px] rounded-full mb-2">
-                                <div className="w-32 h-32 rounded-full bg-black flex items-center justify-center ">
+                                <div className="sm:w-32 w-24 h-24 sm:h-32 rounded-full bg-black flex items-center justify-center ">
                                     <span className="text-2xl font-bold">1,245</span>
                                 </div>
                             </div>
