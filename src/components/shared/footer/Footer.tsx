@@ -53,7 +53,7 @@ export default function Footer() {
     ]
 
     return (
-        <footer className="bg-black text-white w-full px-6 py-8">
+        <footer className="bg-black text-white w-full py-8">
             <div className="container mx-auto">
                 <div className="grid grid-cols-1 xl:grid-cols-6 sm:grid-cols-3 md:grid-cols-5 gap-8">
                     {/* Logo and Copyright Notice */}
