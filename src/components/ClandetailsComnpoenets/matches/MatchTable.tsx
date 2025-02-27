@@ -20,22 +20,22 @@ export function MatchTable<T>({ members }: { members: T[] }) {
                 <Table>
                     <TableHeader>
                         <TableRow className="bg-[#161616] ">
-                            <TableHead className="px-4 py-5 text-primary_highlighted text-sm lg:text-base rounded-l-xl">
+                            <TableHead className="px-4 py-5 text-primary_highlighted text-sm text-nowrap lg:text-base rounded-l-xl">
                                 Tournament Name
                             </TableHead>
-                            <TableHead className="px-4 py-5 text-primary_highlighted text-sm md:text-base">
+                            <TableHead className="px-4 py-5 text-primary_highlighted text-sm text-nowrap md:text-base">
                                 Game Mode
                             </TableHead>
-                            <TableHead className="px-4 py-5 text-primary_highlighted text-sm md:text-base">
+                            <TableHead className="px-4 py-5 text-primary_highlighted text-sm text-nowrap md:text-base">
                                 Date & Time
                             </TableHead>
-                            <TableHead className="px-4 py-5 text-primary_highlighted text-sm md:text-base">
+                            <TableHead className="px-4 py-5 text-primary_highlighted text-sm text-nowrap md:text-base">
                                 Opponent
                             </TableHead>
-                            <TableHead className="px-4 py-5 text-primary_highlighted text-sm md:text-base rounded-r-xl">
+                            <TableHead className="px-4 py-5 text-primary_highlighted text-sm text-nowrap md:text-base rounded-r-xl">
                                 Status
                             </TableHead>
-                            <TableHead className="px-4 py-5 text-primary_highlighted text-sm md:text-base rounded-r-xl">
+                            <TableHead className="px-4 py-5 text-primary_highlighted text-sm text-nowrap md:text-base rounded-r-xl">
                                 Details
                             </TableHead>
                         </TableRow>
@@ -46,18 +46,18 @@ export function MatchTable<T>({ members }: { members: T[] }) {
                                 key={member.id}
                                 className="hover:bg-black/20 text-sm md:text-base"
                             >
-                                <TableCell className="font-medium py-6">
+                                <TableCell className="font-medium py-6 text-nowrap">
                                     {member.tournamentName}
                                 </TableCell>
-                                <TableCell>{member.gameMode}</TableCell>
-                                <TableCell>{member.dateTime}</TableCell>
-                                <TableCell>
+                                <TableCell className="text-nowrap">{member.gameMode}</TableCell>
+                                <TableCell className="text-nowrap">{member.dateTime}</TableCell>
+                                <TableCell className="text-nowrap">
                                     {member.opponent}
                                 </TableCell>
-                                <TableCell>
+                                <TableCell className="text-nowrap">
                                     {member.status}
                                 </TableCell>
-                                <TableCell>
+                                <TableCell className="text-nowrap">
                                     <Link to={`/tournament-details/freefire`}>
                                         <span className="hover:text-primary_highlighted hover:cursor-pointer">View Details</span>
                                     </Link>
