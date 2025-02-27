@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 const ClanComponents = ({ teams }: { teams: Teams[] }) => {
 
     return (
-        <div className=" space-y-4 ">
+        <div className=" space-y-4 container sm:mt-0 mt-6">
             <div className="w-full flex items-center justify-between">
                 <h2 className="text-xl font-medium">TEAM</h2>
                 <div className="w-36 text-lg">
