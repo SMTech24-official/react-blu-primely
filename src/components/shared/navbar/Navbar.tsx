@@ -39,7 +39,7 @@ export function Navbar({ navitems }: { navitems: NavPropsTypes[] }) {
                                     key={idx}
                                     to={data.link}
                                     onClick={() => setIsOpen(false)}
-                                    className=" font-medium hover:text-primary_highlighted transition-all duration-300"
+                                    className=" font-medium hover:text-primary_highlighted transition-all duration-300 "
                                 >
                                     {data.name}
                                 </Link>)
@@ -59,7 +59,7 @@ export function Navbar({ navitems }: { navitems: NavPropsTypes[] }) {
                                 key={idx}
                                 to={data.link}
                                 onClick={() => setIsOpen(false)}
-                                className=" font-medium hover:text-primary_highlighted transition-all duration-300 text-nowrap"
+                                className=" font-medium hover:text-primary_highlighted transition-all duration-300 text-nowrap text-base md:text-[15px] lg:text-base"
                             >
                                 {data.name}
                             </Link>)
