@@ -90,6 +90,7 @@ const Bracket: React.FC = () => {
             </div>
           )}
         />
+
       </div>
     </div>
   );

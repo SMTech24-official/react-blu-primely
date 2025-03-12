@@ -1,9 +1,9 @@
-import { Settings, Users, GitBranchPlus, ScrollText } from "lucide-react";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "../../ui/tabs";
-import Rules from "./Rules/Rules";
-import Clan from "./Clan/Clan";
+import { GitBranchPlus, ScrollText, Settings, Users } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
 import Admin from "./Admin/Admin";
-import Bracket from "./Bracket/Bracket";
+import TestBracket from "./Bracket/test/TestBracket";
+import Clan from "./Clan/Clan";
+import Rules from "./Rules/Rules";
 
 
 const TAB_ITEMS = [
@@ -12,7 +12,7 @@ const TAB_ITEMS = [
     value: "bracket",
     label: "BRACKET",
     icon: GitBranchPlus,
-    component: <Bracket />,
+    component: <TestBracket />,
   },
   { value: "clan", label: "CLAN", icon: Users, component: <Clan /> },
   { value: "admin", label: "ADMIN", icon: Settings, component: <Admin /> },
@@ -20,7 +20,7 @@ const TAB_ITEMS = [
 
 export default function TournamentDetailsTab() {
   return (
-    <Tabs defaultValue="rules" className=" section-gap">
+    <Tabs defaultValue="bracket" className=" section-gap">
       <TabsList className="w-full h-10">
         <div className="flex items-center justify-between max-w-7xl mx-auto w-full border-b border-gray-200/40">
           {TAB_ITEMS.map(({ value, label, icon: Icon }) => (
