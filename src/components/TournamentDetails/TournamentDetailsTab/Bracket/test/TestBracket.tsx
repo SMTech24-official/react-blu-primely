@@ -1,9 +1,11 @@
-import Bracket from "./Bracket";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import Bracket from "../Bracket";
+
 
 const TestBracket = () => {
     return (
         <div className="container section-gap">
-            <Bracket teams={8} currentRound={data.currentRound} AllMatches={data.matches} />
+            <Bracket key={1} />
         </div>
     );
 };
@@ -11,7 +13,7 @@ const TestBracket = () => {
 export default TestBracket;
 
 const data = {
-    currentRound: 3,
+    currentRound: 1,
     matches: [
         {
             id: 260001,

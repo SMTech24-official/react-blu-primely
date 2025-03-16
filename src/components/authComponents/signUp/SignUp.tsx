@@ -9,6 +9,8 @@ import Logo from "../../shared/logo/Logo"
 import { Input } from "../../ui/input"
 import { Button } from "../../ui/button"
 import { Link } from "react-router-dom"
+import { useRegisterMutation } from "../../../redux/apis/auth/authApi"
+import Cookies from "js-cookie"
 
 // Form validation schema
 const formSchema = z.object({
@@ -23,23 +25,25 @@ const formSchema = z.object({
         .email("Invalid email address"),
     password: z
         .string()
-        .min(8, "Password must be at least 8 characters")
-        .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
-        .regex(/[a-z]/, "Password must contain at least one lowercase letter")
-        .regex(/[0-9]/, "Password must contain at least one number")
-        .regex(/[^A-Za-z0-9]/, "Password must contain at least one special character"),
+        .min(6, "Password must be at least 6 characters")
+    // .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+    // .regex(/[a-z]/, "Password must contain at least one lowercase letter")
+    // .regex(/[0-9]/, "Password must contain at least one number")
+    // .regex(/[^A-Za-z0-9]/, "Password must contain at least one special character"),
 
 })
-
 type FormData = z.infer<typeof formSchema>
 
 export default function SignupForm() {
     const [isLoading, setIsLoading] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
-    const navigate = useNavigate();
+    const navigate = useNavigate()
+
+    // Use the RTK query mutation hook
+    const [register, { isLoading: isRegistering, error }] = useRegisterMutation()
 
     const {
-        register,
+        register: formRegister,
         handleSubmit,
         formState: { errors },
     } = useForm<FormData>({
@@ -48,19 +52,31 @@ export default function SignupForm() {
 
     const onSubmit = async (data: FormData) => {
         setIsLoading(true)
-        // Simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 1000))
-        console.log(data)
-        setIsLoading(false)
-        navigate("/otp")
+        try {
+            // Call the register API mutation
+            const response = await register({
+                userName: data.name,
+                email: data.email,
+                password: data.password,
+            }).unwrap()
+
+            console.log(response)
+            setIsLoading(false)
+            // Redirect after successful registration
+            Cookies.set('email', data.email)
+            navigate("/otp")
+        } catch (err) {
+            setIsLoading(false)
+            console.error("Registration failed:", err)
+        }
     }
 
     const mounted = useMounted()
     if (!mounted) return null
 
     return (
-        <div className="flex items-center justify-center ">
-            <div className="w-[300px] sm:w-[400px]   p-6 rounded-md bg-gray-500 bg-opacity-15 backdrop-blur-xl backdrop-filter">
+        <div className="flex items-center justify-center">
+            <div className="w-[300px] sm:w-[400px] p-6 rounded-md bg-gray-500 bg-opacity-15 backdrop-blur-xl backdrop-filter">
                 <div className="pt-6">
                     <div className="flex flex-col items-center space-y-6">
                         <Logo />
@@ -76,7 +92,7 @@ export default function SignupForm() {
                                     Enter your Username
                                 </label>
                                 <Input
-                                    {...register("name")}
+                                    {...formRegister("name")}
                                     className="bg-transparent border border-white/10 text-white placeholder:text-white/50"
                                     placeholder="Full name"
                                 />
@@ -88,7 +104,7 @@ export default function SignupForm() {
                             <div className="space-y-2">
                                 <label className="text-sm text-white/70">Email</label>
                                 <Input
-                                    {...register("email")}
+                                    {...formRegister("email")}
                                     type="email"
                                     className="bg-transparent border border-white/10 text-white placeholder:text-white/50"
                                     placeholder="Email address"
@@ -102,7 +118,7 @@ export default function SignupForm() {
                                 <label className="text-sm text-white/70">Password</label>
                                 <div className="relative">
                                     <Input
-                                        {...register("password")}
+                                        {...formRegister("password")}
                                         type={showPassword ? "text" : "password"}
                                         className="bg-transparent border border-white/10 text-white placeholder:text-white/50 pr-10"
                                         placeholder="Create password"
@@ -125,10 +141,10 @@ export default function SignupForm() {
                             </div>
                             <Button
                                 type="submit"
-                                disabled={isLoading}
+                                disabled={isRegistering || isLoading}
                                 className="w-full h-10 bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 text-white"
                             >
-                                {isLoading ? "Signing up..." : "Sign up"}
+                                {isRegistering || isLoading ? "Signing up..." : "Sign up"}
                             </Button>
 
                             <p className="text-center text-white/50 text-sm">
@@ -138,10 +154,14 @@ export default function SignupForm() {
                                 </Link>
                             </p>
                         </form>
+                        {error && (
+                            <p className="text-red-500 text-sm text-center mt-2">
+                                Registration failed. Please try again.
+                            </p>
+                        )}
                     </div>
                 </div>
             </div>
         </div>
     )
 }
-

@@ -1,6 +1,3 @@
-
-
-
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Eye, EyeOff } from "lucide-react"
 import { useState } from "react"
@@ -12,17 +9,17 @@ import Logo from "../../shared/logo/Logo"
 import { Input } from "../../ui/input"
 import { Link } from "react-router-dom"
 import { Button } from "../../ui/button"
-
+import { useLoginMutation } from "../../../redux/apis/auth/authApi"
+import Cookies from "js-cookie"
+import { jwtDecode } from "jwt-decode";
+import { useAppDispatch } from "../../../redux/hooks"
+import { setUser } from "../../../redux/slice/auth/authSlice"
 // Form validation schema
 const formSchema = z.object({
     email: z.string().email("Invalid email address").min(1, "Email is required"),
     password: z
         .string()
-        .min(8, "Password must be at least 8 characters")
-        .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
-        .regex(/[a-z]/, "Password must contain at least one lowercase letter")
-        .regex(/[0-9]/, "Password must contain at least one number")
-        .regex(/[^A-Za-z0-9]/, "Password must contain at least one special character"),
+        .min(6, "Password must be at least 6 characters"),
 })
 
 type FormData = z.infer<typeof formSchema>
@@ -30,50 +27,55 @@ type FormData = z.infer<typeof formSchema>
 export default function SignInForm() {
     const [isLoading, setIsLoading] = useState(false)
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<FormData>({
+    const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
         resolver: zodResolver(formSchema),
     })
 
     const [showPassword, setShowPassword] = useState(false)
 
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
+    const [login] = useLoginMutation()  // Use login mutation hook
+    const dispatch = useAppDispatch()
 
     const onSubmit = async (data: FormData) => {
         setIsLoading(true)
-        // Simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 1000))
-        console.log(data)
-        setIsLoading(false)
-        navigate("/")
-    }
+        try {
+            // Call the login mutation
+            const response = await login(data).unwrap()
 
+            // Handle successful login (store token, redirect, etc.)
+            console.log(response?.data.accessToken)
+            if (response?.data.accessToken) {
+                Cookies.set('token', response?.data.accessToken)
+                const decodedUser = jwtDecode(response.data.accessToken);
+                console.log(decodedUser);
+                dispatch(setUser({ decodedUser, token: response.data.accessToken })); // Store user in Redux
+            }
+            navigate("/") // Redirect to home or dashboard after login
+        } catch (error) {
+            console.error("Login failed", error)
+            // Handle errors (e.g., display an error message)
+        } finally {
+            setIsLoading(false)
+        }
+    }
 
     const mounted = useMounted()
     if (!mounted) return null
 
     return (
         <div className="flex items-center justify-center">
-            <div className="w-[300px] sm:w-[400px]  p-6 rounded-md bg-gray-500 bg-opacity-15 backdrop-blur-xl backdrop-filter">
-
+            <div className="w-[300px] sm:w-[400px] p-6 rounded-md bg-gray-500 bg-opacity-15 backdrop-blur-xl backdrop-filter">
                 <div className="pt-6">
                     <div className="flex flex-col items-center space-y-6">
                         <Logo />
                         <h1 className="text-white/90 text-center text-lg">
                             Welcome back to Blu Primary Tournaments
                         </h1>
-                        <form
-                            onSubmit={handleSubmit(onSubmit)}
-                            className="w-full space-y-4"
-                        >
+                        <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-4">
                             <div className="space-y-2">
-                                <label className="text-sm text-white/70">
-                                    Enter your email
-                                </label>
+                                <label className="text-sm text-white/70">Enter your email</label>
                                 <Input
                                     {...register("email")}
                                     className="bg-transparent border border-white/10 text-white placeholder:text-white/50"
@@ -119,7 +121,7 @@ export default function SignInForm() {
                             <Button
                                 type="submit"
                                 disabled={isLoading}
-                                className="w-full  h-10 bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 text-white"
+                                className="w-full h-10 bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 text-white"
                             >
                                 {isLoading ? "Logging in..." : "Log In"}
                             </Button>
@@ -137,4 +139,3 @@ export default function SignInForm() {
         </div>
     )
 }
-

@@ -9,6 +9,8 @@ import { useMounted } from "../../../hooks/useMounted";
 import Logo from "../../shared/logo/Logo";
 import { Button } from "../../ui/button";
 import { Input } from "../../ui/input";
+import { useVerifyOtpMutation } from "../../../redux/apis/auth/authApi";
+import Cookies from "js-cookie";
 
 // OTP validation schema
 const otpSchema = z.object({
@@ -20,32 +22,41 @@ type FormData = z.infer<typeof otpSchema>;
 function OtpVerificationComponent() {
     const [isLoading, setIsLoading] = useState(false);
     const query = useSearchParams();
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<FormData>({
+    const navigate = useNavigate();
+    const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
         resolver: zodResolver(otpSchema),
     });
 
-    const navigate = useNavigate();
-
+    const [verifyOtp] = useVerifyOtpMutation(); // API hook for verifyOtp
 
     const onSubmit = async (data: FormData) => {
         console.log(data);
         setIsLoading(true);
-        // Simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        setIsLoading(false);
-        if (query.toString() === "t=forget-password") {
-            navigate(`/change-password`);
-        } else {
-            navigate(`/signIn`);
+        const email = Cookies.get("email")
+        try {
+            const response = await verifyOtp({ email: email!, otp: data.otp }).unwrap(); // replace with dynamic email value if needed
+
+            if (response.success) {
+                // Save the accessToken if needed (e.g., in context or localStorage)
+                // Navigate based on query parameter
+                if (query.toString() === "t=forget-password") {
+                    navigate(`/change-password`);
+                } else {
+                    navigate(`/signIn`);
+                }
+            } else {
+                // Handle failed OTP verification (e.g., show error message)
+                console.error("OTP verification failed", response);
+            }
+        } catch (error) {
+            console.error("Error verifying OTP", error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
-    const mounted = useMounted()
-    if (!mounted) return null
+    const mounted = useMounted();
+    if (!mounted) return null;
 
     return (
         <div className="flex items-center justify-center">

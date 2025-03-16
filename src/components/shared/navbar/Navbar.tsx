@@ -2,7 +2,8 @@ import { DialogTitle } from "@radix-ui/react-dialog"
 import { Menu } from 'lucide-react'
 import * as React from "react"
 import { Link } from "react-router-dom"
-import avater from "../../../assets/player/avater 1.jpg"
+import placeholder from "../../../assets/placeholder/profile.png"
+import useAuthUser from "../../../hooks/useGetMe"
 import { NavPropsTypes } from "../../../types/types"
 import { Button } from "../../ui/button"
 import {
@@ -14,9 +15,11 @@ import Logo from "../logo/Logo"
 import PrimaryButton from "../primaryButton"
 
 
-
 export function Navbar({ navitems }: { navitems: NavPropsTypes[] }) {
     const [isOpen, setIsOpen] = React.useState(false)
+    const { user, isLoading } = useAuthUser();
+    console.log(user, isLoading);
+
     return (
         <header className="my-4 mx-2 lg:mx-0 ">
             <div className="container flex justify-between items-center border md:px-14 px-4  py-3 md:py-3 border-bg_secondary rounded-lg">
@@ -67,21 +70,22 @@ export function Navbar({ navitems }: { navitems: NavPropsTypes[] }) {
                     </nav>
                 </div>
                 <div className="flex items-center sm:justify-end sm:space-x-4 ">
-                    <PrimaryButton to="/signIn" parent="rounded-md lg:block hidden" child="rounded-md px-10">
-                        <div className="">Sign In</div>
-                    </PrimaryButton>
-                    <li className="cursor-pointer lg:text-lg text-base flex items-center gap-1 group relative ">
-                        <div className="css_bg p-[2px] rounded-full">
-                            <img src={avater} alt="your avater" className="w-12 rounded-full" />
-                        </div>
-                        <ul className="p-2 scale-0 group-hover:scale-100 absolute top-12 right-0 sm:-right-2  transform origin-top-left  transition-transform z-50">
-                            <ul className="flex flex-col gap-2 p-4 w-36 rounded-md shadow-md text-white bg-black z-50">
-                                <Link to={"/profile"} className="cursor-pointer  text-base hover:font-semibold hover:text-hover_Color">Profile</Link>
-                                <Link to={"/chat"} className="cursor-pointer  text-base hover:font-semibold hover:text-hover_Color">Chat</Link>
-                                <Link to={"/invitations"} className="cursor-pointer  text-base hover:font-semibold hover:text-hover_Color">Invitations</Link>
+                    {
+                        user ? <li className="cursor-pointer lg:text-lg text-base flex items-center gap-1 group relative ">
+                            <div className="css_bg p-[2px] rounded-full">
+                                <img src={user.profilePicture || placeholder} alt="your avater" className="w-12 h-12 rounded-full" />
+                            </div>
+                            <ul className="p-2 scale-0 group-hover:scale-100 absolute top-12 right-0 sm:-right-2  transform origin-top-left  transition-transform z-50">
+                                <ul className="flex flex-col gap-2 p-4 w-36 rounded-md shadow-md text-white bg-black z-50">
+                                    <Link to={"/profile"} className="cursor-pointer  text-base hover:font-semibold hover:text-hover_Color">Profile</Link>
+                                    <Link to={"/chat"} className="cursor-pointer  text-base hover:font-semibold hover:text-hover_Color">Chat</Link>
+                                    <Link to={"/invitations"} className="cursor-pointer  text-base hover:font-semibold hover:text-hover_Color">Invitations</Link>
+                                </ul>
                             </ul>
-                        </ul>
-                    </li>
+                        </li> : <PrimaryButton to="/signIn" parent="rounded-md lg:block hidden" child="rounded-md px-10">
+                            <div className="">Sign In</div>
+                        </PrimaryButton>
+                    }
                 </div>
             </div>
         </header>
