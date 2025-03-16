@@ -1,26 +1,26 @@
 // Importing necessary assets and components
 import fortnite from "@/assets/banner/joysticks-dark-background.jpg";
-import avater from "@/assets/player/avater 1.jpg";
 import earn from "@/assets/rankAndTrophies/earn.png";
 import rank from "@/assets/rankAndTrophies/rank.png";
 import trophy from "@/assets/rankAndTrophies/trophy.png";
 import { Edit, Edit2Icon } from "lucide-react";
 import { useState } from "react";
+import placeholder from "../../assets/placeholder/profile.png";
+import useAuthUser from "../../hooks/useGetMe";
 import { MainModal } from "../Modal/MainModal";
 import LogoLike from "../others/LogoLike";
 import { Button } from "../ui/button";
 import CreateClan from "./Createclan";
 import EditProfile from "./EditProfile";
 
-
 // Profile Component
 const ProfilePage = () => {
 
     const [editProfile, setEditProfile] = useState(false)
     const [createClan, setCreateClan] = useState(false)
+    const { user } = useAuthUser();
 
-
-
+    console.log(user);
     return (
         <div className="relative">
             {/* Background Image Section */}
@@ -40,7 +40,7 @@ const ProfilePage = () => {
                         <div className="relative">
                             <div className="css_bg p-[1px] rounded-full">
                                 {/* Avatar Image */}
-                                <img src={avater} alt="your avatar" className="lg:w-32 w-24 h-24 md:w-28 md:h-28 lg:h-32 rounded-full" />
+                                <img src={user?.profilePicture || placeholder} alt="your avatar" className="lg:w-32 w-24 h-24 md:w-28 md:h-28 lg:h-32 rounded-full" />
                             </div>
                             <button onClick={() => setEditProfile(true)} className="absolute right-2 bg-card_bg text-white rounded-full top-16 md:top-20 lg:top-24 p-2">
                                 <Edit2Icon className="w-5 h-5" />
@@ -51,7 +51,7 @@ const ProfilePage = () => {
                             <div className="flex flex-wrap items-center gap-4 md:gap-6 lg:gap-10">
                                 <div>
                                     {/* Username */}
-                                    <h2 className="md:text-[30px] text-xl lg:text-[40px] font-semibold">Tahsin0909</h2>
+                                    <h2 className="md:text-[30px] text-xl lg:text-[40px] font-semibold">{user?.fullName || user?.userName}</h2>
                                 </div>
 
                                 {/* Elite Member Badge */}
@@ -78,7 +78,9 @@ const ProfilePage = () => {
 
                             {/* Joined Date */}
                             <div>
-                                <p className="text-base lg:text-[20px]">Joined : 90/09/23234</p>
+                                <p className="text-base lg:text-[20px]">
+                                    Joined: {user ? new Date(user.createdAt).toLocaleDateString() : "N/A"}
+                                </p>
                             </div>
 
                             {/* Game IDs */}

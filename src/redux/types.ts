@@ -20,6 +20,7 @@ export interface UserProfile {
   profilePicture?: string | null;
   coverPicture?: string | null;
   isOnline: boolean;
+  createdAt: string;
 }
 
 export interface RegisterRequest {
