@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Eye, EyeOff } from "lucide-react"
 import { useState } from "react"
@@ -14,6 +15,7 @@ import Cookies from "js-cookie"
 import { jwtDecode } from "jwt-decode";
 import { useAppDispatch } from "../../../redux/hooks"
 import { setUser } from "../../../redux/slice/auth/authSlice"
+import { toast } from "sonner"
 // Form validation schema
 const formSchema = z.object({
     email: z.string().email("Invalid email address").min(1, "Email is required"),
@@ -45,16 +47,20 @@ export default function SignInForm() {
             const response = await login(data).unwrap()
 
             // Handle successful login (store token, redirect, etc.)
-            console.log(response?.data.accessToken)
+
             if (response?.data.accessToken) {
                 Cookies.set('token', response?.data.accessToken)
-                const decodedUser = jwtDecode(response.data.accessToken);
+                const decodedUser = jwtDecode(response.data.accessToken as string) as { userName: string };
                 console.log(decodedUser);
                 dispatch(setUser({ decodedUser, token: response.data.accessToken })); // Store user in Redux
+                toast.success(`Welcome ${decodedUser.userName}`);
+                navigate("/") // Redirect to home or dashboard after login
             }
-            navigate("/") // Redirect to home or dashboard after login
-        } catch (error) {
-            console.error("Login failed", error)
+
+            // toast.success("User Logged In Succes")
+
+        } catch (error: any) {
+            toast.error(error.data.message)
             // Handle errors (e.g., display an error message)
         } finally {
             setIsLoading(false)

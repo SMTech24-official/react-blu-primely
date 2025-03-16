@@ -106,7 +106,7 @@ export const routes = [
     element: <AuthLayout ><ForgetPasswordPage /> </AuthLayout>,
   },
   {
-    path: "/change-password",
+    path: "/reset-password",
     element: <AuthLayout ><NewPasswordForm /> </AuthLayout>,
   },
   {

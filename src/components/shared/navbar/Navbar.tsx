@@ -17,8 +17,7 @@ import PrimaryButton from "../primaryButton"
 
 export function Navbar({ navitems }: { navitems: NavPropsTypes[] }) {
     const [isOpen, setIsOpen] = React.useState(false)
-    const { user, isLoading } = useAuthUser();
-    console.log(user, isLoading);
+    const { user, handleLogout } = useAuthUser();
 
     return (
         <header className="my-4 mx-2 lg:mx-0 ">
@@ -80,6 +79,7 @@ export function Navbar({ navitems }: { navitems: NavPropsTypes[] }) {
                                     <Link to={"/profile"} className="cursor-pointer  text-base hover:font-semibold hover:text-hover_Color">Profile</Link>
                                     <Link to={"/chat"} className="cursor-pointer  text-base hover:font-semibold hover:text-hover_Color">Chat</Link>
                                     <Link to={"/invitations"} className="cursor-pointer  text-base hover:font-semibold hover:text-hover_Color">Invitations</Link>
+                                    <p onClick={handleLogout} className=" text-primary_highlighted font-semibold">LogOut</p>
                                 </ul>
                             </ul>
                         </li> : <PrimaryButton to="/signIn" parent="rounded-md lg:block hidden" child="rounded-md px-10">

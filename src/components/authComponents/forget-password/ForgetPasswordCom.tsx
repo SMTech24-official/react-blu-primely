@@ -1,28 +1,26 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { handleAsyncWithToast } from "../../../helper/handleAsyncWithToast";
+import { useMounted } from "../../../hooks/useMounted";
+import { useForgotPasswordMutation } from "../../../redux/apis/auth/authApi";
+import Logo from "../../shared/logo/Logo";
+import { Button } from "../../ui/button";
+import { Input } from "../../ui/input";
 
-
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { useNavigate } from "react-router-dom"
-import * as z from "zod"
-import { useMounted } from "../../../hooks/useMounted"
-import Logo from "../../shared/logo/Logo"
-import { Input } from "../../ui/input"
-import { Button } from "../../ui/button"
 
 // Form validation schema
 const formSchema = z.object({
-    email: z
-        .string()
-        .min(1, "Email is required")
-        .email("Invalid email address"),
+    email: z.string().min(1, "Email is required").email("Invalid email address"),
 });
 
-
-type FormData = z.infer<typeof formSchema>
+type FormData = z.infer<typeof formSchema>;
 
 export default function ForgetPasswordPage() {
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
+    // const navigate = useNavigate();
+    const [forgotPassword] = useForgotPasswordMutation(); // Mutation hook
 
     const {
         register,
@@ -30,37 +28,36 @@ export default function ForgetPasswordPage() {
         formState: { errors },
     } = useForm<FormData>({
         resolver: zodResolver(formSchema),
-    })
-
-    const navigate = useNavigate();
-
+    });
 
     const onSubmit = async (data: FormData) => {
-        setIsLoading(true)
-        // Simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 1000))
-        console.log(data)
-        setIsLoading(false)
-        navigate("/otp?t=forget-password")
-    }
+        setIsLoading(true);
+        try {
+            await handleAsyncWithToast(
+                () => forgotPassword(data).unwrap(),
+                "Sending reset link...",
+                "Password reset link sent successfully!",
+                "Failed to send reset link. Please try again."
+            );
+            // navigate("/otp?t=forget-password");
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
-    const mounted = useMounted()
-    if (!mounted) return null
-
+    const mounted = useMounted();
+    if (!mounted) return null;
 
     return (
         <div className="flex items-center justify-center">
-            <div className="w-[300px] sm:w-[400px]  bg-transparent border-0 p-6 bg-gray-600 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-40  border-gray-100">
+            <div className="w-[300px] sm:w-[400px] bg-transparent border-0 p-6 bg-gray-600 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-40 border-gray-100">
                 <div className="pt-6">
                     <div className="flex flex-col items-center space-y-6">
                         <Logo />
                         <h1 className="text-white/90 text-center text-lg">
                             Recover Your Account!
                         </h1>
-                        <form
-                            onSubmit={handleSubmit(onSubmit)}
-                            className="w-full space-y-4"
-                        >
+                        <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-4">
                             <div className="space-y-2">
                                 <label className="text-sm text-white/70">
                                     Please Enter your Email
@@ -87,6 +84,5 @@ export default function ForgetPasswordPage() {
                 </div>
             </div>
         </div>
-    )
+    );
 }
-

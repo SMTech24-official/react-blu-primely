@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { useDispatch } from "react-redux";
-import { setUser } from "../redux/slice/auth/authSlice";
+import { logout, setUser } from "../redux/slice/auth/authSlice";
 import { useGetUserByIdQuery } from "../redux/apis/auth/userApi";
+import { useNavigate } from "react-router-dom";
 
 interface DecodedToken {
   id: string; // Ensure this matches your JWT payload
@@ -13,7 +14,7 @@ interface DecodedToken {
 const useAuthUser = () => {
   const dispatch = useDispatch();
   const [userId, setUserId] = useState<string | null>(null);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const token = Cookies.get("token");
     console.log(token);
@@ -46,7 +47,12 @@ const useAuthUser = () => {
     }
   }, [data, dispatch]);
 
-  return { user: data?.data || null, isLoading, error };
+  const handleLogout = () => {
+    Cookies.remove("token");
+    dispatch(logout()); // Reset Redux store
+    navigate("/signIn"); // Redirect to sign-in page
+  };
+  return { user: data?.data || null, isLoading, error, handleLogout };
 };
 
 export default useAuthUser;

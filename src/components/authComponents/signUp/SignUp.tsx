@@ -11,6 +11,7 @@ import { Button } from "../../ui/button"
 import { Link } from "react-router-dom"
 import { useRegisterMutation } from "../../../redux/apis/auth/authApi"
 import Cookies from "js-cookie"
+import { handleAsyncWithToast } from "../../../helper/handleAsyncWithToast"
 
 // Form validation schema
 const formSchema = z.object({
@@ -53,14 +54,15 @@ export default function SignupForm() {
     const onSubmit = async (data: FormData) => {
         setIsLoading(true)
         try {
+            await handleAsyncWithToast(
+                async () => register({
+                    userName: data.name,
+                    email: data.email,
+                    password: data.password,
+                }).unwrap(),
+                "verifying...",
+            );
             // Call the register API mutation
-            const response = await register({
-                userName: data.name,
-                email: data.email,
-                password: data.password,
-            }).unwrap()
-
-            console.log(response)
             setIsLoading(false)
             // Redirect after successful registration
             Cookies.set('email', data.email)
