@@ -10,17 +10,18 @@ import { Button } from "../../ui/button"
 import { Input } from "../../ui/input"
 import { useResetPasswordMutation } from "../../../redux/apis/auth/authApi"
 import Cookies from "js-cookie"
+import { toast } from "sonner"
 
 // Password validation schema
 const passwordSchema = z
     .object({
         password: z
             .string()
-            .min(6, "Password must be at least 6 characters"),
-        // .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
-        // .regex(/[a-z]/, "Password must contain at least one lowercase letter")
-        // .regex(/[0-9]/, "Password must contain at least one number")
-        // .regex(/[^A-Za-z0-9]/, "Password must contain at least one special character"),
+            .min(6, "Password must be at least 6 characters")
+            .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+            .regex(/[a-z]/, "Password must contain at least one lowercase letter")
+            .regex(/[0-9]/, "Password must contain at least one number")
+            .regex(/[^A-Za-z0-9]/, "Password must contain at least one special character"),
         confirmPassword: z.string(),
     })
     .refine((data) => data.password === data.confirmPassword, {
@@ -52,7 +53,7 @@ export default function NewPasswordForm() {
 
     const onSubmit = async (data: FormData) => {
         if (!userId) {
-            alert("Invalid password reset request.")
+            toast.error("Invalid password reset request.")
             return
         }
 
@@ -61,14 +62,14 @@ export default function NewPasswordForm() {
         try {
             const response = await resetPassword({ userId, password: data.password }).unwrap()
             if (response.success) {
-                alert("Password updated successfully! Redirecting to login...")
+                toast.success("Password updated successfully! Redirecting to login...")
                 navigate("/signIn")
             } else {
-                alert(response.message || "Failed to update password.")
+                toast.error(response.message || "Failed to update password.")
             }
         } catch (error) {
             console.log(error);
-            alert("Something went wrong. Please try again.")
+            toast.error("Something went wrong. Please try again.")
         } finally {
             setIsLoading(false)
         }
