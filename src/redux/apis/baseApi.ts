@@ -5,8 +5,8 @@ import Cookies from "js-cookie";
 export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: fetchBaseQuery({
-    // baseUrl: "https://oggt-cxcv-backend.vercel.app", // Your backend base URL
-    baseUrl: "http://10.0.10.41:5000/api/v1", // Your backend base URL
+    baseUrl: "https://oggt-cxcv-backend.vercel.app", // Your backend base URL
+    // baseUrl: "http://10.0.10.41:5000/api/v1", // Your backend base URL
     credentials: "include",
     prepareHeaders: (headers) => {
       // Get the token or any required data from the state
