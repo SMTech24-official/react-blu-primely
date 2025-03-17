@@ -61,6 +61,17 @@ export const authApi = baseApi.injectEndpoints({
         body,
       }),
     }),
+
+    sendOtp: builder.mutation<
+      { success: boolean; message: string; data: { message: string } },
+      { email: string }
+    >({
+      query: (body) => ({
+        url: "/auth/send-otp",
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
@@ -71,4 +82,5 @@ export const {
   useVerifyOtpMutation,
   useForgotPasswordMutation,
   useResetPasswordMutation,
+  useSendOtpMutation,
 } = authApi;
