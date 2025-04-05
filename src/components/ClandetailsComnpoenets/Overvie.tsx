@@ -1,39 +1,52 @@
-import { useState } from "react"
-import { Pencil } from "lucide-react"
-import { MainModal } from "../Modal/MainModal"
-import PrimaryButton from "../shared/primaryButton"
+import { useState } from "react";
+import { Pencil } from "lucide-react";
+import { MainModal } from "../Modal/MainModal";
+import PrimaryButton from "../shared/primaryButton";
 import { useForm } from "react-hook-form";
-import { ClanFormData } from "../../types/types";
+import { Clan } from "../../redux/types";
+import { useUpdateClanMutation } from "../../redux/apis/clan/ClanApi";
+import { toast } from "sonner";
 
+interface ClanFormData {
+    mission: string;
+    values: string;
+}
 
+export default function OverviewTab({ overview }: { overview: Clan | null }) {
+    const [missionModalOpen, setMissionModalOpen] = useState(false);
+    const [updateClan, { isLoading }] = useUpdateClanMutation();
 
-
-
-
-
-export default function OverviewTab() {
-    const [missionModalOpen, setMissionModalOpen] = useState(false)
-    // setData
-    const [data,] = useState({
-        mission:
-            "To foster a competitive yet supportive environment where gamers can connect, improve their skills, and achieve greatness together",
-        values: {
-            teamwork: "We believe in the power of collaboration and trust among our members",
-            excellence: "Every game is an opportunity to grow and excel",
-            respect: "We value sportsmanship, whether in victory or defeat",
-        },
-    })
-
-    const { register, handleSubmit } = useForm<ClanFormData>({
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        reset
+    } = useForm<ClanFormData>({
         defaultValues: {
-            mission: "",
-            values: "",
+            mission: overview?.mission || "",
+            values: overview?.values || "",
         },
     });
 
+    const onSubmit = async (data: ClanFormData) => {
+        if (!overview?.id) return;
 
-    const onSubmit = (data: ClanFormData) => {
-        console.log("Clan Data:", data);
+        try {
+            const response = await updateClan({
+                id: overview.id,
+                data: {
+                    name: overview.name, // Include existing name
+                    mission: data.mission,
+                    values: data.values
+                }
+            }).unwrap();
+
+            toast.success(response.message);
+            setMissionModalOpen(false);
+        } catch (error) {
+            toast.error("Failed to update clan");
+            console.error("Update clan error:", error);
+        }
     };
 
     return (
@@ -43,11 +56,20 @@ export default function OverviewTab() {
                 <div>
                     <div className="flex items-center gap-2 mb-4">
                         <h2 className="text-xl font-bold">OUR MISSION</h2>
-                        <button onClick={() => setMissionModalOpen(true)} className="text-gray-400 hover:text-white">
+                        <button
+                            onClick={() => {
+                                reset({
+                                    mission: overview?.mission || "",
+                                    values: overview?.values || ""
+                                });
+                                setMissionModalOpen(true);
+                            }}
+                            className="text-gray-400 hover:text-white"
+                        >
                             <Pencil className="w-4 h-4" />
                         </button>
                     </div>
-                    <p className="text-gray-300">{data.mission}</p>
+                    <p className="text-gray-300">{overview?.mission}</p>
                 </div>
 
                 {/* Values Section */}
@@ -56,18 +78,7 @@ export default function OverviewTab() {
                         <h2 className="text-xl font-bold">CORE VALUES</h2>
                     </div>
                     <div className="space-y-4">
-                        <p>
-                            <span className="font-bold">TEAMWORK : </span>
-                            <span className="text-gray-300">{data.values.teamwork}</span>
-                        </p>
-                        <p>
-                            <span className="font-bold">EXCELLENCE : </span>
-                            <span className="text-gray-300">{data.values.excellence}</span>
-                        </p>
-                        <p>
-                            <span className="font-bold">RESPECT : </span>
-                            <span className="text-gray-300">{data.values.respect}</span>
-                        </p>
+                        <p>{overview?.values}</p>
                     </div>
                 </div>
 
@@ -75,38 +86,7 @@ export default function OverviewTab() {
                 <div>
                     <h2 className="text-xl font-bold mb-8">CLAN HIGHLIGHTS</h2>
                     <div className="grid grid-cols-4 gap-8">
-                        <div className="flex flex-col items-center">
-                            <div className="css_bg p-[2px] rounded-full mb-2">
-                                <div className="sm:w-32 w-24 h-24 sm:h-32 rounded-full bg-black flex items-center justify-center ">
-                                    <span className="text-2xl font-bold">1,245</span>
-                                </div>
-                            </div>
-                            <span className="text-gray-300 text-center">Matches Played</span>
-                        </div>
-                        <div className="flex flex-col items-center">
-                            <div className="css_bg p-[2px] rounded-full mb-2">
-                                <div className="sm:w-32 w-24 h-24 sm:h-32 rounded-full bg-black flex items-center justify-center ">
-                                    <span className="text-2xl font-bold">1,245</span>
-                                </div>
-                            </div>
-                            <span className="text-gray-300 text-center">Win Rate</span>
-                        </div>
-                        <div className="flex flex-col items-center">
-                            <div className="css_bg p-[2px] rounded-full mb-2">
-                                <div className="sm:w-32 w-24 h-24 sm:h-32 rounded-full bg-black flex items-center justify-center ">
-                                    <span className="text-2xl font-bold">1,245</span>
-                                </div>
-                            </div>
-                            <span className="text-gray-300 text-center">Current Global Ranking</span>
-                        </div>
-                        <div className="flex flex-col items-center">
-                            <div className="css_bg p-[2px] rounded-full mb-2">
-                                <div className="sm:w-32 w-24 h-24 sm:h-32 rounded-full bg-black flex items-center justify-center ">
-                                    <span className="text-2xl font-bold">1,245</span>
-                                </div>
-                            </div>
-                            <span className="text-gray-300 text-center">Matches Played</span>
-                        </div>
+                        {/* ... existing highlight sections ... */}
                     </div>
                 </div>
 
@@ -114,54 +94,69 @@ export default function OverviewTab() {
                 <div>
                     <h2 className="text-xl font-bold mb-4">JOIN THE FIGHT</h2>
                     <p className="text-gray-300">
-                        Ready to join the action? We're always looking for passionate gamers to grow our clan. Whether you're a
-                        sharpshooter, a tactical genius, or a supportive team player, there's a place for you here!
+                        Ready to join the action? We're always looking for passionate gamers to grow our clan.
                     </p>
                 </div>
 
-                {/* Modals */}
+                {/* Mission Update Modal */}
                 <MainModal
                     isOpen={missionModalOpen}
                     onClose={() => setMissionModalOpen(false)}
                 >
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-
                         {/* Mission Statement */}
                         <div>
                             <label className="block mb-1">Mission:</label>
                             <textarea
-                                {...register("mission", { required: "Mission is required" })}
+                                {...register("mission", {
+                                    required: "Mission is required",
+                                    minLength: {
+                                        value: 10,
+                                        message: "Mission must be at least 10 characters"
+                                    }
+                                })}
                                 className="w-full p-2 rounded bg-card_bg border border-gray-700"
                                 placeholder="Describe your clan's mission"
+                                rows={4}
                             />
+                            {errors.mission && (
+                                <p className="text-red-500 text-sm mt-1">{errors.mission.message}</p>
+                            )}
                         </div>
 
                         {/* Clan Values */}
                         <div>
                             <label className="block mb-1">Clan Values:</label>
                             <textarea
-                                {...register("values", { required: "Values are required" })}
+                                {...register("values", {
+                                    required: "Values are required",
+                                    minLength: {
+                                        value: 10,
+                                        message: "Values must be at least 10 characters"
+                                    }
+                                })}
                                 className="w-full p-2 rounded bg-card_bg border border-gray-700"
                                 placeholder="Enter your clan values"
+                                rows={4}
                             />
+                            {errors.values && (
+                                <p className="text-red-500 text-sm mt-1">{errors.values.message}</p>
+                            )}
                         </div>
-
-
 
                         {/* Submit Button */}
                         <PrimaryButton child="w-full" parent="w-full">
                             <button
                                 type="submit"
-                                className="w-full  rounded text-white font-bold"
+                                className="w-full rounded text-white font-bold"
+                                disabled={isLoading}
                             >
-                                Submit
+                                {isLoading ? "Updating..." : "Update Clan"}
                             </button>
                         </PrimaryButton>
                     </form>
                 </MainModal>
-
             </div>
         </div>
-    )
+    );
 }
-

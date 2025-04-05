@@ -82,10 +82,10 @@ export const routes = [
         path: "/profile", element: <ScrollToTop pathname={"/profile"}><Profile /></ScrollToTop>,
       },
       {
-        path: "/chat", element: <ScrollToTop pathname={"/profile"}><ChatPage /></ScrollToTop>,
+        path: "/chat", element: <ScrollToTop pathname={"/chat"}><ChatPage /></ScrollToTop>,
       },
       {
-        path: "/invitations", element: <ScrollToTop pathname={"/profile"}><Invitations /></ScrollToTop>,
+        path: "/invitations", element: <ScrollToTop pathname={"/invitations"}><Invitations /></ScrollToTop>,
       }
     ],
   },

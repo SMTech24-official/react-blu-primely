@@ -1,12 +1,13 @@
-import { Teams } from "../../../types/types";
+import { Clan2 } from "../../../redux/types";
 import ClanCard from "../../allCards/ClanCard/ClanCard";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../ui/select";
+import logo from "@/assets/tournament/team-logo.png";
 
 
 
+const ClanComponents = ({ teams }: { teams: Clan2[] | null }) => {
 
-const ClanComponents = ({ teams }: { teams: Teams[] }) => {
-
+    console.log(teams);
     return (
         <div className=" space-y-4 container sm:mt-0 mt-6">
             <div className="w-full flex items-center justify-between">
@@ -45,11 +46,12 @@ const ClanComponents = ({ teams }: { teams: Teams[] }) => {
             {teams?.map((team, index) => (
                 <ClanCard
                     key={index}
-                    teamName={team.teamName}
-                    teamLogo={team.teamLogo}
-                    players={team.players}
+                    teamName={team.name}
+                    teamLogo={logo}
+                    players={team.ClanMember}
+                    id={team.id}
                     onViewDetails={() =>
-                        console.log(`Viewing details for ${team.teamName}`)
+                        console.log(`Viewing details for ${team.name}`)
                     }
                 />
             ))}

@@ -3,12 +3,13 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 import SecondaryButton from "../../shared/secondaryButton";
 import { ClanCardProps } from "../../../types/types";
 
-
+import logo from "@/assets/tournament/team-logo.png";
 
 export default function ClanCard({
   teamName,
   teamLogo,
   players,
+  id
 }: ClanCardProps) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -16,6 +17,7 @@ export default function ClanCard({
     setIsOpen((prev) => !prev);
   };
 
+  console.log(players);
   return (
     <div className="group mb-2 w-full overflow-hidden rounded-2xl bg-[#1A1B1E] text-white transition-all duration-200 hover:bg-[#22232A]">
       {/* Header Section */}
@@ -52,20 +54,20 @@ export default function ClanCard({
           <div className="space-y-3">
             {players.map((player) => (
               <div
-                key={player.discordId}
+                key={player.user.id}
                 className="flex items-center gap-3 rounded-lg p-2 transition-colors hover:bg-white/5"
               >
                 <img
-                  src={player.avatar}
+                  src={player.user.profilePicture || logo}
                   alt=""
                   width={32}
                   height={32}
                   className="rounded-full"
                 />
                 <div>
-                  <div className="font-medium">{player.name}</div>
+                  <div className="font-medium">{player.user.fullName || player.user.userName}</div>
                   <div className="text-sm text-gray-400">
-                    Corazon#{player.discordId}
+                    Corazon#{player.user.id}
                   </div>
                 </div>
               </div>
@@ -73,7 +75,7 @@ export default function ClanCard({
           </div>
           <div className="mx-auto md:mx-0">
             <SecondaryButton
-              to={`/clan-details/121`}
+              to={`/clan-details/${id}`}
               parent="rounded-md"
               child="rounded-md px-6 lg:px-10"
             >

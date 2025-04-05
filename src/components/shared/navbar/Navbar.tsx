@@ -15,6 +15,8 @@ import Logo from "../logo/Logo"
 import PrimaryButton from "../primaryButton"
 
 
+
+
 export function Navbar({ navitems }: { navitems: NavPropsTypes[] }) {
     const [isOpen, setIsOpen] = React.useState(false)
     const { user, handleLogout } = useAuthUser();
@@ -25,7 +27,7 @@ export function Navbar({ navitems }: { navitems: NavPropsTypes[] }) {
 
                 <Sheet open={isOpen} onOpenChange={setIsOpen}>
                     <SheetTrigger asChild>
-                        <Button variant="ghost" className="px-2 lg:hidden border">
+                        <Button variant="ghost" className="px-2 lg:hidden ">
                             <Menu className="min-h-6 min-w-6" />
                             <span className="sr-only">Toggle menu</span>
                         </Button>
@@ -45,6 +47,18 @@ export function Navbar({ navitems }: { navitems: NavPropsTypes[] }) {
                                 >
                                     {data.name}
                                 </Link>)
+                            }
+                            {
+                                user ? <li className="cursor-pointer lg:text-lg text-base flex items-center gap-1 group relative ">
+                                    <ul className="p-2 scale-0 group-hover:scale-100 absolute top-12 right-0 sm:-right-2  transform origin-top-left  transition-transform z-50">
+                                        <ul className="flex flex-col gap-2 p-4 w-36 rounded-md shadow-md text-white bg-black z-50">
+                                            <Link to={"/profile"} className="cursor-pointer  text-base hover:font-semibold hover:text-hover_Color">Profile</Link>
+                                            <Link to={"/chat"} className="cursor-pointer  text-base hover:font-semibold hover:text-hover_Color">Chat</Link>
+                                            <Link to={"/invitations"} className="cursor-pointer  text-base hover:font-semibold hover:text-hover_Color">Invitations</Link>
+                                            <p onClick={handleLogout} className=" text-primary_highlighted font-semibold">LogOut</p>
+                                        </ul>
+                                    </ul>
+                                </li> : <Link to={"/signIn"} className="cursor-pointer  text-base hover:font-semibold hover:text-hover_Color">Sign In</Link>
                             }
                         </nav>
                     </SheetContent>
@@ -66,6 +80,7 @@ export function Navbar({ navitems }: { navitems: NavPropsTypes[] }) {
                                 {data.name}
                             </Link>)
                         }
+
                     </nav>
                 </div>
                 <div className="flex items-center sm:justify-end sm:space-x-4 ">

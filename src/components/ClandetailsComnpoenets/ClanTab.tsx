@@ -2,14 +2,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Achievements, Matches, Overview, RoasterIcon } from "../../lib/icons/AllIcons";
+import { Clan, ClanMember } from "../../redux/types";
 import AchievementsTab from "./Achievements/Achievements";
 import MatchesTab from "./matches/Matches";
 import OverviewTab from "./Overvie";
 import Roaster from "./Roaster";
-import { Teams } from "../../types/types";
 
 
-export default function ClanTab({ teams }: { teams: Teams }) {
+export default function ClanTab({ data, }: { data: Clan | null }) {
     const location = useLocation();
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState("overview");
@@ -29,8 +29,8 @@ export default function ClanTab({ teams }: { teams: Teams }) {
     };
 
     const TAB_ITEMS = [
-        { value: "overview", label: "Overview", icon: Overview, component: <OverviewTab /> },
-        { value: "roaster", label: "Roster", icon: RoasterIcon, component: <Roaster players={teams.players} /> },
+        { value: "overview", label: "Overview", icon: Overview, component: <OverviewTab overview={data} /> },
+        { value: "roaster", label: "Roster", icon: RoasterIcon, component: <Roaster players={data?.ClanMember as ClanMember[]} /> },
         { value: "achievements", label: "Achievements", icon: Achievements, component: <AchievementsTab /> },
         { value: "matches", label: "Matches", icon: Matches, component: <MatchesTab /> },
         // { value: "chat", label: "Chat", icon: ChatIcon, component: <CommunicationComponent /> },

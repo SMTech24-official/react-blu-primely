@@ -1,8 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Plus } from "lucide-react";
-import PrimaryButton from "../shared/primaryButton";
 import { useState } from "react";
+import { ClanMember } from "../../redux/types";
 import { MainModal } from "../Modal/MainModal";
+import PrimaryButton from "../shared/primaryButton";
 
 const memberList = [
     { name: "Alex Johnson", image: "https://randomuser.me/api/portraits/men/1.jpg" },
@@ -12,7 +12,10 @@ const memberList = [
     { name: "Ethan Wilson", image: "https://randomuser.me/api/portraits/men/5.jpg" },
 ];
 
-const Roaster = ({ players }: { players: any }) => {
+const Roaster = ({ players }: { players: ClanMember[] }) => {
+
+
+    console.log(players);
     const [open, setOpen] = useState(false);
     const [search, setSearch] = useState("");
 
@@ -27,13 +30,13 @@ const Roaster = ({ players }: { players: any }) => {
                     <span>Invite</span> <Plus className="w-4 h-4" />
                 </button>
             </PrimaryButton>
-            {players?.map((data: any, idx: number) => (
+            {players?.map((data: ClanMember, idx: number) => (
                 <div key={idx} className="flex bg-[#1D1D1D] items-center justify-between p-4 md:p-8 rounded-lg">
                     <div className="flex items-center gap-3">
-                        <img src={data.avatar} alt={`${data.name} logo`} width={40} height={40} className="rounded-full" />
-                        <h3 className="text-lg font-semibold">{data.name}</h3>
+                        <img src={data.user.profilePicture || ""} alt={`${data.user.userName} logo`} width={40} height={40} className="rounded-full" />
+                        <h3 className="text-lg font-semibold">{data.user.userName}</h3>
                     </div>
-                    <p>{data.discordId}</p>
+                    <p>{data.user.id}</p>
                 </div>
             ))}
             <MainModal isOpen={open} onClose={() => setOpen(false)}>

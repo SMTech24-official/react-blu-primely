@@ -37,3 +37,117 @@ export interface RegisterResponse {
     message: string;
   };
 }
+
+// Clan types
+export interface ClanMember {
+  role: string;
+  user: UserProfile;
+}
+
+export interface ClanStats {
+  id: string;
+  clanId: string;
+  totalMatches: number;
+  wins: number;
+  losses: number;
+  winRate: number;
+  exp: number;
+  eliteTrophies: number;
+  goldTrophies: number;
+  silverTrophies: number;
+  bronzeTrophies: number;
+  rank: number | null;
+  totalScore: number | null;
+  createAt: string;
+  updateAt: string;
+}
+
+export interface Clan {
+  id: string;
+  userId: string;
+  name: string;
+  mission: string;
+  values: string;
+  createdAt: string;
+  updatedAt: string;
+  ClanMember: ClanMember[];
+  ClanStats: ClanStats;
+}
+
+export interface ClanListResponse {
+  success: boolean;
+  message: string;
+  meta: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPage: number;
+  };
+  data: Clan[];
+}
+
+export interface ClanCreateRequest {
+  name: string;
+  mission: string;
+  values: string;
+}
+
+export interface ClanCreateResponse {
+  success: boolean;
+  message: string;
+  data: Omit<Clan, "ClanMember" | "ClanStats">;
+}
+
+export interface ClanDetailResponse {
+  success: boolean;
+  message: string;
+  data: Clan;
+}
+
+export interface ClanUpdateRequest {
+  name: string;
+  mission: string;
+  values: string;
+}
+
+export interface ClanUpdateResponse {
+  success: boolean;
+  message: string;
+  data: Omit<Clan, "ClanMember" | "ClanStats">;
+}
+
+export interface ClanDeleteResponse {
+  success: boolean;
+  message: string;
+}
+
+export interface ClanMember2 {
+  role: "LEADER" | "MEMBER"; // Assuming these are the possible roles
+  user: {
+    id: string;
+    fullName: string;
+    userName: string;
+    email: string;
+    role: "USER" | "ADMIN"; // Assuming these are the possible roles
+    profilePicture: string | null;
+    coverPicture: string | null;
+  };
+}
+
+export interface Clan2 {
+  id: string;
+  userId: string;
+  name: string;
+  mission: string;
+  values: string;
+  createdAt: string; // ISO date string
+  updatedAt: string; // ISO date string
+  ClanMember: ClanMember2[];
+  ClanStats: ClanStats;
+}
+
+export interface ClanByUserResponse {
+  success: boolean;
+  message: string;
+  data: Clan2[];
+}

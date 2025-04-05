@@ -2,45 +2,18 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
 import ClanComponents from "../shared/ClanCard/ClanComponents";
 
 
-import logo from "@/assets/tournament/team-logo.png";
+import { useGetClansByUserQuery } from '../../redux/apis/clan/ClanApi';
 import RecentlyPlayed from './RecentlyPlayed';
-const dummyTeams = [
-    {
-        teamName: "Team 1",
-        teamLogo: logo,
-        players: [
-            {
-                name: "Player A",
-                discordId: "100",
-                avatar: logo,
-            },
-            {
-                name: "Player B1",
-                discordId: "2001",
-                avatar: logo,
-            },
-        ],
-    },
-    {
-        teamName: "Team 2",
-        teamLogo: logo,
-        players: [
-            {
-                name: "Player A",
-                discordId: "100",
-                avatar: logo,
-            },
-            {
-                name: "Player B2",
-                discordId: "2002",
-                avatar: logo,
-            },
-        ],
-    },
-];
+import { Clan2 } from '../../redux/types';
+
+
+
 
 
 const ClanAndGame = () => {
+
+    const { data } = useGetClansByUserQuery()
+    console.log(data);
     return (
         <div className='relative section-gap'>
             <Tabs defaultValue="solo" className="rounded-lg shadow-md">
@@ -77,7 +50,7 @@ const ClanAndGame = () => {
                     </TabsContent>
                     <TabsContent value="clan">
                         <div className="rounded-lg shadow-md">
-                            <ClanComponents teams={dummyTeams} />
+                            <ClanComponents teams={data?.data as Clan2[]} />
                         </div>
                     </TabsContent>
                 </div>

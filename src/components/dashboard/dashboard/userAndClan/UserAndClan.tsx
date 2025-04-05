@@ -1,9 +1,12 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Members } from "../../../../lib/fakeData/leaderboardData";
+import { Members as User } from "../../../../lib/fakeData/leaderboardData";
 import { Tournaments, UserAndClan } from "../../../../lib/icons/AllIcons";
 import { UserAndTable } from "./UserAndTable";
+import { useGetClansQuery } from "../../../../redux/apis/clan/ClanApi";
+import { ClanTable } from "./ClanTable";
+import { Clan } from "../../../../redux/types";
 
 
 
@@ -11,7 +14,12 @@ import { UserAndTable } from "./UserAndTable";
 export default function UserAndClanTab() {
     const location = useLocation();
     const navigate = useNavigate();
-    const [activeTab, setActiveTab] = useState("user");
+    const [activeTab, setActiveTab] = useState("clan");
+
+
+    const { data: Clans, isLoading: ClanLoading } = useGetClansQuery()
+
+    console.log(Clans?.data);
 
     // Sync tab with URL hash on mount
     useEffect(() => {
@@ -28,8 +36,8 @@ export default function UserAndClanTab() {
     };
 
     const TAB_ITEMS = [
-        { value: "user", label: "User", icon: UserAndClan, component: <UserAndTable members={Members} /> },
-        { value: "clan", label: "Clan", icon: Tournaments, component: <UserAndTable members={Members} /> },
+        { value: "user", label: "User", icon: UserAndClan, component: <UserAndTable members={User} /> },
+        { value: "clan", label: "Clan", icon: Tournaments, component: <ClanTable members={Clans?.data as Clan[]} ClanLoading={ClanLoading} /> },
         // { value: "chat", label: "Chat", icon: ChatIcon, component: <CommunicationComponent /> },
     ];
 

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Dispatch, SetStateAction } from "react";
+import { ClanMember2 } from "../redux/types";
 
 export type NavPropsTypes = {
   name: string;
@@ -103,7 +104,8 @@ export interface Player {
 export interface ClanCardProps {
   teamName: string;
   teamLogo: string;
-  players: Player[];
+  players: ClanMember2[];
+  id: string;
   onViewDetails?: () => void;
   onToggleRoster?: () => void;
   isRosterHidden?: boolean;
