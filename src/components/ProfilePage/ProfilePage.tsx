@@ -12,6 +12,7 @@ import LogoLike from "../others/LogoLike";
 import { Button } from "../ui/button";
 import CreateClan from "./Createclan";
 import EditProfile from "./EditProfile";
+import { useGetUserGameEntriesQuery } from "../../redux/apis/auth/userApi";
 
 // Profile Component
 const ProfilePage = () => {
@@ -20,7 +21,7 @@ const ProfilePage = () => {
     const [createClan, setCreateClan] = useState(false)
     const { user } = useAuthUser();
 
-    console.log(user);
+    const { data: gameEntriesData } = useGetUserGameEntriesQuery();
     return (
         <div className="relative">
             {/* Background Image Section */}
@@ -84,10 +85,20 @@ const ProfilePage = () => {
                             </div>
 
                             {/* Game IDs */}
+                            {/* Game IDs */}
                             <div className="flex flex-wrap items-center gap-2 text-[16px]">
                                 <p>Game ID:</p>
-                                <LogoLike game="Free Fire" gameId="#tahsin0909" />
-                                <LogoLike game="Pubg" gameId="#tahsin0909" />
+                                {gameEntriesData?.data?.length ? (
+                                    gameEntriesData.data.map((entry) => (
+                                        <LogoLike
+                                            key={entry.id || entry.id}
+                                            game={entry.gameName}
+                                            gameId={entry.gameId}
+                                        />
+                                    ))
+                                ) : (
+                                    <span className="text-gray-400">No game entries</span>
+                                )}
                             </div>
                         </div>
                     </div>

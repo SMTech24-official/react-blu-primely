@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Clan2 } from "../../../redux/types";
 import ClanCard from "../../allCards/ClanCard/ClanCard";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../ui/select";
@@ -5,9 +6,8 @@ import logo from "@/assets/tournament/team-logo.png";
 
 
 
-const ClanComponents = ({ teams }: { teams: Clan2[] | null }) => {
+const ClanComponents = ({ teams }: { teams: Clan2[] | any }) => {
 
-    console.log(teams);
     return (
         <div className=" space-y-4 container sm:mt-0 mt-6">
             <div className="w-full flex items-center justify-between">
@@ -43,7 +43,7 @@ const ClanComponents = ({ teams }: { teams: Clan2[] | null }) => {
                     </Select>
                 </div>
             </div>
-            {teams?.map((team, index) => (
+            {teams?.map((team: any, index: number) => (
                 <ClanCard
                     key={index}
                     teamName={team.name}
