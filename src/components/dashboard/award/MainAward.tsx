@@ -1,82 +1,91 @@
-import { Clan } from '../../../types/types';
+import { useGetClansQuery } from '../../../redux/apis/clan/ClanApi';
+import { Loader } from 'lucide-react';
 import { AwardTable } from './Table';
 
-const clans: Clan[] = [
-    {
-        name: "Shadow Warriors",
-        id: "SW123",
-        totalMembers: 25,
-        tournamentsPlayed: 18,
-        trophies: [
-            { type: "Bronze", count: 5 },
-            { type: "Silver", count: 3 },
-            { type: "Gold", count: 2 },
-            { type: "Elite", count: 1 }
-        ],
-        lostWin: { lost: 5, win: 13 },
-        awards: ["mvp", "strategy"],
-    },
-    {
-        name: "Night Stalkers",
-        id: "NS456",
-        totalMembers: 30,
-        tournamentsPlayed: 22,
-        trophies: [
-            { type: "Bronze", count: 6 },
-            { type: "Silver", count: 5 },
-            { type: "Gold", count: 3 },
-            { type: "Elite", count: 2 }
-        ],
-        lostWin: { lost: 7, win: 15 },
-        awards: ["comeback", "teamwork"],
-    },
-    {
-        name: "Fire Drakes",
-        id: "FD789",
-        totalMembers: 28,
-        tournamentsPlayed: 20,
-        trophies: [
-            { type: "Bronze", count: 4 },
-            { type: "Silver", count: 6 },
-            { type: "Gold", count: 2 },
-            { type: "Elite", count: 1 }
-        ],
-        lostWin: { lost: 6, win: 14 },
-        awards: ["mvp", "teamwork"],
-    },
-    {
-        name: "Storm Bringers",
-        id: "SB101",
-        totalMembers: 32,
-        tournamentsPlayed: 25,
-        trophies: [
-            { type: "Bronze", count: 7 },
-            { type: "Silver", count: 4 },
-            { type: "Gold", count: 5 },
-            { type: "Elite", count: 3 }
-        ],
-        lostWin: { lost: 8, win: 17 },
-        awards: ["strategy", "comeback"],
-    },
-    {
-        name: "Iron Titans",
-        id: "IT202",
-        totalMembers: 29,
-        tournamentsPlayed: 19,
-        trophies: [
-            { type: "Bronze", count: 3 },
-            { type: "Silver", count: 5 },
-            { type: "Gold", count: 2 },
-            { type: "Elite", count: 0 }
-        ],
-        lostWin: { lost: 9, win: 10 },
-        awards: ["mvp", "strategy", "comeback"],
-    }
-];
+// Define the exact interface expected by AwardTable
+interface ApiClan {
+  id: string;
+  name: string;
+  tournamentsPlayed: number;
+  trophies: {
+    type: "Bronze" | "Silver" | "Gold" | "Elite";
+    count: number;
+  }[];
+  lostWin: {
+    lost: number;
+    win: number;
+  };
+  ClanMember: {
+    id: string;
+    name: string;
+  }[];
+  ClanStats: {
+    clanId: string;
+    totalMatches: number;
+    wins: number;
+    losses: number;
+    bronzeTrophies: number;
+    silverTrophies: number;
+    goldTrophies: number;
+    eliteTrophies: number;
+  };
+  awards: string[]; // Assuming awards is an array of strings
+}
 
 const MainAward = () => {
+    const { data, isLoading, error } = useGetClansQuery();
+
+    if (isLoading) return <div className="flex justify-center p-8"><Loader className="animate-spin" /></div>;
+    if (error) return <div className="p-4 text-red-500">Error loading clan data</div>;
+
+    // Transform API data to match ApiClan interface
+    const clans: ApiClan[] = data?.data?.map(apiClan => {
+      // Ensure ClanStats has all required properties including clanId
+      const clanStats = apiClan.ClanStats ? {
+        clanId: apiClan.ClanStats.clanId || apiClan.id,
+        totalMatches: apiClan.ClanStats.totalMatches,
+        wins: apiClan.ClanStats.wins,
+        losses: apiClan.ClanStats.losses,
+        bronzeTrophies: apiClan.ClanStats.bronzeTrophies,
+        silverTrophies: apiClan.ClanStats.silverTrophies,
+        goldTrophies: apiClan.ClanStats.goldTrophies,
+        eliteTrophies: apiClan.ClanStats.eliteTrophies
+      } : {
+        clanId: apiClan.id,
+        totalMatches: 0,
+        wins: 0,
+        losses: 0,
+        bronzeTrophies: 0,
+        silverTrophies: 0,
+        goldTrophies: 0,
+        eliteTrophies: 0
+      };
+
+      return {
+        id: apiClan.id,
+        name: apiClan.name,
+        tournamentsPlayed: clanStats.totalMatches,
+        trophies: [
+          { type: "Bronze", count: clanStats.bronzeTrophies },
+          { type: "Silver", count: clanStats.silverTrophies },
+          { type: "Gold", count: clanStats.goldTrophies },
+          { type: "Elite", count: clanStats.eliteTrophies }
+        ],
+        lostWin: {
+          lost: clanStats.losses,
+          win: clanStats.wins
+        },
+        ClanMember: (apiClan.ClanMember || []).map(member => ({
+          id: member.user.id,
+          name: member.user.fullName || member.user.userName || 'Unknown'
+        })),
+        ClanStats: clanStats,
+        awards: [] // Initialize empty awards array
+      };
+    }) || [];
+
     return (
-        <div>
+        <div className="p-4">
             <AwardTable clans={clans} />
         </div>
     );

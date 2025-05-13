@@ -9,15 +9,48 @@ import { Calendar } from "../../../ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "../../../ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../ui/select";
 import JoditEditor from "jodit-react";
+import { useCreateTournamentMutation } from "../../../../redux/apis/tournament/TournamentApi";
+import { toast } from "sonner";
+import { Toaster } from "react-hot-toast";
 
 
 export default function TournamentForm() {
     const [imagePreview, setImagePreview] = useState<string | null>(null);
     const { register, handleSubmit, setValue, watch } = useForm();
+    const [createTournament] = useCreateTournamentMutation()
+    const onSubmit = async (data: any) => {
+        const formData = new FormData();
 
-    const onSubmit = (data: any) => {
-        console.log({ ...data, rules: content });
+        formData.append("title", data.title);
+        formData.append("subtitle", data.subtitle);
+        formData.append("description", data.description);
+        formData.append("gameName", data.gameName);
+        formData.append("tournamentType", data.tournamentType);
+        formData.append("startDate", data.startDate?.toISOString() || "");
+        formData.append("prizePool", data.prizePool);
+        formData.append("entryFee", data.entryFee);
+        formData.append("region", data.region);
+        formData.append("maxTeams", data.maxTeams);
+        formData.append("teamSize", data.teamSize);
+        formData.append("skillLevel", data.skillLevel);
+        formData.append("platform", data.platform);
+        formData.append("rules", content);
+
+        if (data.image) {
+            formData.append("image", data.image); // image must be set via setValue on change
+        }
+
+        try {
+            await createTournament(formData).unwrap();
+            toast.success('Add Tournment')
+            // Optionally reset form, show success toast, redirect etc.
+        } catch (error) {
+            console.error("Failed to create tournament", error);
+            // Show error toast or message
+          
+        }
     };
+
 
     const editor = useRef<any>(null);
     const [content, setContent] = useState('');
@@ -49,6 +82,10 @@ export default function TournamentForm() {
 
     return (
         <div className="min-h-screen p-6 text-white">
+            <Toaster
+                position="top-center"
+                reverseOrder={false}
+            />
             <div className="mb-10 text-center">
                 <p className="text-3xl font-bold">Add Tournament</p>
                 <p className="text-lg text-gray-400">Create a new tournament by filling the form below</p>

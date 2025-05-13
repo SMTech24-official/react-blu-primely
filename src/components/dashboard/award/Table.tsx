@@ -23,44 +23,92 @@ import strategy from "@/assets/award/strategy.png";
 import teamwork from "@/assets/award/teamwork.png";
 import { AnimatedTooltip } from "../../ui/animated-tooltip";
 
-export function AwardTable({ clans }: { clans: Clan[] }) {
+interface ApiClan {
+    id: string;
+    name: string;
+    ClanMember: {
+        // Replace these fields with the actual properties of a clan member if known
+        id: string;
+        name: string;
+        // Add more fields as needed
+    }[];
+    ClanStats: {
+        clanId: string;
+        bronzeTrophies: number;
+        silverTrophies: number;
+        goldTrophies: number;
+        eliteTrophies: number;
+        losses: number;
+        wins: number;
+        totalMatches: number;
+    };
+    awards: string[];
+}
 
+export function AwardTable({ clans: apiClans }: { clans: ApiClan[] }) {
     const [awardModal, setAwardModal] = useState(false);
-    const [modalData, setModalData] = useState<null | Clan>(null)
-    const award: AwardType[] = ["mvp", "strategy", "comeback", "teamwork"]
+    const [modalData, setModalData] = useState<null | Clan>(null);
+    const award: AwardType[] = ["mvp", "strategy", "comeback", "teamwork"];
+
+    // Transform API data to match your Clan type
+    const clans: Clan[] = apiClans.map(clan => ({
+        id: clan.id,
+        name: clan.name,
+        totalMembers: clan.ClanMember?.length || 0,
+        tournamentsPlayed: clan.ClanStats?.totalMatches || 0,
+        trophies: [
+            { type: "Bronze", count: clan.ClanStats?.bronzeTrophies || 0 },
+            { type: "Silver", count: clan.ClanStats?.silverTrophies || 0 },
+            { type: "Gold", count: clan.ClanStats?.goldTrophies || 0 },
+            { type: "Elite", count: clan.ClanStats?.eliteTrophies || 0 }
+        ],
+        lostWin: {
+            lost: clan.ClanStats?.losses || 0,
+            win: clan.ClanStats?.wins || 0
+        },
+        awards: clan.awards || [],
+        // These are required by your Clan type but not in API response
+        ClanMember: clan.ClanMember || [],
+        ClanStats: {
+            id: "",
+            clanId: "",
+            totalMatches: clan.ClanStats?.totalMatches || 0,
+            wins: clan.ClanStats?.wins || 0,
+            losses: clan.ClanStats?.losses || 0,
+            winRate: 0,
+            exp: 0,
+            eliteTrophies: clan.ClanStats?.eliteTrophies || 0,
+            goldTrophies: clan.ClanStats?.goldTrophies || 0,
+            silverTrophies: clan.ClanStats?.silverTrophies || 0,
+            bronzeTrophies: clan.ClanStats?.bronzeTrophies || 0,
+            rank: null,
+            totalScore: null,
+            createAt: "",
+            updateAt: ""
+        }
+    }));
 
     const giveAward = (tag: AwardType) => {
         console.log(tag);
-    }
-
+    };
 
     const getTrophyIcon = (type: string) => {
         switch (type) {
-            case "Bronze":
-                return bronze;
-            case "Silver":
-                return silver;
-            case "Gold":
-                return gold;
-            case "Elite":
-                return elite;
-            default:
-                return bronze;
+            case "Bronze": return bronze;
+            case "Silver": return silver;
+            case "Gold": return gold;
+            case "Elite": return elite;
+            default: return bronze;
         }
     };
 
     const getAwardIcon = (award: string) => {
         switch (award) {
-            case "mvp":
-                return mvp;
-            case "strategy":
-                return strategy;
-            case "comeback":
-                return comeback;
-            case "teamwork":
-                return teamwork;
-            default:
-                return mvp;
+            case "mvp": return mvp;
+            case "strategy": return strategy;
+            case "comeback": return comeback;
+            case "teamwork": return teamwork;
+            default: return mvp;
         }
     };
 
@@ -129,7 +177,6 @@ export function AwardTable({ clans }: { clans: Clan[] }) {
                                     {clan.awards.map((award, idx) => (
                                         <div key={idx} className="">
                                             <AnimatedTooltip key={idx} classProps="rounded-full aspect-square object-contain h-7 w-7" id={idx} image={getAwardIcon(award)} tooltip={award.toUpperCase()} />
-                                            {/* <span className="text-xs text-nowrap">{award}</span> */}
                                         </div>
                                     ))}
                                 </TableCell>
@@ -152,8 +199,7 @@ export function AwardTable({ clans }: { clans: Clan[] }) {
                     {
                         modalData && <div>
                             <h2 className="my-2 text-lg">Awards for Clan: {modalData.name}</h2>
-                            <div className="flex  gap-4">
-                                {/* Display the awards already given */}
+                            <div className="flex gap-4">
                                 {modalData.awards.length > 0 ? (
                                     modalData.awards.map((award, index) => (
                                         <div key={index} className="flex items-center gap-2 border py-2 px-4 rounded-lg">
@@ -167,21 +213,19 @@ export function AwardTable({ clans }: { clans: Clan[] }) {
                             </div>
                             <div>
                                 <h2 className="my-2 text-lg">Give Award</h2>
-                                <div className="flex gap-4">
+                                <div className="flex gap-2">
                                     {modalData && modalData.awards && (
                                         award.filter((i) => !modalData.awards.includes(i)).map((award, index) => (
                                             <div key={index} className="flex items-center gap-2 border py-2 px-4 rounded-lg cursor-pointer hover:border-primary_highlighted hover:text-primary_highlighted transition"
                                                 onClick={() => giveAward(award)}
                                             >
-                                                <img src={getAwardIcon(award)} alt={award} className="w-10 h-10 object-contain" />
+                                                <img src={getAwardIcon(award)} alt={award} className="w-8 h-10 object-contain" />
                                                 <span className="uppercase">{award}</span>
                                             </div>
                                         ))
                                     )}
                                 </div>
                             </div>
-
-
                         </div>
                     }
                 </div>
