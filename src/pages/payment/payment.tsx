@@ -1,4 +1,4 @@
-import MainPaymentPage from "../../components/dashboard/payment/MainPaymentPAge";
+import MainPaymentPage from "../../components/dashboard/payment/MainPaymentPage";
 
 const Payment = () => {
     return (

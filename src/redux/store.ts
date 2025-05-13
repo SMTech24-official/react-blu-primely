@@ -16,6 +16,7 @@ import {
 } from "redux-persist";
 import { baseApi } from "./apis/baseApi";
 import authReducer from "./slice/auth/authSlice";
+import { tournamentApi } from "./apis/tournament/TournamentApi";
 
 const createNoopStorage = () => {
   return {
@@ -47,6 +48,7 @@ export const makeStore = () => {
   return configureStore({
     reducer: {
       [baseApi.reducerPath]: baseApi.reducer,
+
       auth: persistedAuthReducer,
     },
     middleware: (getDefaultMiddlewares) =>
@@ -54,7 +56,10 @@ export const makeStore = () => {
         serializableCheck: {
           ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
         },
-      }).concat(baseApi.middleware),
+      }).concat(
+        baseApi.middleware,
+        tournamentApi.middleware // Add tournamentApi middleware
+      ),
   });
 };
 
