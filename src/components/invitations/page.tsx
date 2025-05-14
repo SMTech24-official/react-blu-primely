@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useGetUserInvitationsQuery } from "../../redux/apis/invitation/InvitationApi";
 
 // Define Invitation and User interfaces with clan details
 interface Invitation {
@@ -63,7 +64,11 @@ const initialInvitations: Invitation[] = [
 
 const InvitationPage = () => {
     const [invitations, setInvitations] = useState<Invitation[]>(initialInvitations);
-
+  const { data: invitationsResponse } = useGetUserInvitationsQuery({
+    page: 1,
+    limit: 10,
+  });
+console.log(invitationsResponse)
     // Function to update the invitation status
     const handleStatusChange = (id: number, newStatus: "Accepted" | "Declined") => {
         setInvitations((prevInvitations) =>
