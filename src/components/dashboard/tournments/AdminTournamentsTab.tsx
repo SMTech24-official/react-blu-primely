@@ -18,17 +18,21 @@ import { toast } from "react-hot-toast";
 import { Skeleton } from "../../ui/skeleton";
 
 // Custom Alert component
-const Alert = ({ variant = "default", className = "", children }: { 
-  variant?: "default" | "destructive"; 
-  className?: string; 
-  children: React.ReactNode 
+const Alert = ({
+  variant = "default",
+  className = "",
+  children,
+}: {
+  variant?: "default" | "destructive";
+  className?: string;
+  children: React.ReactNode;
 }) => {
   const baseStyles = "p-4 rounded-lg border";
   const variantStyles = {
     default: "bg-blue-50 text-blue-900 border-blue-200",
-    destructive: "bg-red-50 text-red-900 border-red-200"
+    destructive: "bg-red-50 text-red-900 border-red-200",
   };
-  
+
   return (
     <div className={`${baseStyles} ${variantStyles[variant]} ${className}`}>
       {children}
@@ -36,13 +40,14 @@ const Alert = ({ variant = "default", className = "", children }: {
   );
 };
 
-const AlertDescription = ({ className = "", children }: { 
-  className?: string; 
-  children: React.ReactNode 
+const AlertDescription = ({
+  className = "",
+  children,
+}: {
+  className?: string;
+  children: React.ReactNode;
 }) => (
-  <div className={`text-sm [&_p]:leading-relaxed ${className}`}>
-    {children}
-  </div>
+  <div className={`text-sm [&_p]:leading-relaxed ${className}`}>{children}</div>
 );
 
 // API Tournament Type
@@ -54,7 +59,7 @@ interface ApiTournament {
   description: string;
   gameName: string;
   tournamentType: string;
-  participationType: 'SOLO' | 'TEAM';
+  participationType: "SOLO" | "TEAM";
   startDate: string;
   endDate: string;
   prizePool: number;
@@ -66,14 +71,15 @@ interface ApiTournament {
   gamePlatform: string;
   rules: string;
   image: string;
-  enrolled?: number;
+  enrolled: number;
   createdAt: string;
   updatedAt: string;
-  status?: string;
+  status: string;
 }
 
 // Type expected by TournamentsInfo component
 interface TournamentsInfoProps {
+  id: string;
   title: string;
   prize: {
     totalPrize: number;
@@ -86,6 +92,7 @@ interface TournamentsInfoProps {
   entryFee: number;
   date: string;
   maxTeams: number;
+  enrolled: number;
   imageSrc?: string;
   teamSize?: string;
   regions?: string;
@@ -101,47 +108,47 @@ export default function AdminTournamentsTab() {
   const [page, setPage] = useState(1);
   const limit = 8;
 
-  const { 
-    data, 
-    isLoading, 
-    isError, 
-    error 
-  } = useGetTournamentsQuery({
+  const { data, isLoading, isError, error } = useGetTournamentsQuery({
     page,
-    limit
+    limit,
   });
-console.log(data)
+  console.log(data);
+
   if (isError) {
     toast.error("Failed to load tournaments");
   }
 
   // Transform API data to match TournamentsInfo props
-  const transformTournament = (tournament: ApiTournament): TournamentsInfoProps => ({
+  const transformTournament = (
+    tournament: ApiTournament
+  ): TournamentsInfoProps => ({
     title: tournament.title,
     prize: {
       totalPrize: tournament.prizePool,
       firstPrize: Math.floor(tournament.prizePool * 0.5),
       secondPrize: Math.floor(tournament.prizePool * 0.3),
-      thirdPrize: Math.floor(tournament.prizePool * 0.2)
+      thirdPrize: Math.floor(tournament.prizePool * 0.2),
     },
     status: tournament.status,
     gameName: tournament.gameName,
     entryFee: tournament.entryFee,
-    date: tournament.startDate,
+    date: tournament.endDate,
     maxTeams: tournament.maxTeams,
     createdAt: tournament.createdAt,
     tournamentType: tournament.tournamentType,
     teamSize: tournament.teamSize.toString(),
     regions: tournament.region,
-    skillLevel: tournament.skillLevel
+    skillLevel: tournament.skillLevel,
+    enrolled: tournament.enrolled,
+    id: tournament.id,
   });
 
   // Calculate metrics
   const totalTournaments = data?.meta?.total || 0;
-  const totalParticipants = data?.data?.reduce(
-    (sum, t) => sum + (t.enrolled || 0), 0
-  ) || 0;
+  const totalParticipants =
+    data?.data?.reduce((sum, t) => sum + (t.enrolled || 0), 0) || 0;
 
+  console.log(data?.data);
   return (
     <div className="rounded-lg space-y-11">
       {isError && (
@@ -153,22 +160,22 @@ console.log(data)
       )}
 
       <div className="">
-        <MetricCards 
-          cardOneText="Total Tournaments" 
-          cardThreeText="Completed Tournaments" 
-          cardTwoText="Total Participants" 
-          subtitle={false} 
-          icon={false} 
-          players={totalParticipants} 
-          revenue={0} 
-          tournments={totalTournaments} 
+        <MetricCards
+          cardOneText="Total Tournaments"
+          cardThreeText="Completed Tournaments"
+          cardTwoText="Total Participants"
+          subtitle={false}
+          icon={false}
+          players={totalParticipants}
+          revenue={0}
+          tournments={totalTournaments}
         />
       </div>
 
       <div className="bg-fourthColor p-4">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <Select 
-            value={selectedStatus} 
+          <Select
+            value={selectedStatus}
             onValueChange={setSelectedStatus}
             disabled={isLoading}
           >
@@ -182,14 +189,11 @@ console.log(data)
               <SelectItem value="completed">Completed</SelectItem>
             </SelectContent>
           </Select>
-          
-          <DatePickerDemo 
-            date={date} 
-            setDate={setDate} 
-          />
-          
+
+          <DatePickerDemo date={date} setDate={setDate} />
+
           <div />
-          
+
           <Link to="/dashboard/tournaments/addTournaments">
             <Button className="bg-primary_highlighted hover:bg-blue-600 text-white flex items-center gap-2 w-full h-full">
               <Plus className="w-4 h-4" /> Add Tournament
@@ -221,7 +225,7 @@ console.log(data)
             <Button
               variant="outline"
               disabled={page <= 1}
-              onClick={() => setPage(p => Math.max(1, p - 1))}
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
             >
               Previous
             </Button>
@@ -231,7 +235,7 @@ console.log(data)
             <Button
               variant="outline"
               disabled={page >= data.meta.totalPage}
-              onClick={() => setPage(p => p + 1)}
+              onClick={() => setPage((p) => p + 1)}
             >
               Next
             </Button>

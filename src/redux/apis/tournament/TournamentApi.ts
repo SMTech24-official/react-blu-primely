@@ -1,5 +1,5 @@
 // tournamentApi.ts
-import { baseApi } from '../baseApi';
+import { baseApi } from "../baseApi";
 
 interface Tournament {
   id: string;
@@ -9,7 +9,7 @@ interface Tournament {
   description: string;
   gameName: string;
   tournamentType: string;
-  participationType: 'SOLO' | 'TEAM';
+  participationType: "SOLO" | "TEAM";
   startDate: string;
   endDate: string;
   prizePool: number;
@@ -21,9 +21,18 @@ interface Tournament {
   gamePlatform: string;
   rules: string;
   image: string;
-  enrolled?: number;
+  status: "ACTIVE" | "CANCEL" | "UPCOMING";
+  enrolled: number;
   createdAt: string;
   updatedAt: string;
+  participants: participants[];
+}
+
+interface participants {
+  name: string;
+  image: string | null;
+  participantType: string;
+  joinedAt: string;
 }
 
 interface TournamentResponse {
@@ -50,7 +59,7 @@ interface CreateTournamentRequest {
   description: string;
   gameName: string;
   tournamentType: string;
-  participationType: 'SOLO' | 'TEAM';
+  participationType: "SOLO" | "TEAM";
   startDate: string;
   endDate: string;
   prizePool: number;
@@ -72,44 +81,51 @@ export const tournamentApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     createTournament: builder.mutation<TournamentResponse, FormData>({
       query: (formData) => ({
-        url: '/tournament/create',
-        method: 'POST',
+        url: "/tournament/create",
+        method: "POST",
         body: formData,
       }),
     }),
 
-    getTournaments: builder.query<TournamentListResponse, {
-      page?: number;
-      limit?: number;
-      search?: string;
-      gameName?: string;
-      region?: string;
-    }>({
+    getTournaments: builder.query<
+      TournamentListResponse,
+      {
+        page?: number;
+        limit?: number;
+        search?: string;
+        gameName?: string;
+        region?: string;
+      }
+    >({
       query: (params) => ({
-        url: '/tournament',
-        method: 'GET',
+        url: "/tournament",
+        method: "GET",
         params,
       }),
     }),
 
     getTournamentById: builder.query<TournamentResponse, string>({
-      query: (id) => `/tournament/${id}`,
-   
+      query: (id) => {
+        console.log("Fetching tournament with ID:", id); // 👈 log here
+        return `/tournament/${id}`;
+      },
     }),
 
-    updateTournament: builder.mutation<TournamentResponse, UpdateTournamentRequest>({
+    updateTournament: builder.mutation<
+      TournamentResponse,
+      UpdateTournamentRequest
+    >({
       query: ({ id, ...body }) => ({
         url: `/tournament/${id}`,
-        method: 'PUT',
+        method: "PUT",
         body,
       }),
-
     }),
 
     deleteTournament: builder.mutation<TournamentResponse, string>({
       query: (id) => ({
         url: `/tournament/${id}`,
-        method: 'DELETE',
+        method: "DELETE",
       }),
     }),
   }),

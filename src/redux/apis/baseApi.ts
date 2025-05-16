@@ -6,7 +6,7 @@ export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_URL, // Your backend base URL
-    
+
     // baseUrl: "https://oggt-cxcv-backend.vercel.app/api/v1", // Your backend base URL
     // baseUrl: "http://10.0.10.41:5000/api/v1", // Your backend base URL
     credentials: "include",
@@ -20,6 +20,6 @@ export const baseApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["User", "Clan", "GameEntries",'Payment'],
+  tagTypes: ["User", "Clan", "GameEntries", "Payment", "Users", "LeaderBoard"],
   endpoints: () => ({}),
 });

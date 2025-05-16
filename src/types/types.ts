@@ -31,7 +31,7 @@ export interface TournamentProps {
   registrationStatus: boolean;
   enrollmentStatus: boolean;
   tournamentType?: string;
-  status?: "cancelled" | "active" | "upcoming";
+  status?: "CANCEL" | "ACTIVE" | "UPCOMING";
 }
 
 export interface PrimalChampionshipCardProps {
@@ -216,3 +216,79 @@ export type Clan = {
   lostWin: { lost: number; win: number };
   awards: AwardType[] | string[];
 };
+
+// Base types
+interface BaseStats {
+  id: string;
+  totalMatches: number;
+  wins: number;
+  losses: number;
+  winRate: number;
+  exp: number;
+  eliteTrophies: number;
+  goldTrophies: number;
+  silverTrophies: number;
+  bronzeTrophies: number;
+  totalEarnings: number;
+  rank: number;
+  totalScore: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// User types
+interface UserProfile {
+  id: string;
+  fullName: string | null;
+  userName: string;
+  email: string;
+  profilePicture: string | null;
+}
+
+// Clan types
+interface ClanProfile {
+  id: string;
+  name: string;
+  mission: string;
+  logo: string | null;
+}
+
+// Leaderboard entry types
+interface UserLeaderboardEntry extends BaseStats {
+  userId: string;
+  user: UserProfile;
+  clanId?: never; // Ensure these can't coexist
+  clan?: never;
+}
+
+interface ClanLeaderboardEntry extends BaseStats {
+  clanId: string;
+  clan: ClanProfile;
+  userId?: never;
+  user?: never;
+}
+
+// Unified type
+export type LeaderboardEntry = UserLeaderboardEntry | ClanLeaderboardEntry;
+
+// API response type
+export interface LeaderboardResponse {
+  success: boolean;
+  message: string;
+  data: LeaderboardEntry[];
+  meta?: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPage: number;
+  };
+}
+
+// Type guards for runtime checking
+// function isUserEntry(entry: LeaderboardEntry): entry is UserLeaderboardEntry {
+//   return 'user' in entry;
+// }
+
+// function isClanEntry(entry: LeaderboardEntry): entry is ClanLeaderboardEntry {
+//   return 'clan' in entry;
+// }

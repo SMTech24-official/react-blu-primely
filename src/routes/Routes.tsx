@@ -92,9 +92,11 @@ export const routes = [
       {
         path: "/tournaments",
         element: (
-          <ScrollToTop pathname="/tournaments">
-            <TournamentsPage />
-          </ScrollToTop>
+          <ProtectedRoute allowedRoles={"USER"}>
+            <ScrollToTop pathname="/tournaments">
+              <TournamentsPage />
+            </ScrollToTop>
+          </ProtectedRoute>
         ),
       },
       {
@@ -108,41 +110,51 @@ export const routes = [
       {
         path: "/tournament-details/:id",
         element: (
-          <ScrollToTop pathname={"/tournament-details/:id"}>
-            <TournamentDetailsPage />
-          </ScrollToTop>
+          <ProtectedRoute allowedRoles={"USER"}>
+            <ScrollToTop pathname={"/tournament-details/:id"}>
+              <TournamentDetailsPage />
+            </ScrollToTop>
+          </ProtectedRoute>
         ),
       },
       {
         path: "/clan-details/:id",
         element: (
-          <ScrollToTop pathname={"/clan-details/:id"}>
-            <ClanDetails />
-          </ScrollToTop>
+          <ProtectedRoute allowedRoles={"USER"}>
+            <ScrollToTop pathname={"/clan-details/:id"}>
+              <ClanDetails />
+            </ScrollToTop>
+          </ProtectedRoute>
         ),
       },
       {
         path: "/profile",
         element: (
-          <ScrollToTop pathname={"/profile"}>
-            <Profile />
-          </ScrollToTop>
+          <ProtectedRoute allowedRoles={"USER"}>
+            <ScrollToTop pathname={"/profile"}>
+              <Profile />
+            </ScrollToTop>
+          </ProtectedRoute>
         ),
       },
       {
         path: "/chat",
         element: (
-          <ScrollToTop pathname={"/chat"}>
-            <ChatPage />
-          </ScrollToTop>
+          <ProtectedRoute allowedRoles={"USER"}>
+            <ScrollToTop pathname={"/chat"}>
+              <ChatPage />
+            </ScrollToTop>
+          </ProtectedRoute>
         ),
       },
       {
         path: "/invitations",
         element: (
-          <ScrollToTop pathname={"/invitations"}>
-            <Invitations />
-          </ScrollToTop>
+          <ProtectedRoute allowedRoles={"USER"}>
+            <ScrollToTop pathname={"/invitations"}>
+              <Invitations />
+            </ScrollToTop>
+          </ProtectedRoute>
         ),
       },
     ],

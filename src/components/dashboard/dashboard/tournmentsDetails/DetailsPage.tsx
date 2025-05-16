@@ -1,39 +1,60 @@
 import { useLocation } from "react-router-dom";
 import TournamentDetails from "./TournamentsDetailsCom";
-import { TournamentProps } from "../../../../types/types";
-import { tournaments } from "../../../../lib/fakeData/tournments";
+import { useGetTournamentByIdQuery } from "../../../../redux/apis/tournament/TournamentApi";
+import Loading from "../../../others/Loading";
+import { ParticipantsTable } from "./participant";
 
 export default function DetailsPage() {
-    const location = useLocation();
-    const path = location.pathname;
-    const slug = path?.split("/")[3];
+  const location = useLocation();
+  const path = location.pathname;
+  const slug = path?.split("/")[3];
 
-    const GameData = tournaments.find((data: TournamentProps) => data.game === slug);
+  const { data, error, isLoading } = useGetTournamentByIdQuery(slug!, {
+    skip: !slug,
+  });
 
-    return (
-        <TournamentDetails
-            date={GameData?.date || "N/A"}
-            enrollmentStatus={GameData?.enrollmentStatus as boolean}
-            entryFee={GameData?.entryFee as number}
-            imageSrc={GameData?.imageSrc || ""}
-            prize={GameData?.prize as {
-                totalPrize: number;
-                firstPrize: number;
-                secondPrize: number;
-                thirdPrize: number;
-            }}
-            regions={GameData?.regions || "Global"}
-            registrationStatus={GameData?.registrationStatus as boolean}
-            skillLevel={GameData?.skillLevel || "All Levels"}
-            teamSize={GameData?.teamSize || "1"}
-            title={GameData?.title || "Tournament"}
-            enrolledTeams={GameData?.enrolledTeams || 0}
-            game={GameData?.game}
-            maxTeams={GameData?.maxTeams}
-            platform={GameData?.platform || "PC"}
-            status={GameData?.status}
-            subtitle={GameData?.subtitle || "No details available"}
-            tournamentType={GameData?.tournamentType || "Single Elimination"}
-        />
-    );
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return <div>Error loading tournament details</div>;
+  }
+
+  if (!data?.data) {
+    return <div>Tournament not found</div>;
+  }
+
+  const tournament = data.data;
+
+  return (
+    <div>
+      <TournamentDetails
+        date={tournament.startDate}
+        enrollmentStatus={tournament.enrolled < tournament.maxTeams}
+        entryFee={tournament.entryFee}
+        imageSrc={tournament.image}
+        prize={{
+          totalPrize: tournament.prizePool,
+          firstPrize: Math.round(tournament.prizePool * 0.5), // Assuming 50% for 1st prize
+          secondPrize: Math.round(tournament.prizePool * 0.3), // 30% for 2nd
+          thirdPrize: Math.round(tournament.prizePool * 0.2), // 20% for 3rd
+        }}
+        regions={tournament.region}
+        registrationStatus={tournament.status === "ACTIVE"}
+        skillLevel={tournament.skillLevel}
+        teamSize={tournament.teamSize.toString()}
+        title={tournament.title}
+        enrolledTeams={tournament.enrolled}
+        game={tournament.gameName}
+        maxTeams={tournament.maxTeams}
+        platform={tournament.gamePlatform}
+        status={tournament.status}
+        subtitle={tournament.subtitle}
+        tournamentType={tournament.tournamentType}
+        description={tournament.description} // Added description if your component supports it
+      />
+      <ParticipantsTable participants={tournament.participants || []} />
+    </div>
+  );
 }

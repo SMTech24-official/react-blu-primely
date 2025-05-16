@@ -16,6 +16,7 @@ type DecodedToken = {
 
 const ProtectedRoute = ({ children, allowedRoles }: ProtectedRouteProps) => {
   const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
+  const [userRole, setUserRole] = useState<"SUPER_ADMIN" | "USER" | null>(null);
 
   useEffect(() => {
     const token = Cookies.get("token");
@@ -34,6 +35,8 @@ const ProtectedRoute = ({ children, allowedRoles }: ProtectedRouteProps) => {
         return;
       }
 
+      setUserRole(decoded.role);
+
       if (allowedRoles.includes(decoded.role)) {
         setIsAuthorized(true);
       } else {
@@ -47,10 +50,14 @@ const ProtectedRoute = ({ children, allowedRoles }: ProtectedRouteProps) => {
   }, [allowedRoles]);
 
   if (isAuthorized === null) {
-    return <Loading />; // or just: return <div>Loading...</div>;
+    return <Loading />;
   }
 
   if (!isAuthorized) {
+    // If not authorized but user is SUPER_ADMIN, redirect to dashboard
+    if (userRole === "SUPER_ADMIN") {
+      return <Navigate to="/dashboard" />;
+    }
     return <Navigate to="/signin" />;
   }
 
