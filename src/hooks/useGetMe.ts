@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { logout, setUser } from "../redux/slice/auth/authSlice";
-import { useGetUserByIdQuery } from "../redux/apis/auth/userApi";
 import { useNavigate } from "react-router-dom";
+import { useGetUserByIdQuery } from "../redux/apis/auth/userApi";
+import { logout, setUser } from "../redux/slice/auth/authSlice";
 
 interface DecodedToken {
   id: string; // Ensure this matches your JWT payload
@@ -13,15 +14,18 @@ interface DecodedToken {
 
 const useAuthUser = () => {
   const dispatch = useDispatch();
+  const [temp, setTemp] = useState<any | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
   const navigate = useNavigate();
+
   useEffect(() => {
     const token = Cookies.get("token");
     console.log(token);
     if (token) {
       try {
         const decoded: DecodedToken = jwtDecode(token);
-
+        const decodedUser = jwtDecode<DecodedToken>(token);
+        setTemp(decodedUser);
         // Check if the token is expired
         if (decoded.exp * 1000 < Date.now()) {
           console.log("Token expired");
@@ -41,6 +45,8 @@ const useAuthUser = () => {
     skip: !userId, // Skip query if userId is null
   });
 
+  console.log(data?.data);
+
   useEffect(() => {
     if (data?.success) {
       dispatch(setUser(data.data)); // Store user in Redux
@@ -52,7 +58,7 @@ const useAuthUser = () => {
     dispatch(logout()); // Reset Redux store
     navigate("/signIn"); // Redirect to sign-in page
   };
-  return { user: data?.data || null, isLoading, error, handleLogout };
+  return { user: data?.data || temp, isLoading, error, handleLogout };
 };
 
 export default useAuthUser;

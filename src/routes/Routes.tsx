@@ -33,6 +33,7 @@ import Payment from "../pages/payment/payment";
 import Profile from "../pages/profile/Profile";
 import SupportPage from "../pages/support/SupportPage";
 import TournamentsPage from "../pages/tournaments/TournmentsPages";
+import ProtectedRoute from "./protectedRoutes";
 
 export const navItems = [
   {
@@ -57,7 +58,6 @@ export const navItems = [
   },
 ];
 
-
 // Define your routes
 export const routes = [
   {
@@ -65,49 +65,127 @@ export const routes = [
     element: <HomeLayout />,
     children: [
       { path: "/", element: <Home /> },
-      { path: "/aboutUs", element: <ScrollToTop pathname="/aboutUs"><AboutPage /></ScrollToTop> },
-      { path: "/support", element: <ScrollToTop pathname="/support"><SupportPage /></ScrollToTop> },
-      { path: "/leaderboards", element: <ScrollToTop pathname="/leaderboards"><Leaderboards /> </ScrollToTop> },
-      { path: "/tournaments", element: <ScrollToTop pathname="/tournaments"><TournamentsPage /></ScrollToTop> },
       {
-        path: "/featured-tournament/:name", element: <ScrollToTop pathname={"/featured-tournament/:name"}><FeaturedTournament /></ScrollToTop>,
+        path: "/aboutUs",
+        element: (
+          <ScrollToTop pathname="/aboutUs">
+            <AboutPage />
+          </ScrollToTop>
+        ),
       },
       {
-        path: "/tournament-details/:id", element: <ScrollToTop pathname={"/tournament-details/:id"}><TournamentDetailsPage /></ScrollToTop>,
+        path: "/support",
+        element: (
+          <ScrollToTop pathname="/support">
+            <SupportPage />
+          </ScrollToTop>
+        ),
       },
       {
-        path: "/clan-details/:id", element: <ScrollToTop pathname={"/clan-details/:id"}><ClanDetails /></ScrollToTop>,
+        path: "/leaderboards",
+        element: (
+          <ScrollToTop pathname="/leaderboards">
+            <Leaderboards />{" "}
+          </ScrollToTop>
+        ),
       },
       {
-        path: "/profile", element: <ScrollToTop pathname={"/profile"}><Profile /></ScrollToTop>,
+        path: "/tournaments",
+        element: (
+          <ScrollToTop pathname="/tournaments">
+            <TournamentsPage />
+          </ScrollToTop>
+        ),
       },
       {
-        path: "/chat", element: <ScrollToTop pathname={"/chat"}><ChatPage /></ScrollToTop>,
+        path: "/featured-tournament/:name",
+        element: (
+          <ScrollToTop pathname={"/featured-tournament/:name"}>
+            <FeaturedTournament />
+          </ScrollToTop>
+        ),
       },
       {
-        path: "/invitations", element: <ScrollToTop pathname={"/invitations"}><Invitations /></ScrollToTop>,
-      }
+        path: "/tournament-details/:id",
+        element: (
+          <ScrollToTop pathname={"/tournament-details/:id"}>
+            <TournamentDetailsPage />
+          </ScrollToTop>
+        ),
+      },
+      {
+        path: "/clan-details/:id",
+        element: (
+          <ScrollToTop pathname={"/clan-details/:id"}>
+            <ClanDetails />
+          </ScrollToTop>
+        ),
+      },
+      {
+        path: "/profile",
+        element: (
+          <ScrollToTop pathname={"/profile"}>
+            <Profile />
+          </ScrollToTop>
+        ),
+      },
+      {
+        path: "/chat",
+        element: (
+          <ScrollToTop pathname={"/chat"}>
+            <ChatPage />
+          </ScrollToTop>
+        ),
+      },
+      {
+        path: "/invitations",
+        element: (
+          <ScrollToTop pathname={"/invitations"}>
+            <Invitations />
+          </ScrollToTop>
+        ),
+      },
     ],
   },
   {
     path: "/signin",
-    element: <AuthLayout ><SignInForm /></AuthLayout>,
+    element: (
+      <AuthLayout>
+        <SignInForm />
+      </AuthLayout>
+    ),
   },
   {
     path: "/signUp",
-    element: <AuthLayout ><SignupForm /> </AuthLayout>,
+    element: (
+      <AuthLayout>
+        <SignupForm />{" "}
+      </AuthLayout>
+    ),
   },
   {
     path: "/otp",
-    element: <AuthLayout ><OtpVerification /> </AuthLayout>,
+    element: (
+      <AuthLayout>
+        <OtpVerification />{" "}
+      </AuthLayout>
+    ),
   },
   {
     path: "/forget-password",
-    element: <AuthLayout ><ForgetPasswordPage /> </AuthLayout>,
+    element: (
+      <AuthLayout>
+        <ForgetPasswordPage />{" "}
+      </AuthLayout>
+    ),
   },
   {
     path: "/reset-password",
-    element: <AuthLayout ><NewPasswordForm /> </AuthLayout>,
+    element: (
+      <AuthLayout>
+        <NewPasswordForm />{" "}
+      </AuthLayout>
+    ),
   },
   {
     path: "*",
@@ -115,23 +193,113 @@ export const routes = [
   },
   {
     path: "/dashboard",
-    element: <SidebarProvider><Layout /></SidebarProvider>,
+    element: (
+      <ProtectedRoute allowedRoles={"SUPER_ADMIN"}>
+        <SidebarProvider>
+          <Layout />
+        </SidebarProvider>
+      </ProtectedRoute>
+    ),
     children: [
-      { path: "/dashboard", element: <ScrollToTop pathname="/dashboard"><DashBoardPage /></ScrollToTop> },
-      { path: "/dashboard/tournaments", element: <ScrollToTop pathname="/dashboard/tournaments"><Tournaments /></ScrollToTop> },
-      { path: "/dashboard/tournaments/:id", element: <ScrollToTop pathname="/dashboard/tournaments/:id"> <DetailsPage /> </ScrollToTop> },
-      { path: "/dashboard/fixture", element: <ScrollToTop pathname="/dashboard/fixture"><MainFixture /></ScrollToTop> },
-      { path: "/dashboard/fixture/:id", element: <ScrollToTop pathname="/dashboard/fixture/:id"> <FixtureBracket /> </ScrollToTop> },
-      { path: "/dashboard/leaderBoards", element: <ScrollToTop pathname="/dashboard/leaderBoards"><LeaderTab /></ScrollToTop> },
-      { path: "/dashboard/tournaments/addTournaments", element: <ScrollToTop pathname="/dashboard/tournaments/addTournaments"><TournamentForm /></ScrollToTop> },
-      { path: "/dashboard/award", element: <ScrollToTop pathname="/dashboard/award"><MainAward /></ScrollToTop> },
-      { path: "/dashboard/payment", element: <ScrollToTop pathname="/dashboard/payment"><Payment /></ScrollToTop> },
-      { path: "/dashboard/payment/:id", element: <ScrollToTop pathname="/dashboard/payment"><PaymentDetails /></ScrollToTop> },
+      {
+        path: "/dashboard",
+        element: (
+          <ScrollToTop pathname="/dashboard">
+            <DashBoardPage />
+          </ScrollToTop>
+        ),
+      },
+      {
+        path: "/dashboard/tournaments",
+        element: (
+          <ScrollToTop pathname="/dashboard/tournaments">
+            <Tournaments />
+          </ScrollToTop>
+        ),
+      },
+      {
+        path: "/dashboard/tournaments/:id",
+        element: (
+          <ScrollToTop pathname="/dashboard/tournaments/:id">
+            {" "}
+            <DetailsPage />{" "}
+          </ScrollToTop>
+        ),
+      },
+      {
+        path: "/dashboard/fixture",
+        element: (
+          <ScrollToTop pathname="/dashboard/fixture">
+            <MainFixture />
+          </ScrollToTop>
+        ),
+      },
+      {
+        path: "/dashboard/fixture/:id",
+        element: (
+          <ScrollToTop pathname="/dashboard/fixture/:id">
+            {" "}
+            <FixtureBracket />{" "}
+          </ScrollToTop>
+        ),
+      },
+      {
+        path: "/dashboard/leaderBoards",
+        element: (
+          <ScrollToTop pathname="/dashboard/leaderBoards">
+            <LeaderTab />
+          </ScrollToTop>
+        ),
+      },
+      {
+        path: "/dashboard/tournaments/addTournaments",
+        element: (
+          <ScrollToTop pathname="/dashboard/tournaments/addTournaments">
+            <TournamentForm />
+          </ScrollToTop>
+        ),
+      },
+      {
+        path: "/dashboard/award",
+        element: (
+          <ScrollToTop pathname="/dashboard/award">
+            <MainAward />
+          </ScrollToTop>
+        ),
+      },
+      {
+        path: "/dashboard/payment",
+        element: (
+          <ScrollToTop pathname="/dashboard/payment">
+            <Payment />
+          </ScrollToTop>
+        ),
+      },
+      {
+        path: "/dashboard/payment/:id",
+        element: (
+          <ScrollToTop pathname="/dashboard/payment">
+            <PaymentDetails />
+          </ScrollToTop>
+        ),
+      },
 
-      { path: "/dashboard/user-clan", element: <ScrollToTop pathname="/dashboard/user-clan"><UserAndClanTab /></ScrollToTop> },
-      { path: "/dashboard/chat", element: <ScrollToTop pathname="/dashboard/user-clan"><CommunicationComponent /></ScrollToTop> },
+      {
+        path: "/dashboard/user-clan",
+        element: (
+          <ScrollToTop pathname="/dashboard/user-clan">
+            <UserAndClanTab />
+          </ScrollToTop>
+        ),
+      },
+      {
+        path: "/dashboard/chat",
+        element: (
+          <ScrollToTop pathname="/dashboard/user-clan">
+            <CommunicationComponent />
+          </ScrollToTop>
+        ),
+      },
     ],
   },
 ];
-
-
