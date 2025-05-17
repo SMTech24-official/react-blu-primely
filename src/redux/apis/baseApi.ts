@@ -20,6 +20,14 @@ export const baseApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["User", "Clan", "GameEntries", "Payment", "Users", "LeaderBoard"],
+  tagTypes: [
+    "User",
+    "Clan",
+    "GameEntries",
+    "Payment",
+    "Users",
+    "LeaderBoard",
+    "Matches",
+  ],
   endpoints: () => ({}),
 });
