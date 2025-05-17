@@ -39,13 +39,13 @@ export default function LeaderTab() {
       value: "player",
       label: "Player",
       icon: UserAndClan,
-      component: <LeaderboardTable members={User?.data?.data as any} />,
+      component: <LeaderboardTable members={User?.data as any} />,
     },
     {
       value: "clan",
       label: "Clan",
       icon: Tournaments,
-      component: <LeaderboardTable members={Clan?.data?.data as any} />,
+      component: <LeaderboardTable members={Clan?.data as any} />,
     },
     // { value: "chat", label: "Chat", icon: ChatIcon, component: <CommunicationComponent /> },
   ];

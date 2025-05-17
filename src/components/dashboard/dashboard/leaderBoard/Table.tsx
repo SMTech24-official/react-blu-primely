@@ -10,13 +10,17 @@ import {
 } from "../../../ui/table";
 
 import { ScrollArea } from "@radix-ui/react-scroll-area";
-import { LeaderboardEntry } from "../../../../types/types";
 import { ScrollBar } from "../../../ui/scroll-area";
+import { LeaderboardEntry } from "../../../../types/types";
 
-export function LeaderboardTable({ members }: { members: LeaderboardEntry }) {
+export function LeaderboardTable({
+  members,
+}: {
+  members: { data: LeaderboardEntry[] };
+}) {
   console.log(members);
   return (
-    <div className="rounded-lg ">
+    <div className="rounded-lg">
       <ScrollArea className="">
         <Table>
           <TableHeader>
@@ -39,7 +43,7 @@ export function LeaderboardTable({ members }: { members: LeaderboardEntry }) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {members.map((member) => (
+            {members.data.map((member) => (
               <TableRow
                 key={member.id}
                 className="hover:bg-black/20 text-sm md:text-base"
@@ -47,17 +51,21 @@ export function LeaderboardTable({ members }: { members: LeaderboardEntry }) {
                 <TableCell className="font-medium py-6">
                   <div className="flex items-center gap-6">
                     <img
-                      src={member.avatar}
-                      alt={member.name}
+                      src={
+                        member.user?.profilePicture ||
+                        member.clan?.logo ||
+                        "https://img.freepik.com/free-photo/user-profile-interface-sign-symbol-icon-3d-rendering_56104-1956.jpg?ga=GA1.1.603131680.1747477038&semt=ais_hybrid&w=740"
+                      }
+                      alt={member.user?.fullName || member.clan?.name}
                       width={40}
                       height={40}
-                      className="rounded-full"
+                      className="rounded-full aspect-square"
                     />
-                    {member.name}
+                    {member.user?.fullName || member.clan?.name}
                   </div>
                 </TableCell>
-                <TableCell>{member.xp.toLocaleString()}</TableCell>
-                <TableCell>${member.earning.toLocaleString()}</TableCell>
+                <TableCell>{member?.exp}</TableCell>
+                <TableCell>${member?.totalEarnings}</TableCell>
                 <TableCell>
                   <div className="flex items-center gap-1">
                     <img
@@ -66,7 +74,7 @@ export function LeaderboardTable({ members }: { members: LeaderboardEntry }) {
                       width={30}
                       height={30}
                     />
-                    {member.eliteTrophies}
+                    {member?.eliteTrophies}
                   </div>
                 </TableCell>
                 <TableCell>
@@ -77,7 +85,7 @@ export function LeaderboardTable({ members }: { members: LeaderboardEntry }) {
                       width={30}
                       height={30}
                     />
-                    {member.goldTrophies}
+                    {member?.goldTrophies}
                   </div>
                 </TableCell>
               </TableRow>
