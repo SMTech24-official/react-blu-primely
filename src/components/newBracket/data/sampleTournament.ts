@@ -1,0 +1,317 @@
+import { TournamentData } from "../components/Tournament/types";
+
+const sampleTournament: TournamentData = {
+  id: "worlds-2024",
+  name: "World Championship 2024",
+  rounds: [
+    {
+      id: "knockouts",
+      name: "Knockouts",
+      matches: [
+        {
+          id: "ko-1",
+          teams: [
+            {
+              id: "team-1",
+              name: "Nova Esports",
+              score: 3,
+              seed: 1,
+              wins: 3,
+              losses: 0,
+            },
+            {
+              id: "team-9",
+              name: "Storm Raiders",
+              score: 1,
+              seed: 16,
+              wins: 0,
+              losses: 1,
+            },
+          ],
+          winner: "team-1",
+          nextMatchId: "qf-1",
+          status: "completed",
+        },
+        {
+          id: "ko-2",
+          teams: [
+            {
+              id: "team-2",
+              name: "Titan Gaming",
+              score: 2,
+              seed: 8,
+              wins: 1,
+              losses: 1,
+            },
+            {
+              id: "team-10",
+              name: "Cyber Knights",
+              score: 0,
+              seed: 9,
+              wins: 0,
+              losses: 1,
+            },
+          ],
+          winner: "team-2",
+          nextMatchId: "qf-1",
+          status: "completed",
+        },
+        {
+          id: "ko-3",
+          teams: [
+            {
+              id: "team-3",
+              name: "Arctic Wolves",
+              score: 2,
+              seed: 4,
+              wins: 2,
+              losses: 1,
+            },
+            {
+              id: "team-11",
+              name: "Shadow Legion",
+              score: 1,
+              seed: 13,
+              wins: 0,
+              losses: 1,
+            },
+          ],
+          winner: "team-3",
+          nextMatchId: "qf-2",
+          status: "completed",
+        },
+        {
+          id: "ko-4",
+          teams: [
+            {
+              id: "team-4",
+              name: "Phantom Force",
+              score: 2,
+              seed: 5,
+              wins: 2,
+              losses: 1,
+            },
+            {
+              id: "team-12",
+              name: "Blaze Elite",
+              score: 0,
+              seed: 12,
+              wins: 0,
+              losses: 1,
+            },
+          ],
+          winner: "team-4",
+          nextMatchId: "qf-2",
+          status: "completed",
+        },
+        {
+          id: "ko-5",
+          teams: [
+            {
+              id: "team-5",
+              name: "Dragon Squad",
+              score: 3,
+              seed: 3,
+              wins: 2,
+              losses: 1,
+            },
+            {
+              id: "team-13",
+              name: "Thunder Core",
+              score: 1,
+              seed: 14,
+              wins: 0,
+              losses: 1,
+            },
+          ],
+          winner: "team-5",
+          nextMatchId: "qf-3",
+          status: "completed",
+        },
+        {
+          id: "ko-6",
+          teams: [
+            {
+              id: "team-6",
+              name: "Nexus Gaming",
+              score: 2,
+              seed: 6,
+              wins: 1,
+              losses: 1,
+            },
+            {
+              id: "team-14",
+              name: "Frost Giants",
+              score: 0,
+              seed: 11,
+              wins: 0,
+              losses: 1,
+            },
+          ],
+          winner: "team-6",
+          nextMatchId: "qf-3",
+          status: "completed",
+        },
+        {
+          id: "ko-7",
+          teams: [
+            {
+              id: "team-7",
+              name: "Eclipse",
+              score: 2,
+              seed: 2,
+              wins: 4,
+              losses: 0,
+            },
+            {
+              id: "team-15",
+              name: "Inferno Squad",
+              score: 0,
+              seed: 15,
+              wins: 0,
+              losses: 1,
+            },
+          ],
+          winner: "team-7",
+          nextMatchId: "qf-4",
+          status: "completed",
+        },
+        {
+          id: "ko-8",
+          teams: [
+            {
+              id: "team-8",
+              name: "Vortex",
+              score: 2,
+              seed: 7,
+              wins: 1,
+              losses: 1,
+            },
+            {
+              id: "team-16",
+              name: "Quantum Force",
+              score: 1,
+              seed: 10,
+              wins: 0,
+              losses: 1,
+            },
+          ],
+          winner: "team-8",
+          nextMatchId: "qf-4",
+          status: "completed",
+        },
+      ],
+    },
+    {
+      id: "quarterfinals",
+      name: "Quarterfinals",
+      matches: [
+        {
+          id: "qf-1",
+          teams: [
+            {
+              id: "team-1",
+              name: "Nova Esports",
+              score: 2,
+              seed: 1,
+              wins: 3,
+              losses: 0,
+            },
+            {
+              id: "team-2",
+              name: "Titan Gaming",
+              score: 0,
+              seed: 8,
+              wins: 1,
+              losses: 1,
+            },
+          ],
+          winner: "team-1",
+          nextMatchId: "sf-1",
+          status: "completed",
+        },
+        {
+          id: "qf-2",
+          teams: [
+            {
+              id: "team-3",
+              name: "Arctic Wolves",
+              score: 1,
+              seed: 4,
+              wins: 2,
+              losses: 1,
+            },
+            {
+              id: "team-4",
+              name: "Phantom Force",
+              score: 2,
+              seed: 5,
+              wins: 2,
+              losses: 1,
+            },
+          ],
+          winner: "team-4",
+          nextMatchId: "sf-1",
+          status: "completed",
+        },
+
+        {
+          id: "qf-4",
+          teams: [
+            {
+              id: "team-7",
+              name: "Eclipse",
+              score: 2,
+              seed: 2,
+              wins: 4,
+              losses: 0,
+            },
+            {
+              id: "team-8",
+              name: "Vortex",
+              score: 0,
+              seed: 7,
+              wins: 1,
+              losses: 1,
+            },
+          ],
+          winner: "team-7",
+          nextMatchId: "sf-2",
+          status: "completed",
+        },
+      ],
+    },
+    {
+      id: "semifinals",
+      name: "Semifinals",
+      matches: [
+        {
+          id: "sf-1",
+          teams: [
+            {
+              id: "team-1",
+              name: "Nova Esports",
+              score: 3,
+              seed: 1,
+              wins: 3,
+              losses: 0,
+            },
+            {
+              id: "team-4",
+              name: "Phantom Force",
+              score: 1,
+              seed: 5,
+              wins: 2,
+              losses: 1,
+            },
+          ],
+          winner: "team-1",
+          nextMatchId: "f-1",
+          status: "completed",
+        },
+      ],
+    },
+  ],
+};
+
+export default sampleTournament;
