@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 "use client";
 
 import { AwardType, Clan } from "../../../types/types";
@@ -22,6 +24,10 @@ import mvp from "@/assets/award/mvp.png";
 import strategy from "@/assets/award/strategy.png";
 import teamwork from "@/assets/award/teamwork.png";
 import { AnimatedTooltip } from "../../ui/animated-tooltip";
+import { useGiveAwardMutation } from "../../../redux/apis/award/AwardApi";
+import { toast } from "sonner";
+import { TAward } from "../../../redux/types";
+
 
 interface ApiClan {
     id: string;
@@ -42,13 +48,15 @@ interface ApiClan {
         wins: number;
         totalMatches: number;
     };
-    awards: string[];
+    awards: TAward[];
 }
 
-export function AwardTable({ clans: apiClans }: { clans: ApiClan[] }) {
+export function AwardTable({ clans: apiClans, refetch }: { clans: ApiClan[], refetch: () => void }) {
     const [awardModal, setAwardModal] = useState(false);
     const [modalData, setModalData] = useState<null | Clan>(null);
     const award: AwardType[] = ["mvp", "strategy", "comeback", "teamwork"];
+
+
 
     // Transform API data to match your Clan type
     const clans: Clan[] = apiClans.map(clan => ({
@@ -88,8 +96,19 @@ export function AwardTable({ clans: apiClans }: { clans: ApiClan[] }) {
         }
     }));
 
-    const giveAward = (tag: AwardType) => {
-        console.log(tag);
+    const [giveAwards] = useGiveAwardMutation()
+    const giveAward = async (tag: AwardType) => {
+        try {
+            const res = await giveAwards({
+                clanId: modalData?.id,
+                name: tag.toUpperCase()
+            }).unwrap()
+            refetch()
+            setAwardModal(false)
+            toast.success(res.message)
+        } catch (error: any) {
+            toast.error(error.data.message)
+        }
     };
 
     const getTrophyIcon = (type: string) => {
@@ -112,6 +131,7 @@ export function AwardTable({ clans: apiClans }: { clans: ApiClan[] }) {
         }
     };
 
+    console.log(modalData, 'modalDta');
     return (
         <div className="rounded-lg bg-fourthColor p-4">
             <p className="font-semibold text-2xl uppercase">Give Award</p>
@@ -176,7 +196,7 @@ export function AwardTable({ clans: apiClans }: { clans: ApiClan[] }) {
                                 <TableCell className="grid grid-cols-2 items-center justify-center">
                                     {clan.awards.map((award, idx) => (
                                         <div key={idx} className="">
-                                            <AnimatedTooltip key={idx} classProps="rounded-full aspect-square object-contain h-7 w-7" id={idx} image={getAwardIcon(award)} tooltip={award.toUpperCase()} />
+                                            <AnimatedTooltip key={idx} classProps="rounded-full aspect-square object-contain h-7 w-7" id={idx} image={getAwardIcon(award.name.toLowerCase())} tooltip={award.name.toUpperCase()} />
                                         </div>
                                     ))}
                                 </TableCell>
@@ -203,8 +223,8 @@ export function AwardTable({ clans: apiClans }: { clans: ApiClan[] }) {
                                 {modalData.awards.length > 0 ? (
                                     modalData.awards.map((award, index) => (
                                         <div key={index} className="flex items-center gap-2 border py-2 px-4 rounded-lg">
-                                            <img src={getAwardIcon(award)} alt={award} className="w-10 h-10 object-contain" />
-                                            <span className="uppercase">{award}</span>
+                                            <img src={getAwardIcon(award.name.toLowerCase())} alt={award.name} className="w-10 h-10 object-contain" />
+                                            <span className="uppercase">{award.name}</span>
                                         </div>
                                     ))
                                 ) : (
@@ -213,9 +233,9 @@ export function AwardTable({ clans: apiClans }: { clans: ApiClan[] }) {
                             </div>
                             <div>
                                 <h2 className="my-2 text-lg">Give Award</h2>
-                                <div className="flex gap-2">
+                                <div className="flex gap-2" >
                                     {modalData && modalData.awards && (
-                                        award.filter((i) => !modalData.awards.includes(i)).map((award, index) => (
+                                        award.filter((i) => !modalData.awards.some((a: { name: string }) => a.name.toLowerCase() === i.toLowerCase())).map((award, index) => (
                                             <div key={index} className="flex items-center gap-2 border py-2 px-4 rounded-lg cursor-pointer hover:border-primary_highlighted hover:text-primary_highlighted transition"
                                                 onClick={() => giveAward(award)}
                                             >

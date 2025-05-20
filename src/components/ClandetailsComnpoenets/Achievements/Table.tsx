@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 
 import { ScrollArea, ScrollBar } from "../../ui/scroll-area";
 import {
@@ -9,9 +7,11 @@ import {
     TableHeader,
     TableRow,
 } from "../../ui/table";
+import { TMatch } from "./Achievements";
 
 
-export function TableComponents<T>({ members }: { members: T[] }) {
+export function TableComponents({ matches }: { matches: TMatch[] }) {
+    console.log(matches, "matches");
     return (
         <div className="rounded-lg ">
             <ScrollArea className="">
@@ -25,32 +25,32 @@ export function TableComponents<T>({ members }: { members: T[] }) {
                                 Tournament
                             </TableHead>
                             <TableHead className="px-4 py-5 text-primary_highlighted text-sm md:text-base">
-                                Team
+                                Opponent
                             </TableHead>
                             <TableHead className="px-4 py-5 text-primary_highlighted text-sm md:text-base">
                                 Place
                             </TableHead>
                             <TableHead className="px-4 py-5 text-primary_highlighted text-sm md:text-base rounded-r-xl">
-                                Year
+                                Date
                             </TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {members.map((member: any, idx: number) => (
+                        {matches.map((match: TMatch, idx: number) => (
                             <TableRow
-                                key={member.id}
+                                key={match.id}
                                 className="hover:bg-black/20 text-sm md:text-base"
                             >
                                 <TableCell className="font-medium py-6">
                                     {idx + 1}
                                 </TableCell>
-                                <TableCell>{member.tournament}</TableCell>
-                                <TableCell>{member.team}</TableCell>
+                                <TableCell>{match?.tournament?.title}</TableCell>
+                                <TableCell>{match.opponent.name}</TableCell>
                                 <TableCell>
-                                    {member.place}
+                                    {match.position}
                                 </TableCell>
                                 <TableCell>
-                                    {member.year}
+                                    {match.startTime.split("T")[0]}
                                 </TableCell>
                             </TableRow>
                         ))}

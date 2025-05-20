@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Dispatch, SetStateAction } from "react";
-import { ClanMember2 } from "../redux/types";
+import { ClanMember2, TAward } from "../redux/types";
 
 export type NavPropsTypes = {
   name: string;
@@ -214,7 +214,7 @@ export type Clan = {
   tournamentsPlayed: number;
   trophies: Trophy[];
   lostWin: { lost: number; win: number };
-  awards: AwardType[] | string[];
+  awards: TAward[];
 };
 
 // Base types

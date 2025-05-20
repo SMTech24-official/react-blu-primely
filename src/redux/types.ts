@@ -62,6 +62,15 @@ export interface ClanStats {
   updateAt: string;
 }
 
+
+export type TAward = {
+  id: string;
+  clanId: string;
+  name: string; // assuming this is an enum value like "TEAMWORK"
+  createdAt: string; // ISO date string
+  updatedAt: string; // ISO date string
+};
+
 export interface Clan {
   id: string;
   userId: string;
@@ -72,6 +81,7 @@ export interface Clan {
   updatedAt: string;
   ClanMember: ClanMember[];
   ClanStats: ClanStats;
+  Award: TAward[]
 }
 
 export interface ClanListResponse {
