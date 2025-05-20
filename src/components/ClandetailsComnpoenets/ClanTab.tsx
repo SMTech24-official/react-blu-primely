@@ -28,6 +28,7 @@ export default function ClanTab({ data, }: { data: Clan | null }) {
         navigate(`#${value}`, { replace: true });
     };
 
+    
     const TAB_ITEMS = [
         { value: "overview", label: "Overview", icon: Overview, component: <OverviewTab overview={data} /> },
         { value: "roaster", label: "Roster", icon: RoasterIcon, component: <Roaster players={data?.ClanMember as ClanMember[]} /> },

@@ -36,14 +36,25 @@ interface Match {
   opponent: Opponent;
 }
 
-interface MatchResponse {
+interface MatchArrayResponse {
   success: boolean;
   message: string;
   data: Match[];
 }
 
+interface MatchGroupedResponse {
+  success: boolean;
+  message: string;
+  data: {
+    upcoming: Match[];
+    recent: Match[];
+  };
+}
+
+type MatchResponse = MatchArrayResponse | MatchGroupedResponse;
+
 interface MatchQueryParams {
-  matchType: "recent" | "upcoming" | "completed";
+  matchType?: "recent" | "upcoming" | "completed";
 }
 
 export const matchApi = baseApi.injectEndpoints({
@@ -53,7 +64,7 @@ export const matchApi = baseApi.injectEndpoints({
         url: "match/user-match",
         method: "GET",
         params: {
-          matchType: params.matchType || "recent",
+          matchType: params.matchType,
         },
       }),
       providesTags: ["Matches"], // Updated tag for cache invalidation

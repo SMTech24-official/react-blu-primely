@@ -36,7 +36,7 @@ interface UsersResponse {
 interface UsersQueryParams {
   page?: number;
   limit?: number;
-  search?: string;
+  searchTerm?: string;
   sort?: string;
 }
 
@@ -49,7 +49,7 @@ export const UserApi = baseApi.injectEndpoints({
         params: {
           page: params.page || 1,
           limit: params.limit || 10,
-          ...(params.search && { search: params.search }),
+          ...(params.searchTerm && { searchTerm: params.searchTerm }),
           ...(params.sort && { sort: params.sort }),
         },
       }),

@@ -13,7 +13,6 @@ export interface ClanMember {
 }
 
 export interface ClanStats {
- 
   id: string;
   clanId: string;
   totalMatches: number;
@@ -133,7 +132,6 @@ export interface ClanByUserResponse {
   data: Clan2[];
 }
 
-
 // ---------------
 
 // Common Meta Type
@@ -149,7 +147,6 @@ export interface TransformedUserInvitationsResponse {
 }
 // Invitation Status Enum
 export enum InvitationStatus {
-  PENDING = "PENDING",
   ACCEPTED = "ACCEPTED",
   REJECTED = "REJECTED",
 }
@@ -229,7 +226,6 @@ export interface GetUserInvitationsRequest {
   limit?: number;
 }
 
-
 // -----------------
 
 export interface Tournament {
@@ -261,11 +257,16 @@ export interface Tournament {
 }
 
 // Request types
-export interface CreateTournamentRequest extends Omit<Tournament, 'id' | 'userId' | 'createdAt' | 'updatedAt' | 'participants' | 'image'> {
+export interface CreateTournamentRequest
+  extends Omit<
+    Tournament,
+    "id" | "userId" | "createdAt" | "updatedAt" | "participants" | "image"
+  > {
   image?: File;
 }
 
-export interface UpdateTournamentRequest extends Partial<CreateTournamentRequest> {
+export interface UpdateTournamentRequest
+  extends Partial<CreateTournamentRequest> {
   id: string;
 }
 

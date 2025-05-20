@@ -1,16 +1,16 @@
-import { baseApi } from "../baseApi";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   BaseApiResponse,
   CreateInvitationRequest,
   CreateInvitationResponse,
-  GetUserInvitationsRequest,
-  UpdateInvitationRequest,
-  UpdateInvitationResponse,
-  UserInvitationsResponse,
   ErrorResponse,
+  GetUserInvitationsRequest,
   Invitation,
   Meta,
+  UpdateInvitationResponse,
+  UserInvitationsResponse,
 } from "../../../types/clanAndInviteTypes";
+import { baseApi } from "../baseApi";
 
 // Helper type for transformed response
 interface TransformedUserInvitationsResponse {
@@ -40,7 +40,7 @@ interface RtkQueryError {
 
 // Error transformer function
 const transformRtkError = (error: RtkQueryError | unknown): ErrorResponse => {
-  if (typeof error === 'object' && error !== null && 'status' in error) {
+  if (typeof error === "object" && error !== null && "status" in error) {
     const rtkError = error as RtkQueryError;
     return {
       success: false,
@@ -71,6 +71,7 @@ export const invitationApi = baseApi.injectEndpoints({
         body,
       }),
       transformErrorResponse: transformRtkError,
+      invalidatesTags: ["Invitations"],
     }),
 
     // Get user's invitations
@@ -97,14 +98,25 @@ export const invitationApi = baseApi.injectEndpoints({
     // Update invitation status
     updateInvitation: builder.mutation<
       BaseApiResponse<UpdateInvitationResponse>,
-      { id: string; body: UpdateInvitationRequest }
+      { id: string; status: "ACCEPTED" | "REJECTED" }
     >({
-      query: ({ id, body }) => ({
+      query: ({ id, status }) => ({
         url: `/clan-invitation/${id}`,
-        method: "PATCH",
-        body,
+        method: "PUT",
+        body: { status: status },
       }),
       transformErrorResponse: transformRtkError,
+    }),
+    isInvited: builder.query<any, { clanId: string; userId: string }>({
+      query: (params) => ({
+        url: "/clan-invitation/isClanMember",
+        method: "GET",
+        params: {
+          clanId: params.clanId,
+          userId: params.userId,
+        },
+      }),
+      providesTags: ["Invitations"], // Updated tag for cache invalidation
     }),
   }),
 });
@@ -113,4 +125,5 @@ export const {
   useCreateInvitationMutation,
   useGetUserInvitationsQuery,
   useUpdateInvitationMutation,
+  useIsInvitedQuery,
 } = invitationApi;
