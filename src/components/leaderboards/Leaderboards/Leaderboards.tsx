@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import banner from "@/assets/leaderboard/leaderboard-banner.png";
-import Solo from "../Solo/Solo";
-import Clan from "../Clan/Clan";
+import { useGetClanLeaderQuery, useGetUserLeaderQuery } from "../../../redux/apis/leaderboard/leaderBoard";
+import { LeaderboardTable } from "../../dashboard/dashboard/leaderBoard/Table";
+import Loading from "../../others/Loading";
 import {
   Select, SelectContent,
   SelectItem,
@@ -10,6 +12,16 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
 
 const Leaderboards = () => {
+
+
+  const { data: User, isLoading } = useGetUserLeaderQuery({});
+  const { data: Clan, isLoading: clanLoading } = useGetClanLeaderQuery({});
+
+  if (clanLoading || isLoading) {
+    return <Loading />;
+  }
+
+
   return (
     <div className="relative bg-[#151515]">
       {/* Banner Section */}
@@ -107,12 +119,12 @@ const Leaderboards = () => {
             {/* Tabs Content */}
             <TabsContent value="solo">
               <div className=" bg-[#1d1d1d] p-6 rounded-lg shadow-md">
-                <Solo />
+                <LeaderboardTable members={User?.data as any} />
               </div>
             </TabsContent>
             <TabsContent value="clan">
               <div className="bg-[#1d1d1d] p-6 rounded-lg shadow-md">
-                <Clan />
+                <LeaderboardTable members={Clan?.data as any} />
               </div>
             </TabsContent>
           </div>
