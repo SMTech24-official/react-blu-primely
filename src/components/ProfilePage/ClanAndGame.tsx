@@ -7,7 +7,7 @@ import { Clan2 } from "../../redux/types";
 
 const ClanAndGame = () => {
   const { data } = useGetClansByUserQuery();
-  console.log(data);
+
 
   return (
     <div className="relative section-gap">

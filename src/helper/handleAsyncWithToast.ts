@@ -12,7 +12,7 @@ export const handleAsyncWithToast = async (
 
   try {
     const res = await asyncCallback();
-    console.log(res);
+
     if (res?.success) {
       toast.success(res.data.message || res.message || successMessage, {
         id: toastInit,
@@ -28,7 +28,7 @@ export const handleAsyncWithToast = async (
 
     return res;
   } catch (error: any) {
-    console.log(error);
+
     toast.error(error?.data.message || "Something went wrong", {
       id: toastInit,
     });

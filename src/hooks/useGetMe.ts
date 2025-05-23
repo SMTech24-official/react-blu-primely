@@ -20,7 +20,7 @@ const useAuthUser = () => {
 
   useEffect(() => {
     const token = Cookies.get("token");
-    console.log(token);
+
     if (token) {
       try {
         const decoded: DecodedToken = jwtDecode(token);
@@ -28,7 +28,7 @@ const useAuthUser = () => {
         setTemp(decodedUser);
         // Check if the token is expired
         if (decoded.exp * 1000 < Date.now()) {
-          console.log("Token expired");
+ 
           Cookies.remove("token");
           return;
         }
@@ -45,7 +45,7 @@ const useAuthUser = () => {
     skip: !userId, // Skip query if userId is null
   });
 
-  console.log(data?.data);
+
 
   useEffect(() => {
     if (data?.success) {

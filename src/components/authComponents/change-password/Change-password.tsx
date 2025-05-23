@@ -67,8 +67,8 @@ export default function NewPasswordForm() {
             } else {
                 toast.error(response.message || "Failed to update password.")
             }
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
-            console.log(error);
             toast.error("Something went wrong. Please try again.")
         } finally {
             setIsLoading(false)

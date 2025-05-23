@@ -14,7 +14,7 @@ const FeaturedTournament = () => {
     // const { width, height } = useWindowSize();
     const slug = path?.split("/")[2]
     const GameData = tournaments.find((data: TournamentProps) => data.game === slug)
-    console.log(GameData);
+
 
     // window.scrollTo({
     //     top: 0,

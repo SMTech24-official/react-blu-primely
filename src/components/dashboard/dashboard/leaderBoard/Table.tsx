@@ -18,7 +18,7 @@ export function LeaderboardTable({
 }: {
   members: { data: LeaderboardEntry[] };
 }) {
-  console.log(members);
+
   return (
     <div className="rounded-lg">
       <ScrollArea className="">

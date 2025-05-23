@@ -14,7 +14,6 @@ import { Clan } from "../../redux/types";
 const ClanPage = () => {
     const { id } = useParams<{ id: string }>();
     const { data } = useGetClanByIdQuery(id || "")
-    console.log("clanwdwd", data);
     return (
         <div>
             <PageHeader subTitle={data?.data.mission as string} title={`Welcome to ${data?.data.name}`} backgroundImage={banner} />

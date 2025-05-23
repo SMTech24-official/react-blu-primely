@@ -17,7 +17,7 @@ export default function ClanCard({
     setIsOpen((prev) => !prev);
   };
 
-  console.log(players);
+
   return (
     <div className="group mb-2 w-full overflow-hidden rounded-2xl bg-[#1A1B1E] text-white transition-all duration-200 hover:bg-[#22232A]">
       {/* Header Section */}

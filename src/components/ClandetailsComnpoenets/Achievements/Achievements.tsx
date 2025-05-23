@@ -37,7 +37,7 @@ export type TMatch = {
 
 const AchievementsTab = () => {
     const { id } = useParams<{ id: string }>();
-    console.log(useParams());
+
 
     const { data, isLoading, error } = useGetClanAchievementsQuery(id)
     if (isLoading) return <div className="flex justify-center p-8"><Loader className="animate-spin" /></div>;
@@ -46,7 +46,7 @@ const AchievementsTab = () => {
 
     const matches: TMatch[] = data?.data?.matches || []
     const specialAwards: TAward[] = data?.data?.specialAwards || []
-    console.log("main data", data);
+
     const awardNames: any = specialAwards.map(a => a.name.toLowerCase());
 
     return (

@@ -47,7 +47,7 @@ interface Match {
 }
 
 export function MatchTable({ members }: { members: Match[] }) {
-  console.log(members);
+
   return (
     <div className="rounded-lg ">
       <ScrollArea className="">

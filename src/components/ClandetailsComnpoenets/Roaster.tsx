@@ -27,14 +27,13 @@ const Roaster = ({ players }: { players: ClanMember[] }) => {
   const [open, setOpen] = useState(false);
 
   const handleInvite = async (userId: string) => {
-    console.log("Inviting user:", userId);
-    console.log("To clan:", path.id);
+
     const inviteData = {
       userId: userId,
       clanId: path.id as string,
     };
     const res = await invite(inviteData);
-    console.log(res?.data?.success);
+  
     if (res?.data?.success) {
       toast.success("Invitation sent successfully");
     }

@@ -35,14 +35,14 @@ interface ApiClan {
 
 const MainAward = () => {
   const { data, isLoading, error, refetch } = useGetClansQuery();
-  console.log(data, 'data');
+
 
     if (isLoading) return <div className="flex justify-center p-8"><Loader className="animate-spin" /></div>;
     if (error) return <div className="p-4 text-red-500">Error loading clan data</div>;
 
     // Transform API data to match ApiClan interface
   const clans: ApiClan[] = data?.data?.map(apiClan => {
-      console.log(apiClan.Award, 'aapi');
+
       // Ensure ClanStats has all required properties including clanId
       const clanStats = apiClan.ClanStats ? {
         clanId: apiClan.ClanStats.clanId || apiClan.id,

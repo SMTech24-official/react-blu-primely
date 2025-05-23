@@ -23,7 +23,7 @@ export function ClanTable({
   members: Clan[] | null;
   ClanLoading: boolean;
 }) {
-  console.log(members);
+
   if (ClanLoading) {
     return <Loading />;
   }

@@ -131,7 +131,7 @@ export function AwardTable({ clans: apiClans, refetch }: { clans: ApiClan[], ref
         }
     };
 
-    console.log(modalData, 'modalDta');
+
     return (
         <div className="rounded-lg bg-fourthColor p-4">
             <p className="font-semibold text-2xl uppercase">Give Award</p>

@@ -51,7 +51,6 @@ export default function SignInForm() {
             if (response?.data.accessToken) {
                 Cookies.set('token', response?.data.accessToken)
                 const decodedUser = jwtDecode(response.data.accessToken as string) as { userName: string };
-                console.log(decodedUser);
                 dispatch(setUser({ decodedUser, token: response.data.accessToken })); // Store user in Redux
                 toast.success(`Welcome ${decodedUser.userName}`);
                 navigate("/") // Redirect to home or dashboard after login

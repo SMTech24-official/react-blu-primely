@@ -12,7 +12,7 @@ import { TMatch } from "./Achievements";
 
 
 export function TableComponents({ matches }: { matches: TMatch[] }) {
-    console.log(matches, "matches");
+
     return (
         <div className="rounded-lg ">
             <ScrollArea className="">

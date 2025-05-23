@@ -18,7 +18,7 @@ export default function LeaderTab() {
   const { data: User, isLoading } = useGetUserLeaderQuery({});
   const { data: Clan, isLoading: clanLoading } = useGetClanLeaderQuery({});
 
-  console.log(User, Clan);
+
 
   // Sync tab with URL hash on mount
   useEffect(() => {

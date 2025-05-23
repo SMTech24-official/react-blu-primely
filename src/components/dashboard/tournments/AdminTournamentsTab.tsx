@@ -112,7 +112,7 @@ export default function AdminTournamentsTab() {
     page,
     limit,
   });
-  console.log(data);
+
 
   if (isError) {
     toast.error("Failed to load tournaments");
@@ -148,7 +148,6 @@ export default function AdminTournamentsTab() {
   const totalParticipants =
     data?.data?.reduce((sum, t) => sum + (t.enrolled || 0), 0) || 0;
 
-  console.log(data?.data);
   return (
     <div className="rounded-lg space-y-11">
       {isError && (

@@ -106,7 +106,6 @@ export const tournamentApi = baseApi.injectEndpoints({
 
     getTournamentById: builder.query<TournamentResponse, string>({
       query: (id) => {
-        console.log("Fetching tournament with ID:", id); // 👈 log here
         return `/tournament/${id}`;
       },
     }),

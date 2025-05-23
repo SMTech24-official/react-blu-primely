@@ -59,11 +59,9 @@ const EditProfile = () => {
     name: "gameEntries",
   });
 
-  console.log(fields);
   // Initialize form with existing data
   useEffect(() => {
     if (gameEntriesData?.data) {
-      console.log(gameEntriesData?.data[0]?.id);
       reset({
         name: "", // You might want to get this from user profile
         gameEntries:

@@ -62,11 +62,10 @@ export function Layout() {
                     {/* will be a function which will verfiy its active or not with dynamic  */}
                     <Link
                       to={item.href}
-                      className={`flex items-center gap-3 py-3 hover:text-primary_highlighted ${
-                        isActive(item.href)
-                          ? "text-primary_highlighted font-bold"
-                          : "text-white"
-                      }`}
+                      className={`flex items-center gap-3 py-3 hover:text-primary_highlighted ${isActive(item.href)
+                        ? "text-primary_highlighted font-bold"
+                        : "text-white"
+                        }`}
                     >
                       <item.icon />
                       <span>{item.label}</span>
@@ -109,7 +108,7 @@ export function Layout() {
             </div>
             <div className="flex items-center gap-3 px-3 py-3 mt-4">
               <img
-                src={user?.image}
+                src={user?.image || "https://img.freepik.com/premium-vector/3d-simple-user-icon-isolated_169241-6922.jpg?uid=R110243807&ga=GA1.1.1263961191.1744328790&semt=ais_hybrid&w=740"}
                 alt="Profile"
                 width={40}
                 height={40}

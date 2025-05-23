@@ -41,12 +41,12 @@ const rounds = (teams: number, currentRound: number): number[] => {
 
 
 const Bracket = ({ teams, currentRound, AllMatches }: BracketProps) => {
-    console.log(AllMatches);
+
     const validate = checkPowerOfTwo(teams)
     if (AllMatches.length > 0) {
         if (validate) {
             const matches = rounds(teams, currentRound)
-            console.log(matches);
+
             if (AllMatches.length > 0 && matches.length > 0) {
                 return (
                     <div>

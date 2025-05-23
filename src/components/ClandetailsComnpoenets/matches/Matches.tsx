@@ -23,8 +23,7 @@ const MatchesTab = () => {
 
   if (data && !Array.isArray(data.data)) {
     // Now TypeScript knows it's MatchGroupedResponse
-    console.log(data.data.upcoming);
-    console.log(data.data.recent);
+
 
     return (
       <div className="space-y-6 md:space-y-8 lg:space-y-14">
