@@ -77,6 +77,13 @@ export const clanApi = baseApi.injectEndpoints({
         { type: "Clan", id: "LIST" },
       ],
     }),
+
+    getClanAchievements: builder.query({
+      query: (clanId) => ({
+        url: `/clan/achievement/${clanId}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -87,4 +94,5 @@ export const {
   useGetClanByIdQuery,
   useUpdateClanMutation,
   useDeleteClanMutation,
+  useGetClanAchievementsQuery
 } = clanApi;

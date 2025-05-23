@@ -1,6 +1,7 @@
 import { useGetClansQuery } from '../../../redux/apis/clan/ClanApi';
 import { Loader } from 'lucide-react';
 import { AwardTable } from './Table';
+import { TAward } from '../../../redux/types';
 
 // Define the exact interface expected by AwardTable
 interface ApiClan {
@@ -29,17 +30,19 @@ interface ApiClan {
     goldTrophies: number;
     eliteTrophies: number;
   };
-  awards: string[]; // Assuming awards is an array of strings
+  awards: TAward[]; 
 }
 
 const MainAward = () => {
-    const { data, isLoading, error } = useGetClansQuery();
+  const { data, isLoading, error, refetch } = useGetClansQuery();
+  console.log(data, 'data');
 
     if (isLoading) return <div className="flex justify-center p-8"><Loader className="animate-spin" /></div>;
     if (error) return <div className="p-4 text-red-500">Error loading clan data</div>;
 
     // Transform API data to match ApiClan interface
-    const clans: ApiClan[] = data?.data?.map(apiClan => {
+  const clans: ApiClan[] = data?.data?.map(apiClan => {
+      console.log(apiClan.Award, 'aapi');
       // Ensure ClanStats has all required properties including clanId
       const clanStats = apiClan.ClanStats ? {
         clanId: apiClan.ClanStats.clanId || apiClan.id,
@@ -80,13 +83,13 @@ const MainAward = () => {
           name: member.user.fullName || member.user.userName || 'Unknown'
         })),
         ClanStats: clanStats,
-        awards: [] // Initialize empty awards array
+        awards: apiClan.Award
       };
     }) || [];
 
     return (
         <div className="p-4">
-            <AwardTable clans={clans} />
+        <AwardTable clans={clans} refetch={refetch} />
         </div>
     );
 };

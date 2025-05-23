@@ -1,100 +1,33 @@
 
 import { baseApi } from "../baseApi";
-import {
-//   BaseApiResponse,
-  CreateTournamentRequest,
-  GetTournamentsRequest,
-  Tournament,
-  // TournamentResponse,
-  TournamentsListResponse,
-  UpdateTournamentRequest,
-} from "../../../types/clanAndInviteTypes";
+
 
 export const tournamentApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     // Create tournament
-    createTournament: builder.mutation<Tournament, CreateTournamentRequest>({
+    giveAward: builder.mutation({
       query: (body) => {
-        const formData = new FormData();
-        Object.entries(body).forEach(([key, value]) => {
-          if (value !== undefined) {
-            if (
-              (typeof File !== "undefined" && value instanceof File) ||
-              (typeof Blob !== "undefined" && value instanceof Blob)
-            ) {
-              formData.append(key, value);
-            } else {
-              formData.append(key, String(value));
-            }
-          }
-        });
         return {
-          url: "/tournament/create",
+          url: "/award/give",
           method: "POST",
-          body: formData,
-          formData: true,
+          body,
         };
       },
-    }),
-
-    // Get single tournament
-    getTournament: builder.query<Tournament, string>({
-      query: (id) => ({
-        url: `/tournament/${id}`,
-      }),
-    }),
-
-    // Get all tournaments
-    getTournaments: builder.query<TournamentsListResponse, GetTournamentsRequest>({
-      query: ({ page = 1, limit = 10, ...params }) => ({
-        url: "/tournament",
-        params: {
-          page,
-          limit,
-          ...params,
-        },
-      }),
-    }),
-
-    // Update tournament
-    updateTournament: builder.mutation<Tournament, UpdateTournamentRequest>({
-      query: ({ id, ...body }) => {
-        const formData = new FormData();
-        Object.entries(body).forEach(([key, value]) => {
-          if (value !== undefined) {
-            if (
-              (typeof File !== "undefined" && value instanceof File) ||
-              (typeof Blob !== "undefined" && value instanceof Blob)
-            ) {
-              formData.append(key, value);
-            } else {
-              formData.append(key, String(value));
-            }
-          }
-        });
-        return {
-          url: `/tournament/${id}`,
-          method: "PATCH",
-          body: formData,
-          formData: true,
-        };
-      },
+      invalidatesTags: ["Clan", "Award"],
     }),
 
     // Delete tournament
-    deleteTournament: builder.mutation<Tournament, string>({
+    withdrawAward: builder.mutation({
       query: (id) => ({
-        url: `/tournament/${id}`,
+        url: `/award/withdraw/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["Clan", "Award"],
     }),
   }),
 });
 
 export const {
-  useCreateTournamentMutation,
-  useGetTournamentQuery,
-  useGetTournamentsQuery,
-  useUpdateTournamentMutation,
-  useDeleteTournamentMutation,
+  useGiveAwardMutation,
+  useWithdrawAwardMutation
 } = tournamentApi;
