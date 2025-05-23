@@ -1,9 +1,7 @@
 import { MessageCircle } from 'lucide-react'
 import Logo from "../logo/Logo"
 
-import applePay from "@/assets/payment/ApplePay.png"
 import gPay from "@/assets/payment/Frame 119.png"
-import masterPay from "@/assets/payment/Members_0017_mastercard.jpg"
 
 
 
@@ -22,16 +20,16 @@ export default function Footer() {
             tooltip: "Google Pay",
             image: gPay,
         },
-        {
-            id: 2,
-            tooltip: "Apple Pay",
-            image: applePay,
-        },
-        {
-            id: 3,
-            tooltip: "Mastercard",
-            image: masterPay,
-        },
+        // {
+        //     id: 2,
+        //     tooltip: "Apple Pay",
+        //     image: applePay,
+        // },
+        // {
+        //     id: 3,
+        //     tooltip: "Mastercard",
+        //     image: masterPay,
+        // },
     ]
 
     const social = [

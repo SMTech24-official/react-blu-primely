@@ -1,5 +1,11 @@
 import logOutIcon from "@/assets/logout/fi_992680.png"
+import useAuthUser from "../../hooks/useGetMe";
 const LogOutModal = () => {
+
+    const { handleLogout } = useAuthUser();
+
+
+
     return (
         <div className="flex flex-col items-center w-full">
             <div className="mb-5">
@@ -11,7 +17,7 @@ const LogOutModal = () => {
                 <button className="hover:bg-gray-700 py-2 rounded-lg hover:text-primary_highlighted">
                     No
                 </button>
-                <button className="hover:bg-gray-700 py-2 rounded-lg hover:text-primary_highlighted">
+                <button onClick={handleLogout} className="hover:bg-gray-700 py-2 rounded-lg hover:text-primary_highlighted">
                     Yes
                 </button>
             </div>
