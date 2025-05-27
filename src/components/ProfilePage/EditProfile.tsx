@@ -8,7 +8,7 @@ import {
   useDeleteGameEntryMutation,
   useUpdateUserMutation,
 } from "../../redux/apis/auth/userApi";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 
@@ -40,6 +40,9 @@ const EditProfile = () => {
 
   // Local loading state for form submission
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const {
     register,
@@ -58,6 +61,21 @@ const EditProfile = () => {
     control,
     name: "gameEntries",
   });
+
+  // Handle image selection
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setSelectedImage(file);
+
+      // Create preview URL
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   // Initialize form with existing data
   useEffect(() => {
@@ -79,9 +97,22 @@ const EditProfile = () => {
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
     try {
-      // Update user name if needed
+      // Prepare form data for user update
+      const formData = new FormData();
+
+      // Add username if provided
       if (data.name) {
-        await updateUser({ userName: data.name }).unwrap();
+        formData.append("bodyData", JSON.stringify({ userName: data.name }));
+      }
+
+      // Add profile picture if selected
+      if (selectedImage) {
+        formData.append("profilePicture", selectedImage);
+      }
+
+      // Update user if there's any data to update
+      if (data.name || selectedImage) {
+        await updateUser(formData).unwrap();
       }
 
       // Process game entries
@@ -117,6 +148,12 @@ const EditProfile = () => {
       // Refetch data
       await refetchGameEntries();
       toast.success("Profile updated successfully!");
+
+      // Reset image selection after successful upload
+      setSelectedImage(null);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
     } catch (error) {
       toast.error("Failed to update profile");
       console.error("Error updating profile:", error);
@@ -158,13 +195,65 @@ const EditProfile = () => {
         </div>
       ) : (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          {/* Profile Picture Upload */}
+          <div>
+            <label className="block mb-1">Profile Picture:</label>
+            <div className="flex items-center space-x-4">
+              <div className="relative">
+                {previewImage ? (
+                  <img
+                    src={previewImage}
+                    alt="Profile preview"
+                    className="w-16 h-16 rounded-full object-cover"
+                  />
+                ) : (
+                  <div className="w-16 h-16 rounded-full bg-card_bg border border-gray-700 flex items-center justify-center">
+                    <span className="text-xs">No image</span>
+                  </div>
+                )}
+              </div>
+              <div>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  ref={fileInputRef}
+                  className="hidden"
+                  id="profilePicture"
+                  disabled={isLoading}
+                />
+                <label
+                  htmlFor="profilePicture"
+                  className="bg-blue-800 px-4 py-2 rounded text-white cursor-pointer disabled:opacity-50"
+                >
+                  {selectedImage ? "Change Image" : "Upload Image"}
+                </label>
+                {selectedImage && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedImage(null);
+                      setPreviewImage(null);
+                      if (fileInputRef.current) {
+                        fileInputRef.current.value = "";
+                      }
+                    }}
+                    className="ml-2 text-red-500 text-sm"
+                    disabled={isLoading}
+                  >
+                    Remove
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+
           {/* Name Input */}
           <div>
             <label className="block mb-1">Name:</label>
-            <input
+            <textarea
               {...register("name")}
-              type="text"
-              className="w-full p-2 rounded bg-card_bg border border-gray-700"
+              className="w-full p-2 rounded bg-card_bg border text-white border-gray-700 max-h-12"
               placeholder="Enter your name"
               disabled={isLoading}
             />
@@ -176,18 +265,16 @@ const EditProfile = () => {
             {fields.map((field, index) => (
               <div key={field.id} className="flex items-center space-x-2 mb-2">
                 {/* Game Name Input */}
-                <input
+                <textarea
                   {...register(`gameEntries.${index}.gameName`)}
-                  type="text"
-                  className="w-full p-2 rounded bg-card_bg border border-gray-700"
+                  className="w-full p-2 rounded bg-card_bg border border-gray-700 max-h-12"
                   placeholder={`Game Name ${index + 1}`}
                   disabled={isLoading}
                 />
                 {/* Game ID Input */}
-                <input
+                <textarea
                   {...register(`gameEntries.${index}.gameId`)}
-                  type="text"
-                  className="w-full p-2 rounded bg-card_bg border border-gray-700"
+                  className="w-full p-2 rounded bg-card_bg border border-gray-700 max-h-12"
                   placeholder={`Game ID ${index + 1}`}
                   disabled={isLoading}
                 />
@@ -222,7 +309,7 @@ const EditProfile = () => {
             <button
               type="submit"
               className="w-full rounded text-white font-bold flex justify-center items-center gap-2"
-              disabled={isLoading || !isDirty}
+              disabled={isLoading || (!isDirty && !selectedImage)}
             >
               {isSubmitting ? (
                 <>

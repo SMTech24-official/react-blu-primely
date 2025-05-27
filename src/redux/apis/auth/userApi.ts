@@ -19,7 +19,7 @@ export const userApi = baseApi.injectEndpoints({
 
     updateUser: builder.mutation<
       { success: boolean; message: string },
-      { userName: string }
+      FormData | { userName: string }
     >({
       query: (body) => ({
         url: "/user/update-me",

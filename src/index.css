@@ -7,7 +7,6 @@
   --foreground: #ffffff;
   --gradOne: #ffffff;
   --gradTwo: #ffffff;
-
 }
 
 .jodit-container,
@@ -38,7 +37,6 @@
 .jodit-toolbar-editor-collection.jodit-toolbar-editor-collection_mode_horizontal.jodit-toolbar-editor-collection_size_middle {
   background-color: black;
 }
-
 
 /* @media (prefers-color-scheme: light) {
   :root {
@@ -111,18 +109,25 @@ body {
 }
 
 .css_clip_path {
-  clip-Path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
 }
 
 .css_clip_path_Slider {
-  clip-Path: polygon(15% 0, 100% 0, 100% 85%, 85% 99%, 0 100%, 0 15%);
+  clip-path: polygon(15% 0, 100% 0, 100% 85%, 85% 99%, 0 100%, 0 15%);
 }
 
 .css_octagon {
-  clip-Path: polygon(50% 0, 90% 20%, 100% 50%, 90% 80%, 50% 100%, 10% 80%, 0 50%, 10% 20%);
-
+  clip-path: polygon(
+    50% 0,
+    90% 20%,
+    100% 50%,
+    90% 80%,
+    50% 100%,
+    10% 80%,
+    0 50%,
+    10% 20%
+  );
 }
-
 
 /* width */
 ::-webkit-scrollbar {
@@ -152,11 +157,27 @@ body {
 }
 
 .msg {
-  clip-Path: polygon(48% 10%, 78% 10%, 100% 10%, 98% 21%, 98% 100%, 0 100%, 0 10%)
+  clip-path: polygon(
+    48% 10%,
+    78% 10%,
+    100% 10%,
+    98% 21%,
+    98% 100%,
+    0 100%,
+    0 10%
+  );
 }
 
 .msg-two {
-  clip-Path: polygon(0 10%, 30% 10%, 65% 10%, 100% 10%, 100% 100%, 2% 100%, 2% 20%);
+  clip-path: polygon(
+    0 10%,
+    30% 10%,
+    65% 10%,
+    100% 10%,
+    100% 100%,
+    2% 100%,
+    2% 20%
+  );
 }
 
 @layer base {
@@ -208,17 +229,15 @@ body {
 }
 
 rect {
-  fill: #1D1D1D;
+  fill: #1d1d1d;
 }
 
-g>path:hover {
-  stroke: #1E90FF;
+g > path:hover {
+  stroke: #1e90ff;
   /* Blue color on hover */
 }
 
-
-
 rect.sc-bwzfXH.uTxCW {
   background-color: white !important;
-  border-color: #1E90FF;
+  border-color: #1e90ff;
 }
