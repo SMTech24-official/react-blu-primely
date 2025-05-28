@@ -21,12 +21,7 @@ const TournamentsInfo = ({
 }: {
   title: string;
   id: string;
-  prize: {
-    totalPrize: number;
-    firstPrize: number;
-    secondPrize: number;
-    thirdPrize: number;
-  };
+  prize: number;
   status?: string;
   gameName: string;
   entryFee: number;
@@ -52,15 +47,14 @@ const TournamentsInfo = ({
             />
             {status && (
               <div
-                className={`border p-1 mt-2 text-xs uppercase text-center  ${
-                  status === "active"
-                    ? "border-green-500 text-green-600"
-                    : status === "upcoming"
+                className={`border p-1 mt-2 text-xs uppercase text-center  ${status === "active"
+                  ? "border-green-500 text-green-600"
+                  : status === "upcoming"
                     ? "border-blue-500 text-blue-600"
                     : status === "cancelled"
-                    ? "border-red-500 text-red-600"
-                    : ""
-                }`}
+                      ? "border-red-500 text-red-600"
+                      : ""
+                  }`}
               >
                 {status}
               </div>
@@ -90,15 +84,14 @@ const TournamentsInfo = ({
                   {tournamentType}
                 </div>
                 <div
-                  className={`border p-1 mt-2 text-xs uppercase text-center  ${
-                    status === "ACTIVE"
-                      ? "border-green-500 text-green-600"
-                      : status === "UPCOMING"
+                  className={`border p-1 mt-2 text-xs uppercase text-center  ${status === "ACTIVE"
+                    ? "border-green-500 text-green-600"
+                    : status === "UPCOMING"
                       ? "border-blue-500 text-blue-600"
                       : status === "CANCELLED"
-                      ? "border-red-500 text-red-600"
-                      : ""
-                  }`}
+                        ? "border-red-500 text-red-600"
+                        : ""
+                    }`}
                 >
                   {status}
                 </div>
@@ -110,15 +103,8 @@ const TournamentsInfo = ({
                   <p className="text-lg font-semibold">Prize Pool</p>
                   <span className="text-primary_highlighted">||</span>
                   <p className="text-lg font-semibold">
-                    Total: ${prize.totalPrize}
+                    Total: ${prize}
                   </p>
-                </div>
-                <div className=" items-center gap-2 text-sm text-gray-500 font-semibold hidden">
-                  <p className="">1st: ${prize.firstPrize}</p>
-                  <span>|</span>
-                  <p className="">2nd: ${prize.secondPrize}</p>
-                  <span>|</span>
-                  <p className="">3rd: ${prize.thirdPrize} </p>
                 </div>
               </div>
               <div className="space-y-2 lg:space-y-3">

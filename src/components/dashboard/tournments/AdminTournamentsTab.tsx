@@ -81,12 +81,7 @@ interface ApiTournament {
 interface TournamentsInfoProps {
   id: string;
   title: string;
-  prize: {
-    totalPrize: number;
-    firstPrize: number;
-    secondPrize: number;
-    thirdPrize: number;
-  };
+  prize: number
   status?: string;
   gameName: string;
   entryFee: number;
@@ -123,12 +118,7 @@ export default function AdminTournamentsTab() {
     tournament: ApiTournament
   ): TournamentsInfoProps => ({
     title: tournament.title,
-    prize: {
-      totalPrize: tournament.prizePool,
-      firstPrize: Math.floor(tournament.prizePool * 0.5),
-      secondPrize: Math.floor(tournament.prizePool * 0.3),
-      thirdPrize: Math.floor(tournament.prizePool * 0.2),
-    },
+    prize: tournament.prizePool,
     status: tournament.status,
     gameName: tournament.gameName,
     entryFee: tournament.entryFee,

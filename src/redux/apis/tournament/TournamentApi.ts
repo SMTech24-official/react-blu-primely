@@ -95,6 +95,7 @@ export const tournamentApi = baseApi.injectEndpoints({
         search?: string;
         gameName?: string;
         region?: string;
+        status?: string;
       }
     >({
       query: (params) => ({
