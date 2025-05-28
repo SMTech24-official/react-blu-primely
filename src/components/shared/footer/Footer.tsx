@@ -1,7 +1,7 @@
 import { MessageCircle } from 'lucide-react'
 import Logo from "../logo/Logo"
 
-import gPay from "@/assets/payment/Frame 119.png"
+import stripe from "@/assets/payment/LOGO-850-stripe-removebg-preview.png"
 
 
 
@@ -17,8 +17,8 @@ export default function Footer() {
     const payment = [
         {
             id: 1,
-            tooltip: "Google Pay",
-            image: gPay,
+            tooltip: "Stripe",
+            image: stripe,
         },
         // {
         //     id: 2,
@@ -101,7 +101,7 @@ export default function Footer() {
                         <h3 className="font-bold mb-4 uppercase text-nowrap">Payment System</h3>
                         <div className="flex gap-2">
                             {
-                                payment.map((data, idx) => <AnimatedTooltip key={idx} classProps="w-16 h-9 object-cover" id={data.id} image={data.image} tooltip={data.tooltip} />)
+                                payment.map((data, idx) => <AnimatedTooltip key={idx} classProps="w-16 h-9 object-contain" id={data.id} image={data.image} tooltip={data.tooltip} />)
                             }
                         </div>
                         <Button

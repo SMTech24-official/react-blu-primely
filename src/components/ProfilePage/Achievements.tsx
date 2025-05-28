@@ -112,16 +112,7 @@ export default function Achievements() {
                   {rank.subtitle}
                 </span>
                 <div className="h-2 w-[100%] bg-card_bg rounded-full mt-3">
-                  rank: {rank.level}
-                  <br />
-                  nextRank: {rankData[index ? index - 1 : index].level}
-                  <br />
-                  value:
-                  {LevelCalculate(
-                    user?.UserStats?.exp,
-                    rank.level,
-                    rankData[index ? index - 1 : index].level
-                  )}
+
                   <div
                     style={{
                       width: `${LevelCalculate(
@@ -130,7 +121,7 @@ export default function Achievements() {
                         rankData[index ? index - 1 : index].level
                       ).toString()}%`,
                     }}
-                    className={`css_bg  h-full rounded-full hidden`}
+                    className={`css_bg  h-full rounded-full `}
                   ></div>
                 </div>
               </div>
