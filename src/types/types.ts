@@ -11,25 +11,18 @@ export interface TournamentProps {
   imageSrc: string;
   title: string;
   subtitle?: string;
-  prize: {
-    totalPrize: number;
-    firstPrize: number;
-    secondPrize: number;
-    thirdPrize: number;
-  };
+  prize: number;
   maxTeams?: number;
   enrolledTeams?: number;
   description?: string;
   date: string;
   entryFee: number;
-  teamSize: string;
+  teamSize: number;
   regions: string;
   game?: string;
   skillLevel: string;
   platform?: string;
   badge?: boolean;
-  registrationStatus: boolean;
-  enrollmentStatus: boolean;
   tournamentType?: string;
   status?: "CANCEL" | "ACTIVE" | "UPCOMING";
 }

@@ -31,8 +31,6 @@ export default function Tournaments() {
                 <TournamentCard
 
                   game={tournament.game}
-                  enrollmentStatus={tournament.enrollmentStatus}
-                  registrationStatus={tournament.registrationStatus}
                   badge={true}
                   imageSrc={tournament.imageSrc}
                   prize={tournament.prize}
@@ -56,8 +54,6 @@ export default function Tournaments() {
               <SwiperSlide key={idx} className="">
                 <TournamentCard
                   game={tournament.game}
-                  enrollmentStatus={tournament.enrollmentStatus}
-                  registrationStatus={tournament.registrationStatus}
                   badge={false}
                   imageSrc={tournament.imageSrc}
                   prize={tournament.prize}

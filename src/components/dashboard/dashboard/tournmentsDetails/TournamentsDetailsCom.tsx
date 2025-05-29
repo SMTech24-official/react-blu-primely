@@ -45,17 +45,16 @@ export default function TournamentDetails({
             <div className="flex justify-between items-center">
               <span className="text-zinc-400">Status :</span>
               <span
-                className={` uppercase text-center  ${
-                  registrationStatus
+                className={` uppercase text-center  ${registrationStatus
                     ? status === "ACTIVE"
                       ? " text-green-600"
                       : status === "UPCOMING"
-                      ? " text-blue-600"
-                      : status === "CANCEL"
-                      ? " text-red-600"
-                      : ""
+                        ? " text-blue-600"
+                        : status === "CANCEL"
+                          ? " text-red-600"
+                          : ""
                     : " text-red-600"
-                }`}
+                  }`}
               >
                 {registrationStatus ? status : "Closed"}
               </span>
@@ -63,9 +62,8 @@ export default function TournamentDetails({
             <div className="flex justify-between items-center">
               <span className="text-zinc-400">Registration Status :</span>
               <span
-                className={`${
-                  registrationStatus ? "text-green-500" : "text-red-400"
-                }`}
+                className={`${registrationStatus ? "text-green-500" : "text-red-400"
+                  }`}
               >
                 {registrationStatus ? "Open" : "Closed"}
               </span>
@@ -96,15 +94,7 @@ export default function TournamentDetails({
             <div className="flex justify-between items-center">
               <span className="text-zinc-400">Prize Pool :</span>
               <span className="text-blue-500">
-                {formatCurrency(prize.totalPrize)}
-              </span>
-            </div>
-            <div className="hidden justify-between items-center">
-              <span className="text-zinc-400">Payout Structure :</span>
-              <span className="text-right">
-                Winner {formatCurrency(prize.firstPrize)} <br />
-                Runner-up {formatCurrency(prize.secondPrize)} <br />
-                3rd Place {formatCurrency(prize.thirdPrize)}
+                {formatCurrency(prize)}
               </span>
             </div>
             <div className="flex justify-between items-center">

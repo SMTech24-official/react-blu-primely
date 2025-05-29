@@ -1,18 +1,18 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import apex from "@/assets/banner/apex-media-news-saviors-patch-keyart.jpg.adapt_.crop16x9.431p.jpg";
-import freeFire from "@/assets/banner/garena-free-fire_734y.jpg";
-import pubg from "@/assets/banner/pubg-battlegrounds-9i69f.jpg";
-import valorant from "@/assets/banner/valorent.jpg";
-import fortnite from "@/assets/banner/fortnite-og-social-1920x1080-a5adda66fab9.jpg";
 import cod from "@/assets/banner/BO6_LP-meta_image.jpg";
-import overwatch from "@/assets/banner/overwatch.jpg";
 import csgo from "@/assets/banner/csgo.jpg";
-import rainbowSix from "@/assets/banner/rainbow-six-seige.jpg";
-import fifa from "@/assets/banner/fifa.jpg";
-import rocketLeague from "@/assets/banner/rocketleague.jpg";
 import dota2 from "@/assets/banner/dota2.png";
-import { TournamentProps } from "../../types/types";
+import fifa from "@/assets/banner/fifa.jpg";
+import fortnite from "@/assets/banner/fortnite-og-social-1920x1080-a5adda66fab9.jpg";
+import freeFire from "@/assets/banner/garena-free-fire_734y.jpg";
+import overwatch from "@/assets/banner/overwatch.jpg";
+import pubg from "@/assets/banner/pubg-battlegrounds-9i69f.jpg";
+import rainbowSix from "@/assets/banner/rainbow-six-seige.jpg";
+import rocketLeague from "@/assets/banner/rocketleague.jpg";
+import valorant from "@/assets/banner/valorent.jpg";
 
-export const tournaments: TournamentProps[] = [
+export const tournaments: any = [
   {
     status: "ACTIVE",
     imageSrc: freeFire,
@@ -103,7 +103,7 @@ export const tournaments: TournamentProps[] = [
     description: "Wining prize",
     date: "2025-01-30T08:00:00.000Z",
     entryFee: 200,
-    teamSize: "5v5",
+    teamSize: 5,
     regions: "NA + SA",
     skillLevel: "Expert",
     game: "valorant",
@@ -205,7 +205,7 @@ export const tournaments: TournamentProps[] = [
     description: "Wining prize",
     date: "2025-02-20T20:00:00.000Z",
     entryFee: 200,
-    teamSize: "5v5",
+    teamSize: 5,
     regions: "Global",
     skillLevel: "Advanced",
     game: "csgo",
@@ -230,7 +230,7 @@ export const tournaments: TournamentProps[] = [
     description: "Wining prize",
     date: "2025-02-25T09:00:00.000Z",
     entryFee: 200,
-    teamSize: "5v5",
+    teamSize: 5,
     regions: "EU + NA",
     skillLevel: "Intermediate",
     game: "rainbowsix",
@@ -372,24 +372,17 @@ export const tournaments: TournamentProps[] = [
     imageSrc: dota2,
     title: "Dota 2 All-Star Battle",
     subtitle: "Battle with the best in Dota 2's All-Star showdown!",
-    prize: {
-      totalPrize: 1000,
-      firstPrize: 100,
-      secondPrize: 23,
-      thirdPrize: 34,
-    },
+    prize: 1000,
     description: "Wining prize",
     date: "2025-03-25T10:00:00.000Z",
     entryFee: 200,
-    teamSize: "5v5",
+    teamSize: 5,
     regions: "NA + EU",
     skillLevel: "Advanced",
     game: "dota2",
     platform: "pc",
     maxTeams: 16,
     enrolledTeams: 10,
-    enrollmentStatus: false,
-    registrationStatus: true,
     tournamentType: "Community",
   },
 ];

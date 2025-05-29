@@ -1,9 +1,9 @@
-import { useState } from "react"
-import { tournaments } from "../../../../lib/fakeData/tournments";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../ui/select";
-import { TournamentProps } from "../../../../types/types";
+import { useState } from "react";
+import { useGetTournamentsQuery } from "../../../../redux/apis/tournament/TournamentApi";
 import TournamentCard from "../../../allCards/tournmentCommunity/TournmentsCommunity";
 import NoDataAvailable from "../../../shared/noData/NoDataAvailableTwo";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../ui/select";
+import Loading from "../../../others/Loading";
 
 
 
@@ -12,22 +12,18 @@ import NoDataAvailable from "../../../shared/noData/NoDataAvailableTwo";
 
 export default function TournamentsTab() {
 
+    const { data, isLoading } = useGetTournamentsQuery({
+    });
+
 
     const [selectedGame, setSelectedGame] = useState<string>("all");
     const [selectedPlatform, setSelectedPlatform] = useState<string>("all");
     const [selectedSkill, setSelectedSkill] = useState<string>("all");
 
-    // Function to filter tournaments based on the selected filters
-    const filteredTournaments = tournaments.filter((tournament) => {
-        const gameMatch =
-            selectedGame === "all" || tournament.game?.toLowerCase() === selectedGame.toLowerCase();
-        const platformMatch =
-            selectedPlatform === "all" || tournament.platform?.toLowerCase() === selectedPlatform.toLowerCase();
-        const skillMatch =
-            selectedSkill === "all" || tournament.skillLevel.toLowerCase() === selectedSkill.toLowerCase();
-        return gameMatch && platformMatch && skillMatch;
-    });
 
+    if (isLoading) {
+        return <Loading />
+    }
 
     return (
         <div className="">
@@ -102,27 +98,24 @@ export default function TournamentsTab() {
                     </Select>
                 </div>
 
-                {filteredTournaments.length > 0 ? (
+                {data && data?.data?.length > 0 ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {filteredTournaments
-                            .map((tournament: TournamentProps, idx: number) => (
-                                <TournamentCard
-                                    game={tournament.game}
-                                    enrollmentStatus={tournament.enrollmentStatus}
-                                    registrationStatus={tournament.registrationStatus}
-                                    badge={false}
-                                    key={idx}
-                                    imageSrc={tournament.imageSrc}
-                                    prize={tournament.prize}
-                                    description={tournament.description}
-                                    title={tournament.title}
-                                    date={tournament.date}
-                                    entryFee={tournament.entryFee}
-                                    teamSize={tournament.teamSize}
-                                    regions={tournament.regions}
-                                    skillLevel={tournament.skillLevel}
-                                />
-                            ))}
+                        {data?.data.map((tournament, idx) => (
+                            <TournamentCard
+                                game={tournament.gameName}
+                                badge={false}
+                                key={idx}
+                                imageSrc={tournament.image}
+                                prize={tournament.prizePool}
+                                description={tournament.description}
+                                title={tournament.title}
+                                date={tournament.startDate}
+                                entryFee={tournament.entryFee}
+                                teamSize={tournament.teamSize}
+                                regions={tournament.region}
+                                skillLevel={tournament.skillLevel}
+                            />
+                        ))}
                     </div>
                 ) : (
                     <NoDataAvailable text="No tournaments available right now" />

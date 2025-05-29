@@ -18,8 +18,6 @@ const TournamentCard: React.FC<TournamentProps> = ({
   regions,
   skillLevel,
   badge,
-  registrationStatus,
-  enrollmentStatus,
   game
 }) => {
   const [timeLeft, setTimeLeft] = useState<string>(date);
@@ -64,7 +62,7 @@ const TournamentCard: React.FC<TournamentProps> = ({
       {badge && (
         <div className="absolute -left-2 -top-7 xl:-left-5 xl:-top-5 z-50">
           <OctagonCard
-            prize={prize.totalPrize}
+            prize={prize}
             description={"Wining Prize"}
           />
         </div>
@@ -114,7 +112,7 @@ const TournamentCard: React.FC<TournamentProps> = ({
               <Link to={`/tournament-details/${game}`} className="w-full text-center transition-colors flex items-center justify-center gap-2 rounded-md">
                 <PrimaryButton root="w-full" parent="w-full">
                   <div className="flex items-center gap-1">
-                    {registrationStatus ? enrollmentStatus ? "Enrolled" : "View Details" : "Closed"}
+                    {timeLeft === "Started" ? "Closed" : "View Details"}
                     <ChevronRight className="w-4 h-4" />
                   </div>
                 </PrimaryButton>
