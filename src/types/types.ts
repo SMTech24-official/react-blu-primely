@@ -9,6 +9,7 @@ export type NavPropsTypes = {
 
 export interface TournamentProps {
   imageSrc: string;
+  id: string;
   title: string;
   subtitle?: string;
   prize: number;
@@ -22,6 +23,7 @@ export interface TournamentProps {
   game?: string;
   skillLevel: string;
   platform?: string;
+  rules?: string;
   badge?: boolean;
   tournamentType?: string;
   status?: "CANCEL" | "ACTIVE" | "UPCOMING";
@@ -81,7 +83,7 @@ export interface TournamentBannerProps {
   registrationStatus: boolean;
   enrollmentStatus: boolean;
   entryFee: string | number;
-  teamSize: string;
+  teamSize: number;
   maxTeams: number;
   enrolledTeams: number;
   skillLevel: string;
@@ -97,8 +99,8 @@ export interface Player {
 export interface ClanCardProps {
   teamName: string;
   teamLogo: string;
-  players: ClanMember2[];
-  id: string;
+  players?: ClanMember2[];
+  id?: string;
   onViewDetails?: () => void;
   onToggleRoster?: () => void;
   isRosterHidden?: boolean;

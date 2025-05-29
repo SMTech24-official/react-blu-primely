@@ -18,7 +18,7 @@ const TournamentCard: React.FC<TournamentProps> = ({
   regions,
   skillLevel,
   badge,
-  game
+  id
 }) => {
   const [timeLeft, setTimeLeft] = useState<string>(date);
 
@@ -60,7 +60,7 @@ const TournamentCard: React.FC<TournamentProps> = ({
   return (
     <div>
       {badge && (
-        <div className="absolute -left-2 -top-7 xl:-left-5 xl:-top-5 z-50">
+        <div className="absolute left-0 -top-0  sm:-left-6 sm:-top-7 xl:-left-5 xl:-top-5 z-50">
           <OctagonCard
             prize={prize}
             description={"Wining Prize"}
@@ -76,7 +76,7 @@ const TournamentCard: React.FC<TournamentProps> = ({
               <img
                 src={imageSrc}
                 alt={title}
-                className="w-full h-full object-cover"
+                className="w-full h-48 object-cover"
               />
             </div>
 
@@ -96,20 +96,20 @@ const TournamentCard: React.FC<TournamentProps> = ({
                 </div>
                 <div className="space-y-[10px]">
                   <div className="text-gray-400">TEAM SIZE</div>
-                  <div>{teamSize}</div>
+                  <div>{teamSize} vs {teamSize}</div>
                 </div>
                 <div className="space-y-[10px]">
                   <div className="text-gray-400">REGIONS</div>
-                  <div>{regions}</div>
+                  <div className="uppercase">{regions}</div>
                 </div>
                 <div className="space-y-[10px]">
                   <div className="text-gray-400">SKILL LEVEL</div>
-                  <div>{skillLevel}</div>
+                  <div className="capitalize">{skillLevel}</div>
                 </div>
               </div>
 
               {/* Button */}
-              <Link to={`/tournament-details/${game}`} className="w-full text-center transition-colors flex items-center justify-center gap-2 rounded-md">
+              <Link to={`/tournament-details/${id}`} className="w-full text-center transition-colors flex items-center justify-center gap-2 rounded-md">
                 <PrimaryButton root="w-full" parent="w-full">
                   <div className="flex items-center gap-1">
                     {timeLeft === "Started" ? "Closed" : "View Details"}

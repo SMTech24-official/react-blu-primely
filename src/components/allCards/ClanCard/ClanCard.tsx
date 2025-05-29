@@ -8,8 +8,9 @@ import logo from "@/assets/tournament/team-logo.png";
 export default function ClanCard({
   teamName,
   teamLogo,
+  id,
   players,
-  id
+  isRosterHidden
 }: ClanCardProps) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -32,58 +33,60 @@ export default function ClanCard({
           />
           <h3 className="text-lg font-semibold">{teamName}</h3>
         </div>
-        <div className="flex items-center gap-3">
-          <button
-            className=" focus-visible:ring-offset-[#1A1B1E]  font-normal text-base flex items-center gap-1 text-white hover:text-[#6FA5FF]"
-            onClick={toggleCollapse}
-            aria-label={isOpen ? "Hide team roster" : "Show team roster"}
-          >
-            {isOpen ? "Hide Roster" : "Show Roster"}
-            {isOpen ? (
-              <ChevronUp className="ml-1 h-4 w-4" />
-            ) : (
-              <ChevronDown className="ml-1 h-4 w-4" />
-            )}
-          </button>
-        </div>
-      </div>
+        {
+          isRosterHidden && <div className="flex items-center gap-3">
+            <button
+              className=" focus-visible:ring-offset-[#1A1B1E]  font-normal text-base flex items-center gap-1 text-white hover:text-[#6FA5FF]"
+              onClick={toggleCollapse}
+              aria-label={isOpen ? "Hide team roster" : "Show team roster"}
+            >
+              {isOpen ? "Hide Roster" : "Show Roster"}
+              {isOpen ? (
+                <ChevronUp className="ml-1 h-4 w-4" />
+              ) : (
+                <ChevronDown className="ml-1 h-4 w-4" />
+              )}
+            </button>
+          </div>
+        }
 
-      {/* Collapsible Content */}
-      {isOpen && (
-        <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-10 px-3 md:px-6 pb-4">
-          <div className="space-y-3">
-            {players.map((player) => (
-              <div
-                key={player.user.id}
-                className="flex items-center gap-3 rounded-lg p-2 transition-colors hover:bg-white/5"
-              >
-                <img
-                  src={player.user.profilePicture || logo}
-                  alt=""
-                  width={32}
-                  height={32}
-                  className="rounded-full"
-                />
-                <div>
-                  <div className="font-medium">{player.user.fullName || player.user.userName}</div>
-                  <div className="text-sm text-gray-400">
-                    Corazon#{player.user.id}
+      </div>
+      {
+        isRosterHidden && isOpen && (
+          <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-10 px-3 md:px-6 pb-4">
+            <div className="space-y-3">
+              {players?.map((player) => (
+                <div
+                  key={player.user.id}
+                  className="flex items-center gap-3 rounded-lg p-2 transition-colors hover:bg-white/5"
+                >
+                  <img
+                    src={player.user.profilePicture || logo}
+                    alt=""
+                    width={32}
+                    height={32}
+                    className="rounded-full"
+                  />
+                  <div>
+                    <div className="font-medium">{player.user.fullName || player.user.userName}</div>
+                    <div className="text-sm text-gray-400">
+                      Corazon#{player.user.id}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+            <div className="mx-auto md:mx-0">
+              <SecondaryButton
+                to={`/clan-details/${id ?? ""}`}
+                parent="rounded-md"
+                child="rounded-md px-6 lg:px-10"
+              >
+                <p className="text-sm md:text-base">View details</p>
+              </SecondaryButton>
+            </div>
           </div>
-          <div className="mx-auto md:mx-0">
-            <SecondaryButton
-              to={`/clan-details/${id}`}
-              parent="rounded-md"
-              child="rounded-md px-6 lg:px-10"
-            >
-              <p className="text-sm md:text-base">View details</p>
-            </SecondaryButton>
-          </div>
-        </div>
-      )}
+        )}
     </div>
   );
 }

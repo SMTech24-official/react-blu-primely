@@ -7,7 +7,6 @@ export default function TournamentDetails({
   imageSrc,
   prize,
   regions,
-  registrationStatus,
   skillLevel,
   teamSize,
   title,
@@ -18,6 +17,7 @@ export default function TournamentDetails({
   status,
   subtitle,
   tournamentType,
+  rules
 }: TournamentProps) {
   return (
     <div className="min-h-screen bg-fourthColor text-white p-4 rounded-lg">
@@ -30,7 +30,7 @@ export default function TournamentDetails({
             <img
               src={imageSrc || "/placeholder.svg"}
               alt={title}
-              className="object-cover w-full"
+              className="object-cover w-full h-auto"
             />
           </div>
 
@@ -45,21 +45,21 @@ export default function TournamentDetails({
             <div className="flex justify-between items-center">
               <span className="text-zinc-400">Status :</span>
               <span
-                className={` uppercase text-center  ${registrationStatus
-                    ? status === "ACTIVE"
-                      ? " text-green-600"
-                      : status === "UPCOMING"
-                        ? " text-blue-600"
-                        : status === "CANCEL"
-                          ? " text-red-600"
-                          : ""
-                    : " text-red-600"
+                className={` uppercase text-center  ${status
+                  ? status === "ACTIVE"
+                    ? " text-green-600"
+                    : status === "UPCOMING"
+                      ? " text-blue-600"
+                      : status === "CANCEL"
+                        ? " text-red-600"
+                        : ""
+                  : " text-red-600"
                   }`}
               >
-                {registrationStatus ? status : "Closed"}
+                {status ? status : "Closed"}
               </span>
             </div>
-            <div className="flex justify-between items-center">
+            {/* <div className="flex justify-between items-center">
               <span className="text-zinc-400">Registration Status :</span>
               <span
                 className={`${registrationStatus ? "text-green-500" : "text-red-400"
@@ -67,7 +67,7 @@ export default function TournamentDetails({
               >
                 {registrationStatus ? "Open" : "Closed"}
               </span>
-            </div>
+            </div> */}
             <div className="flex justify-between items-center">
               <span className="text-zinc-400">Category :</span>
               <span>{tournamentType}</span>
@@ -126,23 +126,9 @@ export default function TournamentDetails({
             <h3 className="text-lg md:text-xl font-semibold mb-4">
               RULES AND REGULATIONS
             </h3>
-            <ul className="text-zinc-400 text-sm md:text-base list-disc bg-black p-5 rounded-lg">
-              <li className="my-2 mx-4">
-                No cheating, hacking, or third-party software allowed.
-              </li>
-              <li className="my-2 mx-4">
-                Teams must be ready 10 minutes before the match.
-              </li>
-              <li className="my-2 mx-4">
-                Toxic behavior or harassment leads to disqualification.
-              </li>
-              <li className="my-2 mx-4">
-                Match-fixing or exploiting game bugs is prohibited.
-              </li>
-              <li className="my-2 mx-4">
-                Decisions by admins are final and must be respected.
-              </li>
-            </ul>
+            <div className="space-y-4">
+              <div dangerouslySetInnerHTML={{ __html: rules ?? "ss" }} />
+            </div>
             <p className="text-zinc-500 text-xs mt-4">
               All rights reserved by Admin.
             </p>

@@ -11,7 +11,6 @@ import { LevelCalculate } from "../../helper/levelCalculator";
 
 export default function Achievements() {
   const { user } = useAuthUser();
-  console.log(user);
 
   const trophyData = [
     {

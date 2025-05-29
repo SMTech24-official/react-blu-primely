@@ -1,9 +1,9 @@
 import { useLocation } from "react-router-dom";
 import BattleBanner from "../../components/BattleGroundsTournament/BattleBanner/BattleBanner";
-import NoDataAvailable from "../../components/shared/noData/NoDataAvailableTwo";
 import UpcomingTournamentPage from "../../components/BattleGroundsTournament/UpcomingTournaments/UpcomingTournaments";
-import { TournamentProps } from "../../types/types";
-import { tournaments } from "../../lib/fakeData/tournments";
+import NoDataAvailable from "../../components/shared/noData/NoDataAvailableTwo";
+import { useGetTournamentsQuery } from "../../redux/apis/tournament/TournamentApi";
+import Loading from "../../components/others/Loading";
 
 
 
@@ -13,22 +13,22 @@ const FeaturedTournament = () => {
     const path = location.pathname; // Extract the pathname
     // const { width, height } = useWindowSize();
     const slug = path?.split("/")[2]
-    const GameData = tournaments.find((data: TournamentProps) => data.game === slug)
+    const { data: GameData, isLoading } = useGetTournamentsQuery({ gameName: slug })
 
-
-    // window.scrollTo({
-    //     top: 0,
-    //     behavior: "smooth"
-    // });
-
+    if (isLoading) {
+        return <Loading />
+    }
     return (
         <div className="">
             {
-                GameData ? <BattleBanner tournaments={GameData} /> : <div>
+                GameData ? <BattleBanner tournaments={GameData?.data[0]} /> : <div>
                     <NoDataAvailable text="No Tournaments Available To Featured" />
                 </div>
             }
-            <UpcomingTournamentPage />
+            {
+                GameData && <UpcomingTournamentPage tournaments={GameData.data} />
+            }
+
         </div>
     );
 };

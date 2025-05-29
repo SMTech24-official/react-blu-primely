@@ -1,11 +1,11 @@
 import { useState } from "react";
 import Confetti from 'react-confetti';
+import { useLocation } from "react-router-dom";
+import { useGetTournamentByIdQuery } from "../../redux/apis/tournament/TournamentApi";
 import NoDataAvailable from "../shared/noData/NoDataAvailableTwo";
 import TournamentBanner from "./TournamentBanner/TournamentBanner";
 import TournamentDetailsTab from "./TournamentDetailsTab/TournamentDetailsTab";
-import { useLocation } from "react-router-dom";
-import { tournaments } from "../../lib/fakeData/tournments";
-import { TournamentProps } from "../../types/types";
+import Loading from "../others/Loading";
 // import { useWindowSize } from 'react-use'
 
 const TournamentDetailsPage = () => {
@@ -15,8 +15,18 @@ const TournamentDetailsPage = () => {
   const [showConfetti, setShowConfetti] = useState(false);
   // const { width, height } = useWindowSize();
   const slug = path?.split("/")[2]
-  const GameData = tournaments.find((data: TournamentProps) => data.game === slug)
+  const { data: GameData, isLoading } = useGetTournamentByIdQuery(slug)
 
+
+
+  if (isLoading) {
+    return <Loading />
+  }
+  const currentDate = new Date();
+  const startDate = GameData?.data?.startDate ? new Date(GameData.data.startDate) : null;
+
+  // Determine registration status: true if startDate is in the future, false otherwise
+  const registrationStatus = startDate ? startDate > currentDate : false;
   return (
 
 
@@ -24,24 +34,24 @@ const TournamentDetailsPage = () => {
       {
         GameData ? <div>
           <TournamentBanner
-            bannerImage={GameData?.imageSrc as string}
-            title={GameData?.title ?? " Game Title"}
-            subtitle={GameData?.subtitle ?? "Game subtitle"}
-            gameName={GameData?.game ?? "Game Name"}
+            bannerImage={GameData?.data?.image as string}
+            title={GameData?.data?.title ?? " Game Title"}
+            subtitle={GameData?.data?.subtitle ?? "Game subtitle"}
+            gameName={GameData?.data?.gameName ?? "Game Name"}
             tournamentType="COMMUNITY TOURNAMENT"
-            platform={GameData?.platform ?? "GAme Platform"}
-            startDate={GameData?.date ? new Date(GameData?.date).toDateString() : "Unknown Date"}
-            registrationStatus={GameData?.registrationStatus ?? true}
-            enrollmentStatus={GameData?.enrollmentStatus ?? true}
-            entryFee={GameData?.entryFee ?? 0}
-            teamSize={GameData?.teamSize ?? "Team Size"}
-            maxTeams={GameData?.maxTeams ?? 0}
-            enrolledTeams={GameData?.enrolledTeams ?? 0}
-            skillLevel={GameData?.skillLevel ?? "Skill Level"}
+            platform={GameData?.data?.gamePlatform ?? "GAme Platform"}
+            startDate={GameData?.data?.startDate ? new Date(GameData?.data?.startDate).toDateString() : "Unknown Date"}
+            registrationStatus={registrationStatus}
+            enrollmentStatus={GameData?.data?.maxTeams === GameData?.data?.participants.length}
+            entryFee={GameData?.data?.entryFee ?? 0}
+            teamSize={GameData?.data?.teamSize ?? "Team Size"}
+            maxTeams={GameData?.data?.maxTeams ?? 0}
+            enrolledTeams={GameData?.data?.participants.length ?? 0}
+            skillLevel={GameData?.data?.skillLevel ?? "Skill Level"}
             setShowConfetti={setShowConfetti}
           />
 
-          <TournamentDetailsTab />
+          <TournamentDetailsTab rules={GameData?.data?.rules} participants={GameData?.data?.participants} />
         </div> : <div className="w-full h-[50vh]">
           <NoDataAvailable text="Currently No Game Available" />
         </div>

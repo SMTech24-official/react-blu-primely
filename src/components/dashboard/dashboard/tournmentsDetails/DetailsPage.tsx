@@ -30,20 +30,16 @@ export default function DetailsPage() {
   return (
     <div>
       <TournamentDetails
+        id={tournament.id}
         date={tournament.startDate}
-        enrollmentStatus={tournament.enrolled < tournament.maxTeams}
+        // enrollmentStatus={tournament.enrolled < tournament.maxTeams}
         entryFee={tournament.entryFee}
         imageSrc={tournament.image}
-        prize={{
-          totalPrize: tournament.prizePool,
-          firstPrize: Math.round(tournament.prizePool * 0.5), // Assuming 50% for 1st prize
-          secondPrize: Math.round(tournament.prizePool * 0.3), // 30% for 2nd
-          thirdPrize: Math.round(tournament.prizePool * 0.2), // 20% for 3rd
-        }}
+        prize={tournament.prizePool}
         regions={tournament.region}
-        registrationStatus={tournament.status === "ACTIVE"}
+        // registrationStatus={tournament.status === "ACTIVE"}
         skillLevel={tournament.skillLevel}
-        teamSize={tournament.teamSize.toString()}
+        teamSize={tournament.teamSize}
         title={tournament.title}
         enrolledTeams={tournament.enrolled}
         game={tournament.gameName}
@@ -53,6 +49,7 @@ export default function DetailsPage() {
         subtitle={tournament.subtitle}
         tournamentType={tournament.tournamentType}
         description={tournament.description} // Added description if your component supports it
+        rules={tournament.rules}
       />
       <ParticipantsTable participants={tournament.participants || []} />
     </div>

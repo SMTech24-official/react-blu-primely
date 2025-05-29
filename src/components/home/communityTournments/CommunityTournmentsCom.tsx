@@ -42,7 +42,7 @@ export default function TournamentPage() {
           mayhem.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 ">
+        <div className=" grid-cols-1 md:grid-cols-3 gap-4 mb-8 hidden">
           <Select value={selectedGame} onValueChange={setSelectedGame}>
             <SelectTrigger className="w-full bg-transparent border-gray-800">
               <SelectValue placeholder="Games" />
@@ -116,7 +116,7 @@ export default function TournamentPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {data?.data.slice(0, 4).map((tournament, idx) => (
               <TournamentCard
-                game={tournament.gameName}
+                id={tournament.id}
                 badge={false}
                 key={idx}
                 imageSrc={tournament.image}

@@ -1,26 +1,32 @@
-import { GitBranchPlus, ScrollText, Settings, Users } from "lucide-react";
+import { GitBranchPlus, ScrollText, Users } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
-import Admin from "./Admin/Admin";
 import TestBracket from "./Bracket/test/TestBracket";
 import Clan from "./Clan/Clan";
 import Rules from "./Rules/Rules";
+import { participants } from "../../../redux/apis/tournament/TournamentApi";
 
 
-const TAB_ITEMS = [
-  { value: "rules", label: "RULES", icon: ScrollText, component: <Rules /> },
-  {
-    value: "bracket",
-    label: "BRACKET",
-    icon: GitBranchPlus,
-    component: <TestBracket />,
-  },
-  { value: "clan", label: "CLAN", icon: Users, component: <Clan /> },
-  { value: "admin", label: "ADMIN", icon: Settings, component: <Admin /> },
-] as const;
 
-export default function TournamentDetailsTab() {
+
+
+export default function TournamentDetailsTab({ rules, participants }: { rules: string, participants: participants[] }) {
+
+
+  const TAB_ITEMS = [
+    { value: "rules", label: "RULES", icon: ScrollText, component: <Rules rules={rules} /> },
+    {
+      value: "bracket",
+      label: "BRACKET",
+      icon: GitBranchPlus,
+      component: <TestBracket />,
+    },
+    { value: "clan", label: "CLAN", icon: Users, component: <Clan participants={participants} /> },
+    // { value: "admin", label: "ADMIN", icon: Settings, component: <Admin /> },
+  ] as const;
+
+
   return (
-    <Tabs defaultValue="bracket" className=" section-gap">
+    <Tabs defaultValue="bracket" className=" section-gap ">
       <TabsList className="w-full h-10">
         <div className="flex items-center justify-between max-w-7xl mx-auto w-full border-b border-gray-200/40">
           {TAB_ITEMS.map(({ value, label, icon: Icon }) => (

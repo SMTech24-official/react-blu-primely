@@ -102,7 +102,7 @@ export default function TournamentsTab() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {data?.data.map((tournament, idx) => (
                             <TournamentCard
-                                game={tournament.gameName}
+                                id={tournament.id}
                                 badge={false}
                                 key={idx}
                                 imageSrc={tournament.image}

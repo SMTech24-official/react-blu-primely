@@ -1,5 +1,5 @@
-import { tournaments } from "../../../lib/fakeData/tournments";
-import { TournamentProps } from "../../../types/types";
+
+import { Tournament } from "../../../redux/apis/tournament/TournamentApi";
 import TournamentCard from "../../allCards/tournmentCommunity/TournmentsCommunity";
 import NoDataAvailable from "../../shared/noData/NoDataAvailableTwo";
 import OctagonCard from "../../shared/octagon/octagon";
@@ -13,21 +13,24 @@ import {
 import { useState } from "react";
 
 
-export default function UpcomingTournamentPage() {
+export default function UpcomingTournamentPage({ tournaments }: { tournaments: Tournament[] }) {
   const [selectedTeamSize, setSelectedTeamSize] = useState<string>("all");
   const [selectedCategories, setSelectedCategories] = useState<string>("all");
   const [selectedPlatform, setSelectedPlatform] = useState<string>("all");
   const [selectedSkill, setSelectedSkill] = useState<string>("all");
 
+
+
+
   // Function to filter tournaments based on the selected filters
   const filteredTournaments = tournaments.filter((tournament) => {
     const teamSizeMatch =
       selectedTeamSize === "all" ||
-      tournament.teamSize?.toLowerCase() === selectedTeamSize.toLowerCase();
+      tournament.teamSize === parseInt(selectedTeamSize);
     const categoriesMatch = selectedCategories === "all";
     const platformMatch =
       selectedPlatform === "all" ||
-      tournament.platform?.toLowerCase() === selectedPlatform.toLowerCase();
+      tournament.gamePlatform?.toLowerCase() === selectedPlatform.toLowerCase();
     const skillMatch =
       selectedSkill === "all" ||
       tournament.skillLevel.toLowerCase() === selectedSkill.toLowerCase();
@@ -37,7 +40,7 @@ export default function UpcomingTournamentPage() {
   return (
     <div className="container section-gap">
       <div className="space-y-20">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8 ">
+        <div className="hidden grid-cols-1 md:grid-cols-4 gap-4 mb-8 ">
           <Select value={selectedTeamSize} onValueChange={setSelectedTeamSize}>
             <SelectTrigger className="w-full bg-transparent border-gray-800">
               <SelectValue placeholder="Categoriess" />
@@ -121,26 +124,26 @@ export default function UpcomingTournamentPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {filteredTournaments
               .slice(0, 4)
-              .map((tournament: TournamentProps, idx: number) => (
+              .map((tournament: Tournament, idx: number) => (
                 <div key={idx} className="relative">
-                  <div className="absolute -left-2 -top-7 xl:-left-5 xl:-top-5 z-20">
+                  <div className="absolute -left-2 -top-20 xl:-left-5 xl:-top-5 z-20">
                     <OctagonCard
-                      prize={tournament.prize.totalPrize}
-                      description={tournament.description}
+                      prize={tournament.prizePool}
+                      description={"Wining Prize"}
                     />
                   </div>
                   <TournamentCard
-                    game={tournament.game}
-                    enrollmentStatus={tournament.enrollmentStatus}
-                    registrationStatus={tournament.registrationStatus}
-                    imageSrc={tournament.imageSrc}
+                    id={tournament.id}
+                    // enrollmentStatus={tournament?.maxTeams === tournament?.participants.length}
+                    // registrationStatus={tournament?.startDate ? new Date(tournament.startDate) > new Date() : false}
+                    imageSrc={tournament.image}
                     title={tournament.title}
-                    prize={tournament.prize}
+                    prize={tournament.prizePool}
                     description={tournament.description}
-                    date={tournament.date}
+                    date={tournament.startDate}
                     entryFee={tournament.entryFee}
                     teamSize={tournament.teamSize}
-                    regions={tournament.regions}
+                    regions={tournament.region}
                     skillLevel={tournament.skillLevel}
                   />
                 </div>

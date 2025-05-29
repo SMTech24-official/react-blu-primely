@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Clan2 } from "../../../redux/types";
+import logo from "@/assets/tournament/team-logo.png";
+import { participants } from "../../../redux/apis/tournament/TournamentApi";
 import ClanCard from "../../allCards/ClanCard/ClanCard";
 import {
   Select,
@@ -8,11 +9,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../ui/select";
-import logo from "@/assets/tournament/team-logo.png";
 
-const ClanComponents = ({ teams }: { teams: Clan2[] | any }) => {
+const ClanComponents = ({ teams, isRosterHidden }: { teams: participants[], isRosterHidden: boolean }) => {
+
+
   return (
-    <div className="space-y-4 container sm:mt-0 mt-6">
+    <div className="space-y-4 container sm:mt-16 mt-10">
       <div className="w-full flex items-center justify-between">
         <h2 className="text-xl font-medium">TEAM</h2>
         <div className="w-36 text-lg hidden">
@@ -55,9 +57,7 @@ const ClanComponents = ({ teams }: { teams: Clan2[] | any }) => {
             teamLogo={logo}
             players={team.ClanMember}
             id={team.id}
-            onViewDetails={() =>
-              console.log(`Viewing details for ${team.name}`)
-            }
+            isRosterHidden={isRosterHidden}
           />
         ))
       ) : (

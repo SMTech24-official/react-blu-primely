@@ -1,11 +1,17 @@
-import { TournamentProps } from "../../../types/types";
+import { Tournament } from "../../../redux/apis/tournament/TournamentApi";
 import OctagonCard from "../../shared/octagon/octagon";
 
 interface BattleBannerProps {
-  tournaments: TournamentProps;
+  tournaments: Tournament;
 }
 
 const BattleBanner: React.FC<BattleBannerProps> = ({ tournaments }) => {
+
+  const currentDate = new Date();
+  const startDate = tournaments.startDate ? new Date(tournaments.startDate) : null;
+
+  // Determine registration status: true if startDate is in the future, false otherwise
+  const registrationStatus = startDate ? startDate > currentDate : false;
 
   return (
     <div className="w-full">
@@ -15,13 +21,13 @@ const BattleBanner: React.FC<BattleBannerProps> = ({ tournaments }) => {
           <div className="relative w-full h-[500px]">
 
             <div style={{
-              backgroundImage: `url("${typeof tournaments.imageSrc === 'string' ? tournaments.imageSrc : tournaments.imageSrc}")`
+              backgroundImage: `url("${typeof tournaments.image === 'string' ? tournaments.image : tournaments.image}")`
 
             }} className="w-full h-[400px] relative bg-cover bg-no-repeat">
             </div>
             <div className="z-20 absolute top-2/3 lg:w-4/5 xl:w-3/4 h-80 mx-auto inset-0 bg-black flex flex-col items-center justify-center space-y-6 p-6 rounded-2xl">
               <h1 className="font-bold text-3xl xl:text-[40px] text-white text-center uppercase">
-                {tournaments.game}
+                {tournaments.gameName}
               </h1>
               {/* Community Tournaments Banner */}
 
@@ -44,15 +50,15 @@ const BattleBanner: React.FC<BattleBannerProps> = ({ tournaments }) => {
             >
               <div className="absolute -left-2 -top-7 xl:-left-5 xl:-top-5 z-20">
                 <OctagonCard
-                  prize={tournaments.prize.totalPrize}
-                  description={tournaments.description}
+                  prize={tournaments.prizePool}
+                  description={"Prize Pool"}
                 />
               </div>
               <div className="p-4 flex flex-col sm:flex-row md:flex-col xl:flex-row gap-4 overflow-hidden ">
                 {/* Image */}
                 <div className="w-full sm:w-40 md:w-full xl:w-60  rounded overflow-hidden flex-shrink-0">
                   <img
-                    src={tournaments?.imageSrc}
+                    src={tournaments?.image}
                     alt={`Thumbnail for ${tournaments?.title}`}
                     className="w-full h-full object-fill"
                   />
@@ -66,9 +72,9 @@ const BattleBanner: React.FC<BattleBannerProps> = ({ tournaments }) => {
                   </h3>
 
                   <div className="flex items-center gap-5 text-zinc-400 xl:text-lg">
-                    <span className="capitalize"> {tournaments.game}: {tournaments.tournamentType === "Community" ? "Community Tournaments" : "Primal Championship"}</span>
+                    <span className="capitalize"> {tournaments.gameName}: {tournaments.tournamentType === "Community" ? "Community Tournaments" : "Primal Championship"}</span>
                     <span className="text-red-500">|</span>
-                    <span>{tournaments.regions}</span>
+                    <span className="uppercase">{tournaments.region}</span>
                   </div>
                   {/* Details */}
                   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 my-6 w-full text-sm md:text-base xl:text-lg font-medium">
@@ -96,7 +102,7 @@ const BattleBanner: React.FC<BattleBannerProps> = ({ tournaments }) => {
                     <div className="space-y-[10px]">
                       <div className="text-gray-400">ENROLLED</div>
                       <div className="text-lg xl:text-2xl">
-                        {tournaments.enrolledTeams}
+                        {tournaments?.participants?.length ?? 0}
                       </div>
                     </div>
                   </div>
@@ -106,13 +112,13 @@ const BattleBanner: React.FC<BattleBannerProps> = ({ tournaments }) => {
                       <div className="flex items-center gap-2">
                         <span className="">Registration -</span>
                         <span className="text-blue-500">
-                          {tournaments.registrationStatus ? "Open" : "Closed"}
+                          {registrationStatus ? "Open" : "Closed"}
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
                         <span className="">Starting time -</span>
                         <span className="text-blue-500">
-                          {new Date(tournaments.date).toDateString()}
+                          {new Date(tournaments.startDate).toDateString()}
                         </span>
                       </div>
                     </div>

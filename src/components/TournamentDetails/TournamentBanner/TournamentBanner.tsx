@@ -33,7 +33,7 @@ const TournamentBanner = ({
       <div style={{
         backgroundImage: `url("${typeof bannerImage === 'string' ? bannerImage : bannerImage}")`
 
-      }} className="w-full h-[400px] relative bg-cover bg-no-repeat">
+      }} className="w-full h-[400px] relative bg-cover  bg-no-repeat">
       </div>
 
       {/* Details Card Section */}
@@ -44,7 +44,7 @@ const TournamentBanner = ({
             alt="Tournament banner"
             width={500}
             height={500}
-            className="rounded-lg object-cover w-full lg:w-64 xl:w-80 h-auto"
+            className="rounded-lg object-contain w-40 lg:w-52 xl:w-60 h-auto"
           />
           <div className="flex flex-col gap-8  lg:w-[90%] xl:w-[60%]">
             {/* Section Header */}
@@ -93,7 +93,7 @@ const TournamentBanner = ({
                   ENTRY/PLAYER
                 </div>
                 <div className="text-base xl:text-xl font-medium">
-                  {entryFee}
+                  ${entryFee}
                 </div>
               </div>
               <div>
@@ -101,7 +101,7 @@ const TournamentBanner = ({
                   TEAM SIZE
                 </div>
                 <div className="text-base xl:text-xl font-medium">
-                  {teamSize}
+                  {teamSize} vs {teamSize}
                 </div>
               </div>
               <div>
@@ -124,7 +124,7 @@ const TournamentBanner = ({
                 <div className="text-sm md:text-base xl:text-lg font-medium text-gray-400">
                   SKILL Level
                 </div>
-                <div className="text-base xl:text-xl font-medium">
+                <div className="text-base xl:text-xl font-medium capitalize">
                   {skillLevel}
                 </div>
               </div>

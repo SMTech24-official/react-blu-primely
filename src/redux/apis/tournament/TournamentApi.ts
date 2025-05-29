@@ -1,7 +1,7 @@
 // tournamentApi.ts
 import { baseApi } from "../baseApi";
 
-interface Tournament {
+export interface Tournament {
   id: string;
   userId: string;
   title: string;
@@ -28,7 +28,7 @@ interface Tournament {
   participants: participants[];
 }
 
-interface participants {
+export interface participants {
   name: string;
   image: string | null;
   participantType: string;

@@ -1,9 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import ClanComponents from "../shared/ClanCard/ClanComponents";
 
 import { useGetClansByUserQuery } from "../../redux/apis/clan/ClanApi";
 import RecentlyPlayed from "./RecentlyPlayed";
-import { Clan2 } from "../../redux/types";
 
 const ClanAndGame = () => {
   const { data } = useGetClansByUserQuery();
@@ -73,7 +73,7 @@ const ClanAndGame = () => {
           </TabsContent>
           <TabsContent value="clan">
             <div className="rounded-lg shadow-md">
-              <ClanComponents teams={data?.data as Clan2[]} />
+              <ClanComponents isRosterHidden={true} teams={data?.data as any} />
             </div>
           </TabsContent>
         </div>

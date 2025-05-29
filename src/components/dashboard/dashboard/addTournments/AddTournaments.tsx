@@ -91,7 +91,7 @@ export default function TournamentForm() {
             title: data.title,
             subtitle: data.subtitle,
             description: data.description,
-            gameName: data.gameName,
+            gameName: data.gameName.toLowerCase(),
             tournamentType: data.tournamentType,
             startDate: data.startDate.toISOString(),
             endDate: data.endDate.toISOString(),
@@ -220,8 +220,6 @@ export default function TournamentForm() {
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectItem value="single">Single Elimination</SelectItem>
-                                    <SelectItem value="double">Double Elimination</SelectItem>
-                                    <SelectItem value="round">Round Robin</SelectItem>
                                 </SelectContent>
                             </Select>
                             {errors.tournamentType && <p className="text-red-500 text-sm mt-1">{errors.tournamentType.message}</p>}
@@ -302,11 +300,20 @@ export default function TournamentForm() {
 
                         <div className="flex flex-col w-full focus-within:text-primary_highlighted">
                             <label className="font-semibold">Tournament Region</label>
-                            <input
-                                placeholder="Tournament Region"
-                                {...register("region")}
-                                className="mt-1 rounded-md focus:border-transparent focus:outline-primary_highlighted outline-none ring-0 bg-transparent p-2 border border-gray-300"
-                            />
+                            <Select
+                                onValueChange={(value) => setValue("region", value as TournamentFormData["region"], { shouldValidate: true })}
+                            >
+                                <SelectTrigger className="p-3 text-white rounded-md">
+                                    <SelectValue placeholder="Tournament Region" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="asia">Asia</SelectItem>
+                                    <SelectItem value="eu + na">EU + NA</SelectItem>
+                                    <SelectItem value="global">Global</SelectItem>
+                                    <SelectItem value="na + eu">NA + EU</SelectItem>
+                                    <SelectItem value="na + sa">NA + SA</SelectItem>
+                                </SelectContent>
+                            </Select>
                             {errors.region && <p className="text-red-500 text-sm mt-1">{errors.region.message}</p>}
                         </div>
                     </div>

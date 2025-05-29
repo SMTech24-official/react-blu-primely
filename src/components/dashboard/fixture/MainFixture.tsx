@@ -11,7 +11,6 @@ export default function MainFixture() {
     status: "ACTIVE",
   });
 
-  console.log(data);
 
   return (
     <div className=" rounded-lg space-y-11">
