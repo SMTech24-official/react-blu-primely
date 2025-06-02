@@ -23,8 +23,8 @@ import ScrollToTop from "../hooks/ScrollTop";
 import AboutPage from "../pages/aboutUs/AboutUsPage";
 import Tournaments from "../pages/adTournaments/Tournaments";
 import AuthLayout from "../pages/AuthLayout";
-import ChatPage from "../pages/chat/ChatPahe";
 import ClanDetails from "../pages/ClanDetails/ClanDetails";
+import MainChat from "../pages/demoChat/MainChat";
 import FeaturedTournament from "../pages/featured-tournament/FeaturedTournament";
 import Home from "../pages/Home/Home";
 import HomeLayout from "../pages/homeLayout";
@@ -142,7 +142,8 @@ export const routes = [
         element: (
           <ProtectedRoute allowedRoles={"USER"}>
             <ScrollToTop pathname={"/chat"}>
-              <ChatPage />
+              {/* <ChatPage /> */}
+              <MainChat />
             </ScrollToTop>
           </ProtectedRoute>
         ),
