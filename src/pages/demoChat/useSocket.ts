@@ -1,5 +1,5 @@
-import { io, Socket } from "socket.io-client";
 import { useEffect, useRef, useState } from "react";
+import { io, Socket } from "socket.io-client";
 
 const useSocket = (userId: string) => {
   const socketRef = useRef<Socket | null>(null);
@@ -9,10 +9,13 @@ const useSocket = (userId: string) => {
     // Only create the socket if it doesn't exist
     if (!socketRef.current) {
       console.log("Creating new socket connection");
-      socketRef.current = io(`http://localhost:5000?token=${userId}`, {
-        withCredentials: true,
-        autoConnect: true, // This is true by default
-      });
+      socketRef.current = io(
+        `https://api.bluprimaltournaments.com?token=${userId}`,
+        {
+          withCredentials: true,
+          autoConnect: true, // This is true by default
+        }
+      );
 
       // Add connection event listeners for debugging
       socketRef.current.on("connect", () => {
