@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Dispatch, SetStateAction } from "react";
 import { ClanMember2, TAward } from "../redux/types";
+import { Messages } from "../redux/apis/chat/chatApi";
 
 export type NavPropsTypes = {
   name: string;
@@ -145,7 +145,7 @@ export type Teams = {
 export interface CommunicationProps {
   message: string;
   userRole: string;
-  messages: any;
+  messages: Messages[];
   setMessages: React.Dispatch<React.SetStateAction<string>>;
   handelSend: () => void;
 }

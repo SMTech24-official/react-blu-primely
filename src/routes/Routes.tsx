@@ -11,11 +11,11 @@ import DashBoardPage from "../components/dashboard/dashboard/DashBoardPAge";
 import LeaderTab from "../components/dashboard/dashboard/leaderBoard/LeaderBoard";
 import DetailsPage from "../components/dashboard/dashboard/tournmentsDetails/DetailsPage";
 import UserAndClanTab from "../components/dashboard/dashboard/userAndClan/UserAndClan";
-import FixtureBracket from "../components/dashboard/fixture/FixtureBracket/Bracket";
 import MainFixture from "../components/dashboard/fixture/MainFixture";
 import { Layout } from "../components/dashboard/Layout";
 import PaymentDetails from "../components/dashboard/payment/PaymentDetails";
 import Leaderboards from "../components/leaderboards/Leaderboards/Leaderboards";
+import NewBracket from "../components/newBracket/NewBracket";
 import NotFound from "../components/others/NotFound";
 import TournamentDetailsPage from "../components/TournamentDetails/TournamentDetailsPage";
 import { SidebarProvider } from "../components/ui/sidebar";
@@ -24,7 +24,6 @@ import AboutPage from "../pages/aboutUs/AboutUsPage";
 import Tournaments from "../pages/adTournaments/Tournaments";
 import AuthLayout from "../pages/AuthLayout";
 import ClanDetails from "../pages/ClanDetails/ClanDetails";
-import MainChat from "../pages/demoChat/MainChat";
 import FeaturedTournament from "../pages/featured-tournament/FeaturedTournament";
 import Home from "../pages/Home/Home";
 import HomeLayout from "../pages/homeLayout";
@@ -142,8 +141,7 @@ export const routes = [
         element: (
           <ProtectedRoute allowedRoles={"USER"}>
             <ScrollToTop pathname={"/chat"}>
-              {/* <ChatPage /> */}
-              <MainChat />
+              <CommunicationComponent />
             </ScrollToTop>
           </ProtectedRoute>
         ),
@@ -252,7 +250,7 @@ export const routes = [
         element: (
           <ScrollToTop pathname="/dashboard/fixture/:id">
             {" "}
-            <FixtureBracket />{" "}
+            <NewBracket />{" "}
           </ScrollToTop>
         ),
       },

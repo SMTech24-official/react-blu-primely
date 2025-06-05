@@ -102,7 +102,7 @@ const EditProfile = () => {
 
       // Add username if provided
       if (data.name) {
-        formData.append("bodyData", JSON.stringify({ userName: data.name }));
+        formData.append("bodyData", JSON.stringify({ fullName: data.name }));
       }
 
       // Add profile picture if selected

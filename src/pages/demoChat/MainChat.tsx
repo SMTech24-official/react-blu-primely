@@ -1,128 +1,158 @@
 import Cookies from "js-cookie";
-import React, { useEffect, useRef, useState } from "react";
-import { io, Socket } from "socket.io-client";
+import React, { useEffect, useState } from "react";
 import ChatList from "./ChatList";
 import ChatWindow from "./ChatWindow";
 import { Chat, Message } from "./type";
-
+import useSocket from "./useSocket";
 
 const MainChat: React.FC = () => {
-    const currentUser = Cookies.get('token')
+  const currentUser = Cookies.get("token");
+  console.log("Current user token from cookies:", currentUser);
 
+  const { socket, isLoading } = useSocket(currentUser as string);
 
-    const [chats, setChats] = useState<Chat[]>([]);
-    const [selectedChat, setSelectedChat] = useState<string | null>(null);
-    const [messages, setMessages] = useState<Message[]>([]);
-    const [isTyping, setIsTyping] = useState(false);
-    const [typingUser, setTypingUser] = useState<string | null>(null);
+  const [chats, setChats] = useState<Chat[]>([]);
+  const [selectedChat, setSelectedChat] = useState<string | null>(null);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [isTyping, setIsTyping] = useState(false);
+  const [typingUser, setTypingUser] = useState<string | null>(null);
 
-    const socketRef = useRef<Socket | null>(null);
-    const socket = socketRef.current;
+  useEffect(() => {
+    console.log("Running socket connection effect");
+    console.log("socket", socket);
 
+    // Add connection status listeners
+    if (!isLoading) return;
+    if (!socket) return;
 
-    useEffect(() => {
-        if (!socketRef.current) {
-            socketRef.current = io(`http://localhost:5000?token=${currentUser}`, {
-                withCredentials: true,
-            });
-        }
-        if (socket) {
-            socket.emit("getAllChatMembers");
+    console.log("socket", socket);
 
-            socket.on("allChatMembers", (chats: Chat[]) => {
-                console.log(chats);
-                setChats(chats);
-            });
+    console.log("Socket is available, setting up event listeners");
 
-            socket.on("receiveMessage", (message: Message) => {
-                if (message.chatId === selectedChat) {
-                    setMessages((prev) => [...prev, message]);
-                }
-                setChats(prev =>
-                    prev.map(chat =>
-                        chat.id === message.chatId
-                            ? { ...chat, lastMessage: message, unreadCount: message.senderId !== currentUser ? chat.unreadCount + 1 : 0 }
-                            : chat
-                    )
-                );
-            });
+    console.log("Emitted 'getAllChatMembers' event");
 
-            socket.on("messageHistory", (messages: Message[]) => {
-                setMessages(messages || []);
-            });
+    socket.emit("test", { user: currentUser });
 
-            socket.on("typing", (data: { userId: string; isTyping: boolean }) => {
-                if (data.userId !== currentUser && selectedChat) {
-                    setIsTyping(data.isTyping);
-                    setTypingUser(data.userId);
-                }
-            });
+    //   --------------------------------
+    // console.log("entering allchat members", socket);
+    // socket.on("allChatMembers", (chats: Chat[]) => {
+    //   console.log("Received 'allChatMembers' event with data:", chats);
+    //   setChats(chats);
+    // });
+    // console.log("cross all chat");
+    //   --------------------------------
 
-            socket.on("messageRead", ({ messageId }: { messageId: string }) => {
-                setMessages(prev =>
-                    prev.map(msg =>
-                        msg.id === messageId ? { ...msg, isRead: true } : msg
-                    )
-                );
-            });
+    socket.on("receiveMessage", (message: Message) => {
+      console.log("Received new message:", message);
+      if (message.chatId === selectedChat) {
+        console.log("Message belongs to current chat, adding to messages");
+        setMessages((prev) => [...prev, message]);
+      }
+      console.log("Updating chats with new message");
+      setChats((prev) =>
+        prev.map((chat) =>
+          chat.id === message.chatId
+            ? {
+                ...chat,
+                lastMessage: message,
+                unreadCount:
+                  message.senderId !== currentUser ? chat.unreadCount + 1 : 0,
+              }
+            : chat
+        )
+      );
+    });
 
-            return () => {
-                socket.off("allChatMembers");
-                socket.off("receiveMessage");
-                socket.off("messageHistory");
-                socket.off("typing");
-                socket.off("messageRead");
-            };
-        }
-    }, [socket, selectedChat, currentUser]);
+    socket.on("messageHistory", (messages: Message[]) => {
+      console.log("Received message history:", messages);
+      setMessages(messages || []);
+    });
 
-    const handleSelectChat = (chatId: string) => {
-        setSelectedChat(chatId);
-        socket?.emit("joinChat", { chatId });
-        setChats(prev =>
-            prev.map(chat =>
-                chat.id === chatId ? { ...chat, unreadCount: 0 } : chat
-            )
-        );
+    socket.on("typing", (data: { userId: string; isTyping: boolean }) => {
+      console.log("Received typing event:", data);
+      if (data.userId !== currentUser && selectedChat) {
+        console.log("Typing event is from another user in current chat");
+        setIsTyping(data.isTyping);
+        setTypingUser(data.userId);
+      }
+    });
+
+    socket.on("messageRead", ({ messageId }: { messageId: string }) => {
+      console.log("Message marked as read:", messageId);
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg.id === messageId ? { ...msg, isRead: true } : msg
+        )
+      );
+    });
+
+    console.log(socket);
+    return () => {
+      console.log("Cleaning up socket event listeners");
+      // socket.off("allChatMembers");
+      // socket.off("receiveMessage");
+      // socket.off("messageHistory");
+      // socket.off("typing");
+      // socket.off("messageRead");
     };
+  }, [socket, selectedChat, currentUser, isLoading]);
 
-
-    const handleSendMessage = (content: string) => {
-        if (selectedChat) {
-            socket?.emit("sendMessage", { chatId: selectedChat, content });
-        }
-    };
-
-    const handleTyping = (isTyping: boolean) => {
-        if (selectedChat) {
-            socket?.emit("typing", { chatroomId: selectedChat, isTyping });
-        }
-    };
-
-    const selectedChatData = chats.find(chat => chat.id === selectedChat) || null;
-
-    return (
-        <div className="app-container">
-            <div className="sidebar">
-                <ChatList
-                    chats={chats}
-                    onSelectChat={handleSelectChat}
-                    currentUser={currentUser!}
-                />
-            </div>
-            <div className="main-content">
-                <ChatWindow
-                    chat={selectedChatData}
-                    messages={messages}
-                    onSendMessage={handleSendMessage}
-                    onTyping={handleTyping}
-                    currentUser={currentUser!}
-                    isTyping={isTyping}
-                    typingUser={typingUser}
-                />
-            </div>
-        </div>
+  const handleSelectChat = (chatId: string) => {
+    console.log("Chat selected:", chatId);
+    setSelectedChat(chatId);
+    socket?.emit("joinChat", { chatId });
+    console.log("Emitted 'joinChat' event for chat:", chatId);
+    setChats((prev) =>
+      prev.map((chat) =>
+        chat.id === chatId ? { ...chat, unreadCount: 0 } : chat
+      )
     );
+  };
+
+  const handleSendMessage = (content: string) => {
+    console.log("Sending message:", content);
+    if (selectedChat) {
+      console.log("Emitting 'sendMessage' event for chat:", selectedChat);
+      socket?.emit("sendMessage", { chatId: selectedChat, content });
+    }
+  };
+
+  const handleTyping = (isTyping: boolean) => {
+    console.log("Typing status changed:", isTyping);
+    if (selectedChat) {
+      console.log("Emitting 'typing' event for chat:", selectedChat);
+      socket?.emit("typing", { chatroomId: selectedChat, isTyping });
+    }
+  };
+
+  const selectedChatData =
+    chats.find((chat) => chat.id === selectedChat) || null;
+  console.log("Selected chat data:", selectedChatData);
+  console.log("Current messages:", messages);
+  console.log("Typing status - isTyping:", isTyping, "typingUser:", typingUser);
+
+  return (
+    <div className="app-container">
+      <div className="sidebar">
+        <ChatList
+          chats={chats}
+          onSelectChat={handleSelectChat}
+          currentUser={currentUser!}
+        />
+      </div>
+      <div className="main-content">
+        <ChatWindow
+          chat={selectedChatData}
+          messages={messages}
+          onSendMessage={handleSendMessage}
+          onTyping={handleTyping}
+          currentUser={currentUser!}
+          isTyping={isTyping}
+          typingUser={typingUser}
+        />
+      </div>
+    </div>
+  );
 };
 
 export default MainChat;
