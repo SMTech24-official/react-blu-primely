@@ -1,4 +1,5 @@
 // tournamentApi.ts
+import { TournamentData } from "../../../components/newBracket/types/tournament";
 import { baseApi } from "../baseApi";
 
 export interface Tournament {
@@ -73,6 +74,12 @@ interface CreateTournamentRequest {
   image?: File;
 }
 
+interface BracketResponse {
+  success: boolean;
+  message: string;
+  data: TournamentData;
+}
+
 interface UpdateTournamentRequest extends Partial<CreateTournamentRequest> {
   id: string;
 }
@@ -128,6 +135,17 @@ export const tournamentApi = baseApi.injectEndpoints({
         method: "DELETE",
       }),
     }),
+    getTournamentsFixture: builder.query<
+      BracketResponse,
+      {
+        id: string;
+      }
+    >({
+      query: (id) => ({
+        url: `/match/bracket/${id.id}`,
+        method: "GET",
+      }),
+    }),
   }),
   overrideExisting: false,
 });
@@ -138,4 +156,5 @@ export const {
   useGetTournamentByIdQuery,
   useUpdateTournamentMutation,
   useDeleteTournamentMutation,
+  useGetTournamentsFixtureQuery,
 } = tournamentApi;

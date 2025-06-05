@@ -1,29 +1,48 @@
 import { GitBranchPlus, ScrollText, Users } from "lucide-react";
+import { participants } from "../../../redux/apis/tournament/TournamentApi";
+import NewBracket from "../../newBracket/NewBracket";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
-import TestBracket from "./Bracket/test/TestBracket";
 import Clan from "./Clan/Clan";
 import Rules from "./Rules/Rules";
-import { participants } from "../../../redux/apis/tournament/TournamentApi";
+import { useLocation } from "react-router-dom";
 
-
-
-
-
-export default function TournamentDetailsTab({ rules, participants }: { rules: string, participants: participants[] }) {
-
+export default function TournamentDetailsTab({
+  rules,
+  participants,
+}: {
+  rules: string;
+  participants: participants[];
+}) {
+  const location = useLocation(); // Get the current location
+  const path = location.pathname; // Extract the pathname
+  // const { width, height } = useWindowSize();
+  const id = path?.split("/")[2];
 
   const TAB_ITEMS = [
-    { value: "rules", label: "RULES", icon: ScrollText, component: <Rules rules={rules} /> },
+    {
+      value: "rules",
+      label: "RULES",
+      icon: ScrollText,
+      component: <Rules rules={rules} />,
+    },
     {
       value: "bracket",
       label: "BRACKET",
       icon: GitBranchPlus,
-      component: <TestBracket />,
+      component: (
+        <div className="lg:mx-24">
+          <NewBracket newId={id} />
+        </div>
+      ),
     },
-    { value: "clan", label: "CLAN", icon: Users, component: <Clan participants={participants} /> },
+    {
+      value: "clan",
+      label: "CLAN",
+      icon: Users,
+      component: <Clan participants={participants} />,
+    },
     // { value: "admin", label: "ADMIN", icon: Settings, component: <Admin /> },
   ] as const;
-
 
   return (
     <Tabs defaultValue="bracket" className=" section-gap ">
