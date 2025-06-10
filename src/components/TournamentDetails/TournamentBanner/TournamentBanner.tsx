@@ -17,24 +17,18 @@ const TournamentBanner = ({
   maxTeams,
   enrolledTeams,
   skillLevel,
-  setShowConfetti
+  handleEnroll
 }: TournamentBannerProps) => {
-
-
-
-
-  const handleEnroll = () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    setShowConfetti((prev: any) => !prev)
-  }
-
   return (
     <div className="mb-[450px] lg:mb-[200px]">
-      <div style={{
-        backgroundImage: `url("${typeof bannerImage === 'string' ? bannerImage : bannerImage}")`
-
-      }} className="w-full h-[400px] relative bg-cover  bg-no-repeat">
-      </div>
+      <div
+        style={{
+          backgroundImage: `url("${
+            typeof bannerImage === "string" ? bannerImage : bannerImage
+          }")`,
+        }}
+        className="w-full h-[400px] relative bg-cover  bg-no-repeat"
+      ></div>
 
       {/* Details Card Section */}
       <div className="bg-[#161616] container absolute left-1/2 transform -translate-x-1/2 -translate-y-2/4 xl:-translate-y-1/2 text-white overflow-x-hidden rounded-2xl w-[90%] mx-auto">
@@ -59,9 +53,7 @@ const TournamentBanner = ({
             <div className="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-5 mt-4">
               <div className="flex items-center gap-4 lg:gap-8 font-normal text-sm lg:text-base">
                 <div className="flex flex-col gap-1">
-                  <span className="text-gray-400 capitalize">
-                    {gameName}
-                  </span>
+                  <span className="text-gray-400 capitalize">{gameName}</span>
                   <span className="text-[#3B82F6]">{tournamentType}</span>
                 </div>
                 <Separator orientation="vertical" className="h-8" />
@@ -81,8 +73,18 @@ const TournamentBanner = ({
               <div className="bg-[#2E2E2E] text-[#1E90FF] py-2 text-center rounded-md">
                 Start Time: {startDate}
               </div>
-              <button onClick={handleEnroll} disabled={registrationStatus ? enrollmentStatus ? true : false : true} className="bg-[#1E90FF] py-2 text-center rounded-md text-white text-sm xl:text-[17px] font-bold hover:bg-[#2563EB]">
-                {registrationStatus ? enrollmentStatus ? "Enrolled" : "Enroll Now" : "Closed"}
+              <button
+                onClick={handleEnroll}
+                disabled={
+                  registrationStatus ? (enrollmentStatus ? true : false) : true
+                }
+                className="bg-[#1E90FF] py-2 text-center rounded-md text-white text-sm xl:text-[17px] font-bold hover:bg-[#2563EB]"
+              >
+                {registrationStatus
+                  ? enrollmentStatus
+                    ? "Enrolled"
+                    : "Enroll Now"
+                  : "Closed"}
               </button>
             </div>
 

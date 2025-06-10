@@ -6,7 +6,7 @@ interface Payment {
   currency: string;
   status: string;
   createdAt: string;
-  tournamentName?: string
+  tournamentName?: string;
 }
 
 interface MetaData {
@@ -34,15 +34,24 @@ export const paymentApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllPayments: builder.query<PaymentApiResponse, PaymentQueryParams>({
       query: (params) => ({
-        url: '/payment',
+        url: "/payment",
         params: {
           page: params.page || 1,
           limit: params.limit || 10,
         },
       }),
-      providesTags: ['Payment'],
+      providesTags: ["Payment"],
+    }),
+    initiatePayment: builder.mutation({
+      query: ({ paymentData }) => ({
+        url: `/payment/initiate`,
+        method: "POST",
+        body: paymentData,
+      }),
+      invalidatesTags: ["Payment"],
     }),
   }),
 });
 
-export const { useGetAllPaymentsQuery } = paymentApi;
+export const { useGetAllPaymentsQuery, useInitiatePaymentMutation } =
+  paymentApi;

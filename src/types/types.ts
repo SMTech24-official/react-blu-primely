@@ -1,6 +1,5 @@
-import { Dispatch, SetStateAction } from "react";
-import { ClanMember2, TAward } from "../redux/types";
 import { Messages } from "../redux/apis/chat/chatApi";
+import { ClanMember2, TAward } from "../redux/types";
 
 export type NavPropsTypes = {
   name: string;
@@ -87,7 +86,8 @@ export interface TournamentBannerProps {
   maxTeams: number;
   enrolledTeams: number;
   skillLevel: string;
-  setShowConfetti: Dispatch<SetStateAction<boolean>>;
+  handleEnroll?: () => void;
+  // setShowConfetti: Dispatch<SetStateAction<boolean>>;
 }
 
 export interface Player {
