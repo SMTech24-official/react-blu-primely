@@ -16,7 +16,6 @@ import { toast } from "sonner";
 const TournamentDetailsPage = () => {
   const location = useLocation();
   const path = location.pathname;
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [showConfetti, setShowConfetti] = useState(false);
   // const { width, height } = useWindowSize();
   const slug = path?.split("/")[2];
@@ -48,9 +47,11 @@ const TournamentDetailsPage = () => {
           },
         });
         if ("data" in res && (res.data as any)?.success) {
+          console.log("Enrollment successful:", res.data);
           // Assuming the response contains a URL to redirect to
-          toast.success("Enrollment successful! Redirecting to payment...");
-          handleNavigate("/payment");
+          setShowConfetti((prev: any) => !prev);
+          await new Promise((resolve) => setTimeout(resolve, 5000));
+          handleNavigate(`/payment?clientSecret=${res.data.data.clientSecret}`);
         } else {
           toast.error("Enrollment failed. Please try again.");
         }
@@ -59,7 +60,6 @@ const TournamentDetailsPage = () => {
         // Handle unexpected errors
       }
       // Uncomment the line below to toggle confetti visibility
-      // setShowConfetti((prev: any) => !prev)
     }
   };
 
@@ -113,7 +113,11 @@ const TournamentDetailsPage = () => {
         <Confetti recycle={false} width={window.innerWidth} height={1000} />
       )}
       <MainModal isOpen={clanModal} onClose={() => setClanModal(false)}>
-        <EnrollWithClan tournamentId={GameData?.data?.id as string} />
+        <EnrollWithClan
+          setShowConfetti={setShowConfetti}
+          tournamentId={GameData?.data?.id as string}
+          setClanModal={setClanModal}
+        />
       </MainModal>
     </div>
   );

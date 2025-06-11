@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Dispatch, SetStateAction } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useGetClansByUserQuery } from "../../../../redux/apis/clan/ClanApi";
 import { useInitiatePaymentMutation } from "../../../../redux/apis/payment/PaymentApi";
-import { useNavigate } from "react-router-dom";
 
 interface ClanMember {
   role: string;
@@ -54,9 +55,18 @@ export interface ClanResponse {
   success: boolean;
   message: string;
   data: Clan[];
+  // setShowConfetti: Dispatch<SetStateAction<boolean>>;
 }
 
-const EnrollWithClan = ({ tournamentId }: { tournamentId: string }) => {
+const EnrollWithClan = ({
+  tournamentId,
+  setShowConfetti,
+  setClanModal,
+}: {
+  tournamentId: string;
+  setShowConfetti: Dispatch<SetStateAction<boolean>>;
+  setClanModal: (value: React.SetStateAction<boolean>) => void;
+}) => {
   const { data, isLoading, error } = useGetClansByUserQuery() as {
     data: ClanResponse | undefined;
     isLoading: boolean;
@@ -79,9 +89,13 @@ const EnrollWithClan = ({ tournamentId }: { tournamentId: string }) => {
         },
       });
       if ("data" in res && (res.data as any)?.success) {
+        console.log("Enrollment successful:", res.data);
         // Assuming the response contains a URL to redirect to
-        toast.success("Enrollment successful! Redirecting to payment...");
-        handleNavigate("/payment");
+        setShowConfetti(true);
+        setClanModal(false);
+        // toast.success("Enrollment successful! Redirecting to payment...");
+        await new Promise((resolve) => setTimeout(resolve, 5000));
+        handleNavigate(`/payment?clientSecret=${res.data.data.clientSecret}`);
       } else {
         toast.error("Enrollment failed. Please try again.");
       }

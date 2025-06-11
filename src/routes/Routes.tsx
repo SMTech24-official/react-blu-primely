@@ -17,6 +17,7 @@ import PaymentDetails from "../components/dashboard/payment/PaymentDetails";
 import Leaderboards from "../components/leaderboards/Leaderboards/Leaderboards";
 import NewBracket from "../components/newBracket/NewBracket";
 import NotFound from "../components/others/NotFound";
+import PaymentSuccessPage from "../components/payment/ConfirmPayment";
 import PaymentComponents from "../components/payment/Payment";
 import TournamentDetailsPage from "../components/TournamentDetails/TournamentDetailsPage";
 import { SidebarProvider } from "../components/ui/sidebar";
@@ -76,8 +77,16 @@ export const routes = [
       {
         path: "/payment",
         element: (
-          <ScrollToTop pathname="/aboutUs">
+          <ScrollToTop pathname="/payment">
             <PaymentComponents />
+          </ScrollToTop>
+        ),
+      },
+      {
+        path: "/confirmation",
+        element: (
+          <ScrollToTop pathname="/confirmation">
+            <PaymentSuccessPage />
           </ScrollToTop>
         ),
       },

@@ -1,5 +1,11 @@
+import PaymentPricing from "./PaymentPricing/PaymentPricing";
+
 const PaymentComponents = () => {
-  return <div>PaymentComponents </div>;
+  return (
+    <div>
+      <PaymentPricing />
+    </div>
+  );
 };
 
 export default PaymentComponents;
