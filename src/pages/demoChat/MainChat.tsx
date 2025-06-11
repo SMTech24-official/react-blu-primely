@@ -11,7 +11,7 @@ const MainChat: React.FC = () => {
 
   const { socket, isLoading } = useSocket(currentUser as string);
 
-  const [chats, setChats] = useState<Chat[]>([]);
+  const [chats, setChats] = useState<Chat[]>([]); 
   const [selectedChat, setSelectedChat] = useState<string | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [isTyping, setIsTyping] = useState(false);

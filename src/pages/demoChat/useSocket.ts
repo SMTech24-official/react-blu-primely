@@ -10,8 +10,8 @@ const useSocket = (userId: string) => {
     if (!socketRef.current) {
       console.log("Creating new socket connection");
       socketRef.current = io(
-        `https://api.bluprimaltournaments.com?token=${userId}`,
-        {
+        `http://localhost:5000`, {
+        auth: { token: userId },
           withCredentials: true,
           autoConnect: true, // This is true by default
         }
@@ -41,7 +41,7 @@ const useSocket = (userId: string) => {
         socketRef.current = null;
       }
     };
-  }, [userId]); // Only recreate if userId changes
+  }, [userId]); 
 
   return { socket: socketRef.current, isLoading };
 };

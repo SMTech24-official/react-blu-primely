@@ -5,16 +5,19 @@ import App from './App';
 import './index.css'
 import ReduxStoreProvider from './redux/ReduxStoreProvider';
 import { Toaster } from './components/ui/sonner';
+import { SocketProvider } from './context/SocketContext';
 
 
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>
-      <ReduxStoreProvider>
-        <App />
-        <Toaster />
-      </ReduxStoreProvider>
+      <SocketProvider>
+        <ReduxStoreProvider>
+          <App />
+          <Toaster />
+        </ReduxStoreProvider>
+      </SocketProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
