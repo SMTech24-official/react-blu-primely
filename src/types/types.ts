@@ -1,4 +1,4 @@
-import { Messages } from "../redux/apis/chat/chatApi";
+
 import { ClanMember2, TAward } from "../redux/types";
 
 export type NavPropsTypes = {
@@ -142,13 +142,13 @@ export type Teams = {
   }[];
 };
 
-export interface CommunicationProps {
-  message: string;
-  userRole: string;
-  messages: Messages[];
-  setMessages: React.Dispatch<React.SetStateAction<string>>;
-  handelSend: () => void;
-}
+// export interface CommunicationProps {
+//   message: string;
+//   userRole: string;
+//   messages: Messages[];
+//   setMessages: React.Dispatch<React.SetStateAction<string>>;
+//   handelSend: () => void;
+// }
 
 export type FeaturedProps = {
   id?: number;

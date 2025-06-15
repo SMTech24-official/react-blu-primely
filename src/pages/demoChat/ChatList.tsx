@@ -9,6 +9,7 @@ interface ChatListProps {
 }
 
 const ChatList: React.FC<ChatListProps> = ({ chats, onSelectChat }) => {
+
     const formatDate = (dateString: string | Date) => {
         const date = new Date(dateString);
         return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -31,6 +32,7 @@ const ChatList: React.FC<ChatListProps> = ({ chats, onSelectChat }) => {
                             <span className="unread-badge">{chat.unreadCount}</span>
                         )}
                     </div>
+                    
                     <div className="chat-info">
                         <div className="chat-name">
                             {chat.lastMessage?.sender?.fullName || 'New Chat'}

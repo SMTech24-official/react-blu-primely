@@ -1,15 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { DialogTitle } from "@radix-ui/react-dialog";
-import Cookies from "js-cookie";
 import { Dot, Menu } from "lucide-react";
-import { useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import useAuthUser from "../../hooks/useGetMe";
-import { Message } from "../../pages/demoChat/type";
-import useSocket from "../../pages/demoChat/useSocket";
 import {
   MessageMember,
-  useGetMessageByIdQuery,
   useGetMessageMembersQuery,
 } from "../../redux/apis/chat/chatApi";
 import Loading from "../others/Loading";
@@ -17,123 +14,35 @@ import { Button } from "../ui/button";
 import { ScrollArea } from "../ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import Communication from "./Communication";
-
+import { useChat } from "../../hooks/useChat";
 export default function CommunicationComponent() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const currentUser = Cookies.get("token");
-  const [message, setMessage] = useState<string>("");
-  const [id, setId] = useState("");
-  const { user } = useAuthUser();
-  const { data, isLoading } = useGetMessageMembersQuery();
-  //   isLoading: messagesLoading
-  const { data: AllMessages } = useGetMessageByIdQuery(id, {
-    skip: !id,
-  });
-  const [messages, setMessages] = useState<Message[]>([]);
-  const { socket } = useSocket(currentUser as string);
-
-  useEffect(() => {
-    console.log("Running socket connection effect");
-    console.log("socket", socket);
-
-    // Add connection status listeners
-    if (!isLoading) return;
-    if (!socket) return;
-
-    console.log("socket", socket);
-
-    console.log("Socket is available, setting up event listeners");
-
-    console.log("Emitted 'getAllChatMembers' event");
-
-    socket.emit("test", { user: currentUser });
-
-    //   --------------------------------
-    // console.log("entering allchat members", socket);
-    // socket.on("allChatMembers", (chats: Chat[]) => {
-    //   console.log("Received 'allChatMembers' event with data:", chats);
-    //   setChats(chats);
-    // });
-    // console.log("cross all chat");
-    //   --------------------------------
-
-    socket.on("receiveMessage", (message: Message) => {
-      console.log("Received new message:", message);
-      if (message.chatId === id) {
-        console.log("Message belongs to current chat, adding to messages");
-        setMessages((prev) => [...prev, message]);
-      }
-      console.log("Updating chats with new message");
-      // setChats((prev) =>
-      //   prev.map((chat) =>
-      //     chat.id === message.chatId
-      //       ? {
-      //           ...chat,
-      //           lastMessage: message,
-      //           unreadCount:
-      //             message.senderId !== currentUser ? chat.unreadCount + 1 : 0,
-      //         }
-      //       : chat
-      //   )
-      // );
-    });
-
-    socket.on("messageHistory", (messages: Message[]) => {
-      console.log("Received message history:", messages);
-      setMessages(messages || []);
-    });
-
-    // socket.on("typing", (data: { userId: string; isTyping: boolean }) => {
-    //   console.log("Received typing event:", data);
-    //   if (data.userId !== currentUser && selectedChat) {
-    //     console.log("Typing event is from another user in current chat");
-    //     setIsTyping(data.isTyping);
-    //     setTypingUser(data.userId);
-    //   }
-    // });
-
-    // socket.on("messageRead", ({ messageId }: { messageId: string }) => {
-    //   console.log("Message marked as read:", messageId);
-    //   setMessages((prev) =>
-    //     prev.map((msg) =>
-    //       msg.id === messageId ? { ...msg, isRead: true } : msg
-    //     )
-    //   );
-    // });
-
-    console.log(socket);
-    return () => {
-      console.log("Cleaning up socket event listeners");
-      socket.off("allChatMembers");
-      socket.off("receiveMessage");
-      socket.off("messageHistory");
-      socket.off("typing");
-      socket.off("messageRead");
-    };
-  }, [socket, currentUser, isLoading, id]);
-
-  // id
   const [selectedUser, setSelectedUser] = useState<any>(null);
 
-  console.log("messages", messages);
+console.log(selectedUser, 'ss');
+  const { user } = useAuthUser();
+  const { data, isLoading } = useGetMessageMembersQuery();
 
+// const {socket}= useSocket()
+  const { joinChat,  } = useChat();
+
+
+  // useEffect(() => {
+    // getAllChatMembers();
+  // }, [socket]);
+  
+  // console.log(chatMembers, 'chatMembers');
   // Demo Data
-  const handelUserId = (id: any) => {
-    setId(id);
-    setSelectedUser(id);
+  const handelUser = (chat: MessageMember) => {
+    setSelectedUser(chat);
+    joinChat(chat.id);
   };
 
   if (isLoading) {
     return <Loading />;
   }
 
-  const handleSendMessage = () => {
-    console.log("Sending message:", message);
-    if (id) {
-      console.log("Emitting 'sendMessage' event for chat:", id);
-      socket?.emit("sendMessage", { chatId: id, content: message });
-    }
-  };
+ 
 
   const ConversationList = () => (
     <div className="w-full h-full bg-[#1B1B1B]">
@@ -151,7 +60,7 @@ export default function CommunicationComponent() {
       >
         {data?.data.map((chat: MessageMember, index) => (
           <div
-            onClick={() => handelUserId(chat?.id)}
+            onClick={() => handelUser(chat)}
             key={index}
             className="flex items-center justify-between hover:bg-slate-700 p-4 cursor-pointer  rounded-md mx-2 my-2 transition-all duration-200"
           >
@@ -168,9 +77,14 @@ export default function CommunicationComponent() {
                 <p className="text-sm xl:text-lg font-semibold text-white">
                   {chat?.name ?? "Unknown User"}
                 </p>
-                <p className="text-sm truncate text-white font-thin">
-                  last message: {chat?.lastMessage?.content}
-                </p>
+                {
+                  chat?.lastMessage?.isRead === false && (
+                    <p className="text-sm truncate text-white font-thin">
+                      last message: {chat?.lastMessage?.content}
+                    </p>
+                  )
+                }
+               
               </div>
             </div>
             <div className="text-primary_highlighted">
@@ -215,24 +129,22 @@ export default function CommunicationComponent() {
                 <header className="flex items-center justify-between px-4 py-[16px]">
                   <div className="flex items-center gap-3 ">
                     <img
-                      src={selectedUser?.profileImage}
-                      alt={selectedUser?.fullName ?? "User"}
+                      src={selectedUser?.logo ??
+                        "https://cdn-icons-png.freepik.com/256/8661/8661530.png?ga=GA1.1.603131680.1747477038&semt=ais_incoming"}
+                      alt={selectedUser?.name ?? "User"}
                       className="rounded-full w-14 h-14 object-cover"
                     />
                     <div>
-                      <h1 className="font-semibold">
-                        {selectedUser?.fullName}
+                      <h1 className="font-semibold text-white">
+                        {selectedUser?.name ?? "Unknown User"}
                       </h1>
                     </div>
                   </div>
                 </header>
                 <div className="bg-black">
                   <Communication
-                    message={message}
-                    messages={AllMessages?.data.messages as any}
-                    setMessages={setMessage}
-                    handelSend={handleSendMessage}
-                    userRole={user.id}
+                    userId={user.id}
+                    chatId={selectedUser?.id}
                   />
                 </div>
               </div>
