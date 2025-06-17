@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { Dot, Menu } from "lucide-react";
-import {  useEffect, useState } from "react";
+import { useState } from "react";
+import { useChat } from "../../hooks/useChat";
 import useAuthUser from "../../hooks/useGetMe";
 import {
   MessageMember,
@@ -14,23 +14,21 @@ import { Button } from "../ui/button";
 import { ScrollArea } from "../ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import Communication from "./Communication";
-import { useChat } from "../../hooks/useChat";
 export default function CommunicationComponent() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<any>(null);
 
-console.log(selectedUser, 'ss');
+  console.log(selectedUser, "ss");
   const { user } = useAuthUser();
   const { data, isLoading } = useGetMessageMembersQuery();
 
-// const {socket}= useSocket()
-  const { joinChat,  } = useChat();
-
+  // const {socket}= useSocket()
+  const { joinChat } = useChat();
 
   // useEffect(() => {
-    // getAllChatMembers();
+  // getAllChatMembers();
   // }, [socket]);
-  
+
   // console.log(chatMembers, 'chatMembers');
   // Demo Data
   const handelUser = (chat: MessageMember) => {
@@ -41,8 +39,6 @@ console.log(selectedUser, 'ss');
   if (isLoading) {
     return <Loading />;
   }
-
- 
 
   const ConversationList = () => (
     <div className="w-full h-full bg-[#1B1B1B]">
@@ -77,14 +73,11 @@ console.log(selectedUser, 'ss');
                 <p className="text-sm xl:text-lg font-semibold text-white">
                   {chat?.name ?? "Unknown User"}
                 </p>
-                {
-                  chat?.lastMessage?.isRead === false && (
-                    <p className="text-sm truncate text-white font-thin">
-                      last message: {chat?.lastMessage?.content}
-                    </p>
-                  )
-                }
-               
+                {chat?.lastMessage?.isRead === false && (
+                  <p className="text-sm truncate text-white font-thin">
+                    last message: {chat?.lastMessage?.content}
+                  </p>
+                )}
               </div>
             </div>
             <div className="text-primary_highlighted">
@@ -129,8 +122,10 @@ console.log(selectedUser, 'ss');
                 <header className="flex items-center justify-between px-4 py-[16px]">
                   <div className="flex items-center gap-3 ">
                     <img
-                      src={selectedUser?.logo ??
-                        "https://cdn-icons-png.freepik.com/256/8661/8661530.png?ga=GA1.1.603131680.1747477038&semt=ais_incoming"}
+                      src={
+                        selectedUser?.logo ??
+                        "https://cdn-icons-png.freepik.com/256/8661/8661530.png?ga=GA1.1.603131680.1747477038&semt=ais_incoming"
+                      }
                       alt={selectedUser?.name ?? "User"}
                       className="rounded-full w-14 h-14 object-cover"
                     />
@@ -142,10 +137,7 @@ console.log(selectedUser, 'ss');
                   </div>
                 </header>
                 <div className="bg-black">
-                  <Communication
-                    userId={user.id}
-                    chatId={selectedUser?.id}
-                  />
+                  <Communication userId={user.id} chatId={selectedUser?.id} />
                 </div>
               </div>
             ) : (
