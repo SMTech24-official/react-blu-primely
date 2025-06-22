@@ -95,7 +95,7 @@ const EnrollWithClan = ({
         setClanModal(false);
         // toast.success("Enrollment successful! Redirecting to payment...");
         await new Promise((resolve) => setTimeout(resolve, 5000));
-        handleNavigate(`/payment?clientSecret=${res.data.data.clientSecret}`);
+        handleNavigate(`/payment?clientSecret=${res.data.data.clientSecret}&clanId=${clanId}`);
       } else {
         toast.error("Enrollment failed. Please try again.");
       }

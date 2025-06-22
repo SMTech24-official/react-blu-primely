@@ -11,11 +11,14 @@ import { useInitiatePaymentMutation } from "../../redux/apis/payment/PaymentApi"
 import { MainModal } from "../Modal/MainModal";
 import EnrollWithClan from "./TournamentDetailsTab/enrollwithClan/EnrollWithClan";
 import { toast } from "sonner";
+import useAuthUser from "../../hooks/useGetMe";
 // import { useWindowSize } from 'react-use'
 
 const TournamentDetailsPage = () => {
   const location = useLocation();
   const path = location.pathname;
+
+  const { user } = useAuthUser()
   const [showConfetti, setShowConfetti] = useState(false);
   // const { width, height } = useWindowSize();
   const slug = path?.split("/")[2];
@@ -51,7 +54,7 @@ const TournamentDetailsPage = () => {
           // Assuming the response contains a URL to redirect to
           setShowConfetti((prev: any) => !prev);
           await new Promise((resolve) => setTimeout(resolve, 5000));
-          handleNavigate(`/payment?clientSecret=${res.data.data.clientSecret}`);
+          handleNavigate(`/payment?clientSecret=${res.data.data.clientSecret}&userId=${user.id}`);
         } else {
           toast.error("Enrollment failed. Please try again.");
         }
@@ -96,7 +99,7 @@ const TournamentDetailsPage = () => {
             enrolledTeams={GameData?.data?.participants.length ?? 0}
             skillLevel={GameData?.data?.skillLevel ?? "Skill Level"}
             handleEnroll={handleEnroll}
-            // setShowConfetti={setShowConfetti}
+          // setShowConfetti={setShowConfetti}
           />
 
           <TournamentDetailsTab

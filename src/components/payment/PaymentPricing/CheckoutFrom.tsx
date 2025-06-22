@@ -9,13 +9,18 @@ import { Input } from "../../ui/input";
 const CheckoutForm = ({
   clientSecret,
   user,
+  joinData,
 }: {
   clientSecret: string;
   user: any;
+  joinData: { tournamentId: string; userId?: string; clanId?: string }
 }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [stripeError, setStripeError] = useState<string | null>(null);
+
+  // const [] = useJoinTournamentsMutation()
+
   const router = useNavigate();
 
   const {
@@ -62,6 +67,16 @@ const CheckoutForm = ({
       if (error) {
         setStripeError(error.message || "Payment failed");
       } else if (paymentIntent?.status === "succeeded") {
+        // const joinRes = await joinTournments(joinData)
+        // console.log(joinRes);
+        // if (joinRes.data?.success) {
+        //   toast.success("Payment Successful");
+        //   router("/confirmation");
+        // }
+        // else {
+        //   toast.error("Payment FailedF");
+        // }
+        console.log(joinData);
         toast.success("Payment Successful");
         router("/confirmation");
       }

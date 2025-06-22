@@ -80,6 +80,21 @@ interface BracketResponse {
   data: TournamentData;
 }
 
+interface ParticipantResponse {
+  success: boolean;
+  message: string;
+  data: ParticipantData;
+}
+
+type ParticipantData = {
+  id: string;
+  tournamentId: string;
+  userId: string;
+  clanId: string | null;
+  createdAt: string; // or Date
+  updatedAt: string; // or Date
+};
+
 interface UpdateTournamentRequest extends Partial<CreateTournamentRequest> {
   id: string;
 }
@@ -146,6 +161,16 @@ export const tournamentApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+    joinTournaments: builder.mutation<
+      ParticipantResponse,
+      { tournamentId: string; userId?: string; clanId?: string }
+    >({
+      query: (formData) => ({
+        url: "/participants/join",
+        method: "POST",
+        body: formData,
+      }),
+    }),
   }),
   overrideExisting: false,
 });
@@ -157,4 +182,5 @@ export const {
   useUpdateTournamentMutation,
   useDeleteTournamentMutation,
   useGetTournamentsFixtureQuery,
+  useJoinTournamentsMutation
 } = tournamentApi;
