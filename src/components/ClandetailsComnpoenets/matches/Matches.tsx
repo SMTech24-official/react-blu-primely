@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { useGetRecentMatchQuery } from "../../../redux/apis/match/matchApi";
 import MatchCard from "../../allCards/matchCard/MatchCard";
@@ -24,7 +25,6 @@ const MatchesTab = () => {
   if (data && !Array.isArray(data.data)) {
     // Now TypeScript knows it's MatchGroupedResponse
 
-
     return (
       <div className="space-y-6 md:space-y-8 lg:space-y-14">
         <div className="space-y-2 md:space-y-4 lg:space-y-8">
@@ -46,7 +46,7 @@ const MatchesTab = () => {
 
             <DatePickerDemo date={date} setDate={setDate} />
           </div>
-          <MatchTable members={data.data.upcoming} />
+          <MatchTable members={data.data.upcoming as any} />
         </div>
         <div className="space-y-2 md:space-y-4 lg:space-y-8">
           <p className="text-lg lg:text-2xl font-bold">Recent Matches</p>

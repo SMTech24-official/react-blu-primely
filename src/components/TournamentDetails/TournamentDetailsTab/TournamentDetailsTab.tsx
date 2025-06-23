@@ -31,7 +31,7 @@ export default function TournamentDetailsTab({
       icon: GitBranchPlus,
       component: (
         <div className="lg:mx-24">
-          <NewBracket newId={id} />
+          <NewBracket admin={false} newId={id} />
         </div>
       ),
     },

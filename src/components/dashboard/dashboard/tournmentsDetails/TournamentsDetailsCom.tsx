@@ -17,7 +17,10 @@ export default function TournamentDetails({
   status,
   subtitle,
   tournamentType,
-  rules
+  rules,
+  handleGenerateMatches,
+  id,
+  handleDelete,
 }: TournamentProps) {
   return (
     <div className="min-h-screen bg-fourthColor text-white p-4 rounded-lg">
@@ -34,6 +37,25 @@ export default function TournamentDetails({
             />
           </div>
 
+          <div className="flex items-center gap-4">
+            <div>
+              <button
+                onClick={() => handleGenerateMatches?.(id)}
+                className="bg-[#1E90FF] py-2 text-center rounded-md text-white text-sm xl:text-[17px] font-bold hover:bg-[#2563EB] px-3"
+              >
+                Generate Match
+              </button>
+            </div>
+            <div>
+              <button
+                onClick={() => handleDelete?.(id)}
+                className="bg-[#d64734] py-2 text-center rounded-md text-white text-sm xl:text-[17px] font-bold hover:bg-[#ff5d41] px-3"
+              >
+                Delete tournament
+              </button>
+            </div>
+          </div>
+
           {/* Tournament Name */}
           <div>
             <h2 className="text-xl md:text-2xl font-bold mb-4">{title}</h2>
@@ -45,16 +67,17 @@ export default function TournamentDetails({
             <div className="flex justify-between items-center">
               <span className="text-zinc-400">Status :</span>
               <span
-                className={` uppercase text-center  ${status
-                  ? status === "ACTIVE"
-                    ? " text-green-600"
-                    : status === "UPCOMING"
+                className={` uppercase text-center  ${
+                  status
+                    ? status === "ACTIVE"
+                      ? " text-green-600"
+                      : status === "UPCOMING"
                       ? " text-blue-600"
                       : status === "CANCEL"
-                        ? " text-red-600"
-                        : ""
-                  : " text-red-600"
-                  }`}
+                      ? " text-red-600"
+                      : ""
+                    : " text-red-600"
+                }`}
               >
                 {status ? status : "Closed"}
               </span>
@@ -93,9 +116,7 @@ export default function TournamentDetails({
 
             <div className="flex justify-between items-center">
               <span className="text-zinc-400">Prize Pool :</span>
-              <span className="text-blue-500">
-                {formatCurrency(prize)}
-              </span>
+              <span className="text-blue-500">{formatCurrency(prize)}</span>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-zinc-400">Max Team :</span>

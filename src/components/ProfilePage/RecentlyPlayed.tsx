@@ -27,10 +27,10 @@ interface Match {
   id: string;
   tournamentId: string;
   team1Id: string;
-  team2Id: string;
+  team2Id: string | null;
   winnerId: string | null;
   startTime: string;
-  status: "UPCOMING" | "ONGOING" | "COMPLETED" | "CANCELLED";
+  status: "UPCOMING" | "ONGOING" | "COMPLETED" | "CANCELLED" | "scheduled";
   round: string;
   createdAt: string;
   updatedAt: string;

@@ -77,6 +77,7 @@ export default function Tournaments() {
                   teamSize={tournament.teamSize}
                   regions={tournament.region}
                   skillLevel={tournament.skillLevel}
+                  
                 />
               </SwiperSlide>
             )

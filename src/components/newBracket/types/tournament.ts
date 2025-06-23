@@ -12,7 +12,7 @@ export interface Match {
   team2Id: string;
   winnerId: string | null;
   startTime: string;
-  status: 'completed' | 'upcoming' | 'in_progress';
+  status: "completed" | "upcoming" | "in_progress";
   round: string;
   createdAt: string;
   updatedAt: string;
@@ -40,6 +40,7 @@ export interface RoundColumnProps {
 
 export interface TournamentBracketProps {
   data: TournamentData;
+  admin: boolean;
 }
 
 export interface TeamDisplayProps {
@@ -50,4 +51,7 @@ export interface TeamDisplayProps {
 export interface MatchDetailsProps {
   match: Match | null;
   onClose: () => void;
+  handleWinner: (matchId: string, winnerId: string) => void;
+  winnerState: string;
+  setWinner: React.Dispatch<React.SetStateAction<string | null>>;
 }

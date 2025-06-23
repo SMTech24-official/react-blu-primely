@@ -4,7 +4,13 @@ import { useGetTournamentsFixtureQuery } from "../../redux/apis/tournament/Tourn
 import TournamentBracket from "./components/TournamentBracket";
 import Loading from "../others/Loading";
 
-const NewBracket = ({ newId }: { newId?: string }) => {
+const NewBracket = ({
+  newId,
+  admin = true,
+}: {
+  newId?: string;
+  admin: boolean;
+}) => {
   const location = useLocation(); // Get the current location
   const path = location.pathname; // Extract the pathname
   // const { width, height } = useWindowSize();
@@ -18,7 +24,7 @@ const NewBracket = ({ newId }: { newId?: string }) => {
   }
   return (
     <div>
-      <TournamentBracket data={(data?.data as any) || []} />
+      <TournamentBracket admin={admin} data={(data?.data as any) || []} />
     </div>
   );
 };

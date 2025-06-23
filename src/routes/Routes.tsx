@@ -268,7 +268,7 @@ export const routes = [
         element: (
           <ScrollToTop pathname="/dashboard/fixture/:id">
             {" "}
-            <NewBracket />{" "}
+            <NewBracket admin />{" "}
           </ScrollToTop>
         ),
       },

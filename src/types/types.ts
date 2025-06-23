@@ -1,4 +1,3 @@
-
 import { ClanMember2, TAward } from "../redux/types";
 
 export type NavPropsTypes = {
@@ -26,6 +25,8 @@ export interface TournamentProps {
   badge?: boolean;
   tournamentType?: string;
   status?: "CANCEL" | "ACTIVE" | "UPCOMING";
+  handleGenerateMatches?: (tournamentId: string) => void;
+  handleDelete?: (id: string) => void;
 }
 
 export interface PrimalChampionshipCardProps {
