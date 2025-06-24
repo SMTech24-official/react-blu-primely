@@ -1,11 +1,7 @@
-import { players } from "../../../../lib/fakeData/recent";
 import { useGetTournamentsQuery } from "../../../../redux/apis/tournament/TournamentApi";
-import PlayerCard from "../../../allCards/playerCard/PlayerCard";
 import TournamentsInfo from "../../../allCards/tournmentsInfoCard/TournamentsInfo";
 import NoDataAvailable from "../../../shared/noData/NoDataAvailableTwo";
 import { Skeleton } from "../../../ui/skeleton";
-
-
 
 interface ApiTournament {
   id: string;
@@ -53,15 +49,10 @@ interface TournamentsInfoProps {
   fixture?: boolean;
 }
 
-
-
 const RecentAll = () => {
-
   const { data, isLoading } = useGetTournamentsQuery({
     limit: 10,
   });
-
-
 
   const transformTournament = (
     tournament: ApiTournament
@@ -83,14 +74,12 @@ const RecentAll = () => {
   });
 
   return (
-    <div className="grid xl:grid-cols-3 2xl:grid-cols-2 gap-10">
-      <div className="xl:col-span-2 2xl:col-span-1">
+    <div className="grid grid-cols-1 gap-10">
+      <div className="">
         <h1 className="text-lg font-semibold text-primary_highlighted my-3">
           🏆 New Tournament Created
         </h1>
         <div className="flex flex-col gap-3">
-
-
           {isLoading ? (
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
               {Array.from({ length: 4 }).map((_, idx) => (
@@ -98,7 +87,7 @@ const RecentAll = () => {
               ))}
             </div>
           ) : data?.data?.length ? (
-            <div className="grid grid-cols-1 gap-6">
+            <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
               {data.data.map((tournament) => (
                 <TournamentsInfo
                   key={tournament.id}
@@ -112,7 +101,7 @@ const RecentAll = () => {
         </div>
       </div>
 
-      <div className="">
+      {/* <div className="">
         <h1 className="text-lg font-semibold text-primary_highlighted my-3">
           👤 Player Registered
         </h1>
@@ -127,7 +116,7 @@ const RecentAll = () => {
             />
           ))}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

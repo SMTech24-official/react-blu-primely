@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useGetUserByIdQuery } from "../redux/apis/auth/userApi";
 import { logout, setUser } from "../redux/slice/auth/authSlice";
+import { toast } from "sonner";
 
 interface DecodedToken {
   id: string; // Ensure this matches your JWT payload
@@ -28,14 +29,13 @@ const useAuthUser = () => {
         setTemp(decodedUser);
         // Check if the token is expired
         if (decoded.exp * 1000 < Date.now()) {
- 
           Cookies.remove("token");
           return;
         }
 
         setUserId(decoded.id);
-      } catch (error) {
-        console.error("Invalid token", error);
+      } catch (error: any) {
+        toast.error("Invalid token", error.message || "");
       }
     }
   }, []);
@@ -44,8 +44,6 @@ const useAuthUser = () => {
   const { data, error, isLoading } = useGetUserByIdQuery(userId!, {
     skip: !userId, // Skip query if userId is null
   });
-
-
 
   useEffect(() => {
     if (data?.success) {

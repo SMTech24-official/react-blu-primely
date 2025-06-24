@@ -119,7 +119,7 @@ export const matchApi = baseApi.injectEndpoints({
           winnerId,
         },
       }),
-      invalidatesTags: ["Matches"], // Invalidate matches cache after updating winner
+      invalidatesTags: ["Matches", "Tournments"], // Invalidate matches cache after updating winner
     }),
   }),
 });

@@ -160,6 +160,7 @@ export const tournamentApi = baseApi.injectEndpoints({
         url: `/match/bracket/${id.id}`,
         method: "GET",
       }),
+      providesTags:["Tournments"]
     }),
     joinTournaments: builder.mutation<
       ParticipantResponse,

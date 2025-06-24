@@ -156,7 +156,7 @@ const ProfilePage = () => {
               <img src={trophy} alt="Rank" className="md:w-12 lg:w-20 w-14" />
               <div className="flex flex-col items-center justify-center">
                 <p className="md:text-sm lg:text-lg 2xl:text-2xl font-semibold text-primary_highlighted uppercase">
-                  Tournaments
+                  Total Matches
                 </p>
                 <p className="font-bold">{user?.UserStats?.totalMatches}</p>
               </div>
@@ -174,11 +174,11 @@ const ProfilePage = () => {
         </div>
       </div>
       <MainModal isOpen={editProfile} onClose={() => setEditProfile(false)}>
-        <EditProfile />
+        <EditProfile setEditProfile={setEditProfile} />
       </MainModal>
 
       <MainModal isOpen={createClan} onClose={() => setCreateClan(false)}>
-        <CreateClan />
+        <CreateClan setCreateClan={setCreateClan} />
       </MainModal>
     </div>
   );

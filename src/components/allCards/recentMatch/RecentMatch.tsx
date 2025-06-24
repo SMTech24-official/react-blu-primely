@@ -53,7 +53,7 @@ const RecentMatch: React.FC<Match> = ({
         </div>
         <div className="mt-2 flex items-center justify-between gap-2">
           <p>Regions </p>
-          <p className="">{regions}</p>
+          <p className="capitalize">{regions}</p>
         </div>
       </div>
     </div>

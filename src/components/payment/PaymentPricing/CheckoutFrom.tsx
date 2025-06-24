@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useState } from "react";
@@ -9,11 +10,10 @@ import { Input } from "../../ui/input";
 const CheckoutForm = ({
   clientSecret,
   user,
-  joinData,
 }: {
   clientSecret: string;
   user: any;
-  joinData: { tournamentId: string; userId?: string; clanId?: string }
+  joinData: { tournamentId: string; userId?: string; clanId?: string };
 }) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -63,7 +63,7 @@ const CheckoutForm = ({
           },
         }
       );
-      console.log(paymentIntent);
+      // console.log(paymentIntent);
       if (error) {
         setStripeError(error.message || "Payment failed");
       } else if (paymentIntent?.status === "succeeded") {
@@ -76,7 +76,7 @@ const CheckoutForm = ({
         // else {
         //   toast.error("Payment FailedF");
         // }
-        console.log(joinData);
+        // console.log(joinData);
         toast.success("Payment Successful");
         router("/confirmation");
       }

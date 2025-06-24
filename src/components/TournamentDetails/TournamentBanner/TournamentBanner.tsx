@@ -17,7 +17,7 @@ const TournamentBanner = ({
   maxTeams,
   enrolledTeams,
   skillLevel,
-  handleEnroll
+  handleEnroll,
 }: TournamentBannerProps) => {
   return (
     <div className="mb-[450px] lg:mb-[200px]">
@@ -59,7 +59,7 @@ const TournamentBanner = ({
                 <Separator orientation="vertical" className="h-8" />
                 <span className="text-gray-400 uppercase">{platform}</span>
               </div>
-              <button className="text-white flex items-center justify-center bg-[#2E2E2E] px-10 py-2 rounded-md font-medium text-sm xl:text-base">
+              <button className="text-white  items-center hidden justify-center bg-[#2E2E2E] px-10 py-2 rounded-md font-medium text-sm xl:text-base">
                 <Share2 className="w-4 h-4 mr-2" />
                 Share
               </button>

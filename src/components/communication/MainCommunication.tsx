@@ -18,7 +18,7 @@ export default function CommunicationComponent() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<any>(null);
 
-  console.log(selectedUser, "ss");
+  // console.log(selectedUser, "ss");
   const { user } = useAuthUser();
   const { data, isLoading } = useGetMessageMembersQuery();
 

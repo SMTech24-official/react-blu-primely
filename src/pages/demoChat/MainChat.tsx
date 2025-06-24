@@ -7,7 +7,7 @@ import useSocket from "./useSocket";
 
 const MainChat: React.FC = () => {
   const currentUser = Cookies.get("token");
-  console.log("Current user token from cookies:", currentUser);
+  // console.log("Current user token from cookies:", currentUser);
 
   const { socket, isLoading } = useSocket(currentUser as string);
 
@@ -18,18 +18,18 @@ const MainChat: React.FC = () => {
   const [typingUser, setTypingUser] = useState<string | null>(null);
 
   useEffect(() => {
-    console.log("Running socket connection effect");
-    console.log("socket", socket);
+    // console.log("Running socket connection effect");
+    // console.log("socket", socket);
 
     // Add connection status listeners
     if (!isLoading) return;
     if (!socket) return;
 
-    console.log("socket", socket);
+    // console.log("socket", socket);
 
-    console.log("Socket is available, setting up event listeners");
+    // console.log("Socket is available, setting up event listeners");
 
-    console.log("Emitted 'getAllChatMembers' event");
+    // console.log("Emitted 'getAllChatMembers' event");
 
     socket.emit("test", { user: currentUser });
 
@@ -43,12 +43,12 @@ const MainChat: React.FC = () => {
     //   --------------------------------
 
     socket.on("receiveMessage", (message: Message) => {
-      console.log("Received new message:", message);
+      // console.log("Received new message:", message);
       if (message.chatId === selectedChat) {
-        console.log("Message belongs to current chat, adding to messages");
+        // console.log("Message belongs to current chat, adding to messages");
         setMessages((prev) => [...prev, message]);
       }
-      console.log("Updating chats with new message");
+      // console.log("Updating chats with new message");
       setChats((prev) =>
         prev.map((chat) =>
           chat.id === message.chatId
@@ -64,21 +64,21 @@ const MainChat: React.FC = () => {
     });
 
     socket.on("messageHistory", (messages: Message[]) => {
-      console.log("Received message history:", messages);
+      // console.log("Received message history:", messages);
       setMessages(messages || []);
     });
 
     socket.on("typing", (data: { userId: string; isTyping: boolean }) => {
-      console.log("Received typing event:", data);
+      // console.log("Received typing event:", data);
       if (data.userId !== currentUser && selectedChat) {
-        console.log("Typing event is from another user in current chat");
+        // console.log("Typing event is from another user in current chat");
         setIsTyping(data.isTyping);
         setTypingUser(data.userId);
       }
     });
 
     socket.on("messageRead", ({ messageId }: { messageId: string }) => {
-      console.log("Message marked as read:", messageId);
+      // console.log("Message marked as read:", messageId);
       setMessages((prev) =>
         prev.map((msg) =>
           msg.id === messageId ? { ...msg, isRead: true } : msg
@@ -86,9 +86,9 @@ const MainChat: React.FC = () => {
       );
     });
 
-    console.log(socket);
+    // console.log(socket);
     return () => {
-      console.log("Cleaning up socket event listeners");
+      // console.log("Cleaning up socket event listeners");
       // socket.off("allChatMembers");
       // socket.off("receiveMessage");
       // socket.off("messageHistory");
@@ -98,10 +98,10 @@ const MainChat: React.FC = () => {
   }, [socket, selectedChat, currentUser, isLoading]);
 
   const handleSelectChat = (chatId: string) => {
-    console.log("Chat selected:", chatId);
+    // console.log("Chat selected:", chatId);
     setSelectedChat(chatId);
     socket?.emit("joinChat", { chatId });
-    console.log("Emitted 'joinChat' event for chat:", chatId);
+    // console.log("Emitted 'joinChat' event for chat:", chatId);
     setChats((prev) =>
       prev.map((chat) =>
         chat.id === chatId ? { ...chat, unreadCount: 0 } : chat
@@ -110,26 +110,26 @@ const MainChat: React.FC = () => {
   };
 
   const handleSendMessage = (content: string) => {
-    console.log("Sending message:", content);
+    // console.log("Sending message:", content);
     if (selectedChat) {
-      console.log("Emitting 'sendMessage' event for chat:", selectedChat);
+      // console.log("Emitting 'sendMessage' event for chat:", selectedChat);
       socket?.emit("sendMessage", { chatId: selectedChat, content });
     }
   };
 
   const handleTyping = (isTyping: boolean) => {
-    console.log("Typing status changed:", isTyping);
+    // console.log("Typing status changed:", isTyping);
     if (selectedChat) {
-      console.log("Emitting 'typing' event for chat:", selectedChat);
+      // console.log("Emitting 'typing' event for chat:", selectedChat);
       socket?.emit("typing", { chatroomId: selectedChat, isTyping });
     }
   };
 
   const selectedChatData =
     chats.find((chat) => chat.id === selectedChat) || null;
-  console.log("Selected chat data:", selectedChatData);
-  console.log("Current messages:", messages);
-  console.log("Typing status - isTyping:", isTyping, "typingUser:", typingUser);
+  // console.log("Selected chat data:", selectedChatData);
+  // console.log("Current messages:", messages);
+  // console.log("Typing status - isTyping:", isTyping, "typingUser:", typingUser);
 
   return (
     <div className="app-container">

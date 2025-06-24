@@ -9,7 +9,11 @@ interface ClanFormData {
   values: string;
 }
 
-const CreateClan = () => {
+const CreateClan = ({
+  setCreateClan,
+}: {
+  setCreateClan: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const [createClan, { isLoading }] = useCreateClanMutation();
   const {
     register,
@@ -27,6 +31,7 @@ const CreateClan = () => {
     try {
       const response = await createClan(data).unwrap();
       toast.success(response.message);
+      setCreateClan(false);
     } catch (error) {
       toast.error("Failed to create clan");
       console.error("Create clan error:", error);

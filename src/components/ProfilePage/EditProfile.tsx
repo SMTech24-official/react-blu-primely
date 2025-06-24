@@ -23,7 +23,11 @@ interface FormData {
   gameEntries: GameEntry[];
 }
 
-const EditProfile = () => {
+const EditProfile = ({
+  setEditProfile,
+}: {
+  setEditProfile: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   // API hooks with loading states
   const {
     data: gameEntriesData,
@@ -148,7 +152,7 @@ const EditProfile = () => {
       // Refetch data
       await refetchGameEntries();
       toast.success("Profile updated successfully!");
-
+      setEditProfile(false);
       // Reset image selection after successful upload
       setSelectedImage(null);
       if (fileInputRef.current) {

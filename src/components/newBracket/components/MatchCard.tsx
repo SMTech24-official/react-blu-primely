@@ -16,10 +16,10 @@ const MatchCard: React.FC<MatchCardProps> = ({
   const isTeam1Winner = match?.winnerId === match?.team1Id;
   const isTeam2Winner = match?.winnerId === match?.team2Id;
 
-  console.log(match.status);
-  console.log("status", isCompleted);
-  console.log("Team 1", isTeam1Winner);
-  console.log("Team 2", isTeam2Winner);
+  // console.log(match.status);
+  // console.log("status", isCompleted);
+  // console.log("Team 1", isTeam1Winner);
+  // console.log("Team 2", isTeam2Winner);
 
   return (
     <div

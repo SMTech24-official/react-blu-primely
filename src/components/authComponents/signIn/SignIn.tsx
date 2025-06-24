@@ -76,7 +76,7 @@ export default function SignInForm() {
                     <div className="flex flex-col items-center space-y-6">
                         <Logo />
                         <h1 className="text-white/90 text-center text-lg">
-                            Welcome back to Blu Primary Tournaments
+                            Welcome back to Blu Primal Tournaments
                         </h1>
                         <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-4">
                             <div className="space-y-2">

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useGenerateMatchesMutation } from "../../../../redux/apis/match/matchApi";
@@ -28,12 +29,13 @@ export default function DetailsPage() {
     try {
       const result = await generateMatches({ tournamentId });
       // Handle success
-      console.log(result);
+      // console.log(result);
       if (result.data?.success) {
         toast.success("Match Generated Successfully");
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      toast.error("error", error.message || "");
+      // console.log(error);
     }
   };
 
@@ -41,13 +43,13 @@ export default function DetailsPage() {
     try {
       const result = await deleteMatch(id);
       // Handle success
-      console.log(result);
+      // console.log(result);
       if (result.data?.success) {
         toast.success("Tournaments Deleted Successfully");
         router("/dashboard/tournaments");
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      toast.error("error", error.message || "");
     }
   };
 

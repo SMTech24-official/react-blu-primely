@@ -27,15 +27,17 @@ const Roaster = ({ players }: { players: ClanMember[] }) => {
   const [open, setOpen] = useState(false);
 
   const handleInvite = async (userId: string) => {
-
     const inviteData = {
       userId: userId,
       clanId: path.id as string,
     };
     const res = await invite(inviteData);
-  
+
     if (res?.data?.success) {
       toast.success("Invitation sent successfully");
+      setOpen(false);
+    } else {
+      toast.error("Already Sent Invitation");
     }
     // Here you would typically call an API to send the invitation
     // For example: inviteUserToClan({ clanId, userId });

@@ -47,7 +47,6 @@ interface Match {
 }
 
 export function MatchTable({ members }: { members: Match[] }) {
-
   return (
     <div className="rounded-lg ">
       <ScrollArea className="">
@@ -74,38 +73,39 @@ export function MatchTable({ members }: { members: Match[] }) {
               </TableHead>
             </TableRow>
           </TableHeader>
-          {
-            members?.length > 0 ?
-              <TableBody>
-                {members.map((member: Match) => (
-                  <TableRow
-                    key={member.id}
-                    className="hover:bg-black/20 text-sm md:text-base"
-                  >
-                    <TableCell className="font-medium py-6 text-nowrap">
-                      {member.tournament.title}
-                    </TableCell>
-                    <TableCell className="text-nowrap">
-                      {member.tournament.tournamentType}
-                    </TableCell>
-                    <TableCell className="text-nowrap">
-                      {member.tournament.startDate}
-                    </TableCell>
-                    <TableCell className="text-nowrap">
-                      {member.opponent.fullName}
-                    </TableCell>
-                    <TableCell className="text-nowrap">{member.status}</TableCell>
-                    <TableCell className="text-nowrap">
-                      <Link to={`/tournament-details/${member.id}`}>
-                        <span className="hover:text-primary_highlighted hover:cursor-pointer">
-                          View Details
-                        </span>
-                      </Link>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody> : <NoDataAvailable text='No Match Data available' />
-          }
+          {members?.length > 0 ? (
+            <TableBody>
+              {members.map((member: Match) => (
+                <TableRow
+                  key={member.id}
+                  className="hover:bg-black/20 text-sm md:text-base"
+                >
+                  <TableCell className="font-medium py-6 text-nowrap">
+                    {member.tournament.title}
+                  </TableCell>
+                  <TableCell className="text-nowrap">
+                    {member.tournament.tournamentType}
+                  </TableCell>
+                  <TableCell className="text-nowrap">
+                    {new Date(member.tournament.startDate).toDateString()}
+                  </TableCell>
+                  <TableCell className="text-nowrap">
+                    {member.opponent.fullName}
+                  </TableCell>
+                  <TableCell className="text-nowrap">{member.status}</TableCell>
+                  <TableCell className="text-nowrap">
+                    <Link to={`/tournament-details/${member.id}`}>
+                      <span className="hover:text-primary_highlighted hover:cursor-pointer">
+                        View Details
+                      </span>
+                    </Link>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          ) : (
+            <NoDataAvailable text="No Match Data available" />
+          )}
         </Table>
         <ScrollBar orientation="horizontal" />
       </ScrollArea>

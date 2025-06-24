@@ -5,6 +5,7 @@ import MatchDetails from "./MatchDetails";
 import BracketConnections from "./BracketConnections";
 import { Trophy } from "lucide-react";
 import { useUpdateMatchWinnerMutation } from "../../../redux/apis/match/matchApi";
+import { toast } from "sonner";
 
 const TournamentBracket: React.FC<TournamentBracketProps> = ({
   data,
@@ -64,8 +65,10 @@ const TournamentBracket: React.FC<TournamentBracketProps> = ({
         // Handle error case
         console.error(result.data.message);
       } else {
+        toast.success("Winner Updated");
+        setSelectedMatch(null);
         // Handle success case
-        console.log("Match updated:", result?.data?.data);
+        // console.log("Match updated:", result?.data?.data);
       }
     } catch (error) {
       // Handle network or other errors

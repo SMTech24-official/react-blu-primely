@@ -44,7 +44,7 @@ const ProtectedRoute = ({ children, allowedRoles }: ProtectedRouteProps) => {
       }
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
-      console.error("Invalid token");
+      // console.error("Invalid token");
       setIsAuthorized(false);
     }
   }, [allowedRoles]);

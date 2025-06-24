@@ -62,7 +62,7 @@ export default function Achievements() {
       title: "METIS",
       subtitle: "The Beginning of Wisdom",
       icon: metis,
-      level: 500,
+      level: 0,
     },
   ];
 
@@ -111,11 +111,10 @@ export default function Achievements() {
                   {rank.subtitle}
                 </span>
                 <div className="h-2 w-[100%] bg-card_bg rounded-full mt-3">
-
                   <div
                     style={{
                       width: `${LevelCalculate(
-                        user?.UserStats?.exp,
+                        user?.UserStats?.exp || 0,
                         rank.level,
                         rankData[index ? index - 1 : index].level
                       ).toString()}%`,
